@@ -22,7 +22,7 @@
 #include <cmath>
 
 #define MONSTERSIZE 16 
-#define SHOPSIZE 3 //상점은 3개
+#define SHOPSIZE 3 //상점 3개
 
 enum TILETYPE{ SHOP=1, LAND , WATER , FOREST, FLY }; //땅, 물, 숲, 비행
 enum SRP { SCISSORS=1, ROCK, PAPER };
@@ -41,6 +41,7 @@ struct Hero
 	int myGold{0}; //재화
 	int myXPosition{ 0 }, myYPosition{0}; //나의 x, y좌표
 	int damage{0};
+	bool freeMove;
 };
 
 //몬스터 구조체
@@ -69,14 +70,16 @@ struct Shop
 	int shopXPosition, shopYPosition;
 };
 
+void IntroPrint();
 void MapCreate(char** map, int width, int height, int* tilePositionSave, Shop* shop); //맵 동적할당 함수 원형
 void MapFree(char** map, int width, int height); //맵을 해제하는 함수 원형
 void Settings(Hero* hero, Monster* monster, string monsterName[], int area); // 히어로와 몬스터를 세팅하기 위한 함수
 void HeroSetting(Hero* hero, int count); //히어로를 세팅하기 위해 area값을 넘겨주기 위한 함수
 void MonsterSetting(Monster* monster, string monsterName[], int count); //몬스터를 세팅하기위해 area값을 넘겨주기 위한 함수
 void MapPrint(char** map, int width, int height, Hero* hero); //맵 출력 함수
-int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int* tilePositionSave); //캐릭터 움직임 함수원형
-void FightAndShop(Hero* hero, Monster* monster, int moveResult, int* tilePositionSave); //상점 방문 or 몬스터와 싸울 함수
+int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int* tilePositionSave, int*, int*); //캐릭터 움직임 계산 함수 원형
+void Move(Hero* hero, char** map, int* tilePositionSave, int y, int x, int*, int*); //실제로 움직이는 코드
+void FightAndShop(Hero* hero, Monster* monster, int moveResult, int* tilePositionSave, char** map, int*, int*); //상점 방문 or 몬스터와 싸울 함수
 void ShopVisit(Hero* hero); //상점을 방문했을 때
 void MonsterMeet(Hero* hero, Monster* monster, int monsterType, int* tilePositionSave); //몬스터와 만나는 함수 원형
 inline bool RandResult(int result); //몬스터를 만날 확률을 구하는 함수
@@ -85,6 +88,7 @@ bool Draw(Hero* hero, Monster* monster, int monNumber, int result); //가위바이보
 bool Win(Hero* hero, Monster* monster, int monNumber, int result); //가위바위보 이김 함수
 bool Defeat(Hero* hero, Monster* monster, int monNumber, int result); //가위바위보 패배 함수
 void LevelUp(Hero* hero); //레벨업 함수
+
 
 void MyCode(Hero* hero)
 {
@@ -124,10 +128,14 @@ int main()
 	
 	monster = new Monster[MONSTERSIZE];
 	shop = new Shop[SHOPSIZE];
+
+	int saveXPosition = 0, saveYPosition = 0; //움직일때마다 전 좌표를 저장해놓을 변수
 	int width;
 	int height;
 
-	cout << "너비 입력 : ";
+	IntroPrint();
+
+	cout << "가로 입력 : ";
 	cin >> width;
 	cout << "높이 입력 : ";
 	cin >> height;
@@ -136,7 +144,6 @@ int main()
 	int tilePositionSave = 0;
 	char** map = new char*[height]; //2차원 배열 동적할당 하기 위한 이중 포인터 변수
 	MapCreate(map, width, height, &tilePositionSave, shop); //맵 동적할당 함수
-
 
 #pragma region 이 사이에서 게임이 이루어진다.
 
@@ -158,14 +165,13 @@ int main()
 	
 
 	////////////////////////////////////// 게임 진행 ////////////////////////////////////////////////
-
-
 	while (1)
 	{
 		system("cls");
 		MapPrint(map, width, height, &hero); //맵 출력 함수
-		moveResult = CharacterMove(&hero, &move, map, width, height, &tilePositionSave); //캐릭터가 움직이는 함수
-		FightAndShop(&hero, monster, moveResult, &tilePositionSave); //움직이고 난 후의 타일이 상점인지 몬스터인지
+		moveResult = CharacterMove(&hero, &move, map, width, height, &tilePositionSave, &saveXPosition, &saveYPosition); //캐릭터가 움직이는 함수
+		if(moveResult != 0)
+			FightAndShop(&hero, monster, moveResult, &tilePositionSave, map, &saveXPosition, &saveYPosition) ; //움직이고 난 후의 타일이 상점인지 몬스터인지
 	}
 
 #pragma endregion
@@ -179,36 +185,49 @@ int main()
 //맵을 출력하는 함수
 void MapPrint(char** map, int width, int height, Hero* hero)
 {
+	cout << endl;
+	cout << "\t\t\t < 영웅 정보 > " << endl;
+	cout << endl;
+	cout << "\t - 이름 : \t" << hero->heroName << "\t - 레벨 : \t" << hero->level << endl;
+	cout << "\t - 공격력 : \t" << hero->damage << "\t - 현재 체력 : \t" << hero->currentHp << endl;
+	cout << "\t - 현재 경험치 : " << hero->currentExp  << "\t - 목표 경험치 : " << hero->maxExp << endl;
+	cout << "\t - 소유한 골드 : " << hero->myGold << endl;
+	cout << endl;
+
 	for (int i = 0; i < height; i++)
 	{
+		cout << "\t";
 		for (int j = 0; j < width; j++)
 		{
-			if (map[i][j] == 0)
-				cout << "●";
-			if (map[i][j] == 1)
-				cout << "♨";
-			if (map[i][j] == 2)
-				cout << "□";
-			if (map[i][j] == 3)
-				cout << "ㆀ";
-			if (map[i][j] == 4)
-				cout << "♧";
-			if (map[i][j] == 5)
-				cout << "＾";
+			switch (map[i][j])
+			{
+				case 0:	cout << "●";  break; // 케릭터
+
+				case 1:	cout << "♨"; break; // 상점
+
+				case TILETYPE::LAND: cout << "□"; break; // 땅
+
+				case TILETYPE::WATER: cout << "ㆀ"; break; //물
+					
+				case TILETYPE::FOREST: cout << "♧"; break; //숲
+					
+				case TILETYPE::FLY: cout << "＾"; break; //비행
+					
+				case 6:	cout << "◎"; break;//케릭터 투명화
+					
+			}
 		}
 		cout << endl;
 	}
 
 	cout << endl;
-	cout << "\t < 영웅 정보 > " << endl;
+	cout << "\t\t\t < 설  명 >  " << endl;
 	cout << endl;
-	cout << " - 이름 : " << hero->heroName << endl; 
-	cout << " - 레벨 : " << hero->level << endl; 
-	cout << " - 공격력 : " << hero->damage << endl; 
-	cout << " - 현재 체력 : " << hero->currentHp << endl; 
-	cout << " - 현재 경험치 : " << hero->currentExp << endl; 
-	cout << " - 목표 경험치 : " << hero->maxExp << endl; 
-	cout << " - 소유한 골드 : " << hero->myGold << endl; 
+	cout << "\t     키 설명 >> (w, a, s, d : 이동, g : 영웅 투명화)" << endl;
+	cout << "\t 케릭터 모양 >> (● : 영웅, ◎ : 영웅 투명화)" << endl;
+	cout << "\t 상점   모양 >> (♨ : 상점)" << endl;
+	cout << "\t 타일   모양 >> (□ : 땅, ㆀ : 물, ♧ : 숲, ＾ : 비행) " << endl;
+	cout << endl;
 }
 
 //맵 동적할당 및 세팅함수
@@ -291,7 +310,6 @@ void MapCreate(char** map, int width, int height, int* tileSavePosition, Shop* s
 		}
 	}
 	
-
 	for (int i = 0; i < SHOPSIZE; i++)
 	{
 		map[shop[i].shopYPosition][shop[i].shopXPosition] = 1;
@@ -354,6 +372,7 @@ void HeroSetting(Hero* hero = nullptr, int count = 0)
 	hero->currentExp = 0; //현재 경험치
 	hero->myGold = 0; //현재 골드
 	hero->myXPosition = 0, hero->myYPosition = 0; //영웅의 좌표
+	hero->freeMove = false;
 }
 
 //몬스터 세팅함수
@@ -379,7 +398,22 @@ void MonsterSetting(Monster* monster, string monsterName[], int count)
 }
 
 //케릭터 움직임 함수
-int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int* tilePositionSave)
+void Move(Hero* hero, char** map, int* tilePositionSave, int y, int x, int* saveXPosition, int* saveYPosition)
+{
+	map[hero->myYPosition][hero->myXPosition] = *tilePositionSave; //현재 내 위치에 *tilePositionSave값을 대입.
+	*saveYPosition = hero->myYPosition, *saveXPosition = hero->myXPosition;
+	(hero->myYPosition) += y; (hero->myXPosition) += x; //나의 위치를 x, y만큼 이동하여 저장.
+	*tilePositionSave = map[hero->myYPosition][hero->myXPosition]; //타일 번호를 저장한다.
+	if (hero->freeMove == true)
+	{
+		map[hero->myYPosition][hero->myXPosition] = 6;
+	}
+	else
+		map[hero->myYPosition][hero->myXPosition] = 0;
+}
+
+//케릭터 움직임 계산 알고리즘
+int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int* tilePositionSave, int* saveXPosition, int* saveYPosition)
 {
 	*move = _getch();
 	
@@ -393,10 +427,7 @@ int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int
 			}
 			else
 			{
-				map[hero->myYPosition][hero->myXPosition] = *tilePositionSave; //현재 내 위치에 *tilePositionSave값을 대입.
-				hero->myYPosition--;	//나의 위치를                         
-				*tilePositionSave = map[hero->myYPosition][hero->myXPosition];
-				map[hero->myYPosition][hero->myXPosition] = 0;
+				Move(hero, map, tilePositionSave, -1, 0, saveXPosition, saveYPosition);
 			}
 
 			break;
@@ -409,10 +440,7 @@ int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int
 			}
 			else
 			{
-				map[hero->myYPosition][hero->myXPosition] = *tilePositionSave;
-				hero->myXPosition--;
-				*tilePositionSave = map[hero->myYPosition][hero->myXPosition];
-				map[hero->myYPosition][hero->myXPosition] = 0;
+				Move(hero, map, tilePositionSave, 0, -1, saveXPosition, saveYPosition);
 			}
 
 			break;
@@ -425,10 +453,7 @@ int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int
 			}
 			else
 			{
-				map[hero->myYPosition][hero->myXPosition] = *tilePositionSave; 
-				hero->myYPosition++;
-				*tilePositionSave = map[hero->myYPosition][hero->myXPosition];
-				map[hero->myYPosition][hero->myXPosition] = 0;
+				Move(hero, map, tilePositionSave, 1, 0, saveXPosition, saveYPosition);
 			}
 
 			break;
@@ -441,48 +466,63 @@ int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int
 			}
 			else
 			{
-				map[hero->myYPosition][hero->myXPosition] = *tilePositionSave;
-				hero->myXPosition++;
-				*tilePositionSave = map[hero->myYPosition][hero->myXPosition];
-				map[hero->myYPosition][hero->myXPosition] = 0;
+				Move(hero, map, tilePositionSave, 0, 1, saveXPosition, saveYPosition);
 			}
 
 			break;
-		default:
+		default: //자유롭게 움직이도록 설정하는 코드
+			if ((*move == 'g') && (hero->freeMove == false))
+			{
+				hero->freeMove = true;
+				map[hero->myYPosition][hero->myXPosition] = 6; //자유롭게 움직일 수 있는 이모티콘
+				
+			}
+			else if (((*move) == 'g') && (hero->freeMove == true))
+			{
+				hero->freeMove = false;
+				map[hero->myYPosition][hero->myXPosition] = 0;
+				
+			}
+			return 0;
 			break;
-
 	}
 
 	return (*tilePositionSave);
-
-	//if (*tilePositionSave == 1) //상점이라면
-	//	return TILETYPE::SHOP;		/* ShopVisit();*/
-	//else if (*tilePositionSave == 2) //땅
-	//	return TILETYPE::LAND;	/* RandomFightFunction(LAND);*/
-	//else if (*tilePositionSave == 3) //물
-	//	return TILETYPE::WATER;	/*RandomFightFunction(WATER);*/
-	//else if (*tilePositionSave == 4) //숲
-	//	return TILETYPE::FOREST; /*RandomFightFunction(FOREST);*/
-	//else							 //하늘
-	//	return TILETYPE::FLY;		/*RandomFightFunction(FLY);*/
 }
 
 //타일에 접근 했을때
-void FightAndShop(Hero* hero, Monster* monster , int moveResult, int* tilePositionSave)
+void FightAndShop(Hero* hero, Monster* monster , int moveResult, int* tilePositionSave, char** map, int* saveXPosition, int* saveYPosition)
 {
 	if (moveResult == SHOP)
 	{
 		ShopVisit(hero);
+		if (hero->freeMove == true)
+		{
+			map[hero->myYPosition][hero->myXPosition] = 1; //shop
+			*tilePositionSave = map[*saveYPosition][*saveXPosition];
+			map[*saveYPosition][*saveXPosition] = 6; //투명한 영웅 표현
+			hero->myYPosition = *saveYPosition, hero->myXPosition = *saveXPosition;
+		}
+		else
+		{
+			map[hero->myYPosition][hero->myXPosition] = 1; //shop
+			*tilePositionSave = map[*saveYPosition][*saveXPosition];
+			map[*saveYPosition][*saveXPosition] = 0; //영웅 표현
+			hero->myYPosition = *saveYPosition, hero->myXPosition = *saveXPosition;
+		}
+		
 	}
 	else
 	{
-		if (RandResult(moveResult) == true) //몬스터와 만날 확률을 통해 true이면
-		{
-			MonsterMeet(hero, monster, moveResult, tilePositionSave);
-		}
-		else	//몬스터 안만남
-		{
-			return;
+		if (hero->freeMove == false) {
+			if (RandResult(moveResult) == true) //몬스터와 만날 확률을 통해 true이면
+			{
+				MonsterMeet(hero, monster, moveResult, tilePositionSave);
+			}
+			else	//몬스터 안만남
+			{
+				return;
+			}
 		}
 	}
 }
@@ -557,7 +597,112 @@ void MonsterMeet(Hero* hero, Monster* monster, int monsterType, int* tilePositio
 
 void ShopVisit(Hero* hero) //상점을 방문했을 때
 {
+	int inputNumber; //입력받을 변수
 
+	//상점에 대한 정보를 출력
+	while (true)
+	{
+		system("cls");
+		cout << endl;
+		cout << "< 어서오세요~ " << hero->heroName << "님. 경일상점 입니다! >" << endl;
+		cout << endl;
+		cout << "=========================================" << endl;
+		cout << "| 체력8  포션 회복하기(금액  10) : 1입력| " << endl;
+		cout << "| hp만땅 포션 회복하기(금액 100) : 2입력|" << endl;
+		cout << "| 데미지 1증가하기 (금액200원)   : 3입력| " << endl;
+		cout << "| 상점 나가기\t\t\t : 4입력|" << endl;
+		cout << "=========================================" << endl;
+		cout << endl;
+		cout << " * * < 영 웅 정 보 > * * " << endl;
+		cout << endl;
+		cout << "< - 이름 : " << hero->heroName << " > " << endl;
+		cout << "< - 레벨 : " << hero->level << " > " << endl;
+		cout << "< - 공격력 : " << hero->damage << " >" << endl;
+		cout << "< - 현재 체력 / 총 체력 : " << hero->currentHp << " / " << hero->maxHp << " >" << endl;
+		cout << "< - 남은 몬스터 수 : " << monsterCount << " >" << endl;
+		cout << "< - 가진 금액 : " << hero->myGold << " >" << endl;
+
+		cout << endl;
+
+		cout << "번호를 입력해 주세요 : ";
+		cin >> inputNumber;
+		if (inputNumber == 1)
+		{
+			//돈이 없는 경우
+			if (hero->myGold < 10)
+			{
+				cout << "금액이 부족합니다." << endl;
+			}
+			//체력이 full인 경우
+			else if (hero->currentHp >= hero->maxHp)
+			{
+				cout << "체력이 풀 입니다." << endl;
+			}
+			//체력이 full이 아니고 돈도 충분한 경우
+			else
+			{
+				hero->myGold -= 10;
+				hero->currentHp += 8;
+
+				if (hero->currentHp > hero->maxHp)
+				{
+					hero->currentHp = hero->maxHp;
+				}
+
+				cout << "체력이 5회복 되었습니다. " << endl;
+				cout << "현재 체력 : " << hero->currentHp << endl;
+			}
+		}
+		else if (inputNumber == 2)
+		{
+			//돈이 없는 경우
+			if (hero->myGold < 200)
+			{
+				cout << "금액이 부족합니다." << endl;
+			}
+			//체력이 full인 경우
+			else if (hero->currentHp >= hero->maxHp)
+			{
+				cout << "체력이 풀 입니다." << endl;
+			}
+			//체력이 full이 아니고 돈도 충분한 경우
+			else
+			{
+				hero->myGold -= 100;
+				hero->currentHp = hero->maxHp;
+
+				cout << "체력이 풀로 회복되었습니다. " << endl;
+				cout << "현재 체력 : " << hero->currentHp << endl;
+			}
+		}
+		else if (inputNumber == 3)
+		{
+			if (hero->myGold < 200)
+			{
+				cout << "금액이 부족합니다." << endl;
+			}
+			else
+			{
+				hero->myGold -= 200;
+				++(hero->damage);
+				cout << "데미지가 1증가되었습니다." << endl;
+			}
+		}
+		else if (inputNumber == 4)
+		{
+			cout << "상점에서 나갑니다." << endl;
+			Sleep(2000);
+			system("cls");
+			break;
+		}
+		else
+		{
+			cout << "다시 입력해 주세요." << endl;
+			Sleep(2000);
+			system("cls");
+		}
+		Sleep(2000);
+	}
 }
 
 //가위바위보 함수
@@ -619,6 +764,7 @@ inline bool RandResult(int result)
 	return ((rand() % 100) < (70-10*result));
 }
 
+//비김 함수
 bool Draw(Hero* hero, Monster* monster, int monNumber, int result) // 비김 함수
 {
 	cout << endl;
@@ -633,6 +779,7 @@ bool Draw(Hero* hero, Monster* monster, int monNumber, int result) // 비김 함수
 	else
 		cout << " " << monster[monNumber].monsterName << " : '보'는 '보'로!" << endl;
 
+	cout << " " << hero->heroName << " : '음... 좀 더 신중하게.....'" << endl;
 	cout << endl;
 	cout << " >> 아무키나 입력해 주세요 << ";
 	int ch = _getch();
@@ -640,6 +787,7 @@ bool Draw(Hero* hero, Monster* monster, int monNumber, int result) // 비김 함수
 	return false;
 }
 
+//승리 함수
 bool Win(Hero* hero, Monster* monster, int monNumber, int result) // 이김 함수
 {
 	int tmp;
@@ -656,18 +804,17 @@ bool Win(Hero* hero, Monster* monster, int monNumber, int result) // 이김 함수
 		cout << " " << hero->heroName << " : 단단한 바위!!" << endl;
 	else
 		cout << " " << hero->heroName << " : 쫙 펼친 보!!" << endl;
-	
-	cout << endl;
 
 	if (monster[monNumber].currentHp <= 0)
 	{
+		cout << " " << monster[monNumber].monsterName << " : 으아아ㅏㅏㄱ....." << endl;
 		hero->myGold += monster[monNumber].giveGold; //돈 획득.
 		hero->currentExp += monster[monNumber].giveExp; //경험치 획득
 
 		cout << endl;
 		cout << "\t < 보  상 >" << endl;
 		cout << endl;
-		cout << " - " << monster[monNumber].monsterName << "를(을) 잡아 돈" << monster[monNumber].giveGold << "원"
+		cout << " - " << monster[monNumber].monsterName << "를(을) 잡아 돈 " << monster[monNumber].giveGold << "원"
 			" 획득!" << endl;
 		cout << " - 경험치 : " << monster[monNumber].giveExp << "획득!" << endl;
 		if (hero->currentExp >= hero->maxExp) //레벨 업
@@ -706,12 +853,16 @@ bool Win(Hero* hero, Monster* monster, int monNumber, int result) // 이김 함수
 	}
 	else
 	{
+		cout << " " << monster[monNumber].monsterName << " : 앗..! " << endl;
+		
+		cout << endl;
 		cout << " >> 아무키나 입력해 주세요 << ";
 		int ch = _getch();
 		return false;
 	}
 }
 
+//패 함수
 bool Defeat(Hero* hero, Monster* monster, int monNumber, int result) //패배 함수
 {
 	hero->currentHp -= monster[monNumber].monsterDmg;
@@ -730,8 +881,9 @@ bool Defeat(Hero* hero, Monster* monster, int monNumber, int result) //패배 함수
 		cout << " " << monster[monNumber].monsterName << " : 주먹엔 쫙 펼친 보!!" << endl;
 	if(result == SRP::PAPER)
 		cout << " " << monster[monNumber].monsterName << " : 보에는 날카로운 가위!!" << endl;
+	cout << " " << hero->heroName << " : 앗...!" << endl;
 	cout << endl;
-	
+
 	//게임 종료
 	if (hero->currentHp <= 0)
 	{
@@ -746,6 +898,7 @@ bool Defeat(Hero* hero, Monster* monster, int monNumber, int result) //패배 함수
 	return false;
 }
 
+//레벨 업 함수
 void LevelUp(Hero* hero)
 {
 	int tmp = 0;
@@ -776,4 +929,31 @@ void LevelUp(Hero* hero)
 	cout << endl;
 	cout << "\t\t아무키나 입력해 주세요." << endl;
 	int ch = _getch();
+}
+
+void IntroPrint() //인트로 출력 함수
+{
+	//cout << endl;
+	//cout << " =======================================" << endl;
+	//cout << "|\t\t\t\t\t|" << endl;
+	//
+	//cout << "|  \t|" << endl;
+	//cout << "|\t\t\t\t\t|" << endl;
+	//cout << "|\t  ▶ 영웅은 절차적 ◀ \t\t|" << endl;
+	//cout << "|\t\t\t\t\t|" << endl;
+	//cout << " =======================================" << endl;
+	//cout << endl;
+	
+	string hehe = "";
+	string space = " ";
+	string haha = "♪（ｖ＾＿＾）ｖ";
+	
+
+	for (int i = 0; i < haha.size; i++)
+	{
+		cout << hehe;
+		hehe = haha;
+		hehe = space + haha;
+		hehe = space + space + haha;
+	}
 }
