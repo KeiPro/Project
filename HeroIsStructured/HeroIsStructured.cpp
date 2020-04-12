@@ -1091,32 +1091,48 @@ void GameStartPrint() //인트로 출력 함수
 
 void IntroEmoticon()
 {
+	system("cls");
 	string space = " ";
 	string haha1 = "♪（ｖ＾＿＾）ｖ";
 	string haha2 = "ｖ（＾＿＾ｖ）♪";
 
-	for (int k = 0; k < 2; k++)
+	for (int i = 0; i < 15; i++)
 	{
-		for (int i = 0; i < 20; i++)
+		for (int j = 0; j < i; j++)
 		{
-			for (int j = 0; j < i; j++)
-			{
-				cout << space;
-			}
-			cout << haha1;
-			system("cls");
+			cout << space;
+			
 		}
-
-		for (int i = 0; i < 20; i++)
-		{
-			for (int j = 20; j > i; j--)
-			{
-				cout << space;
-			}
-			cout << haha2;
-			system("cls");
-		}
+		cout << haha1;
+		cout << endl;
+		cout << endl;
+		cout << " Loading... ";
+		system("cls");
 	}
 
-	
+	for (int i = 0; i < 15; i++)
+	{
+		for (int j = 15; j > i; j--)
+		{
+			cout << space;
+		}
+		cout << haha2;
+		cout << endl;
+		cout << endl;
+		cout << " Loading... ";
+		system("cls");
+	}
+
+	for (int i = 0; i < 15; i++)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			cout << space;
+		}
+		cout << haha1;
+		cout << endl;
+		cout << endl;
+		cout << " Loading... ";
+		system("cls");
+	}
 }
