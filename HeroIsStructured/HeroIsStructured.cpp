@@ -933,27 +933,46 @@ void LevelUp(Hero* hero)
 
 void IntroPrint() //인트로 출력 함수
 {
-	//cout << endl;
-	//cout << " =======================================" << endl;
-	//cout << "|\t\t\t\t\t|" << endl;
-	//
-	//cout << "|  \t|" << endl;
-	//cout << "|\t\t\t\t\t|" << endl;
-	//cout << "|\t  ▶ 영웅은 절차적 ◀ \t\t|" << endl;
-	//cout << "|\t\t\t\t\t|" << endl;
-	//cout << " =======================================" << endl;
-	//cout << endl;
-	
-	string hehe = "";
-	string space = " ";
-	string haha = "♪（ｖ＾＿＾）ｖ";
-	
+	cout << endl;
+	cout << "\t =======================================" << endl;
+	cout << "\t|\t\t\t\t\t|" << endl;
+	cout << "\t|  ♪（ｖ＾＿＾）ｖｖ（＾＿＾ｖ）♪\t|" << endl;
+	cout << "\t|\t\t\t\t\t|" << endl;
+	cout << "\t|\t\t\t\t\t|" << endl;
+	cout << "\t|\t  ▶ 영웅은 구조적 ◀ \t\t|" << endl;
+	cout << "\t|\t\t\t\t\t|" << endl;
+	cout << "\t =======================================" << endl;
+	cout << endl;
 
-	for (int i = 0; i < haha.size; i++)
-	{
-		cout << hehe;
-		hehe = haha;
-		hehe = space + haha;
-		hehe = space + space + haha;
-	}
+	cout << "-------------------- < 게 임 설 명 > -------------------------" << endl;
+	cout << endl;
+	cout << " - 사용자의 입력으로 가로, 세로의 크기를 받아 맵이\n   구현되며, 크기에 따라 난이도가 설정됩니다." << endl;
+	cout << endl;
+	cout << " - 맵을 한 칸씩 이동하며 각 타일마다 랜덤하게 몬스터를\n   만나게 됩니다." << endl;
+	cout << endl;
+	cout << " - 타일의 타입에 따라 만나는 몬스터가 다릅니다." << endl;
+	cout << endl;
+	cout << " - 게임은 가위, 바위, 보 형태로 진행되며 목표 몬스터의 수를\n   다 잡으면 게임을 승리합니다." << endl;
+	cout << endl;
+	cout << " - 몬스터를 잡아 돈을 획득하여 상점에서 데미지를 증가시키세요!" << endl;
+	cout << endl;
+	cout << " - 영웅 투명화를 진행하면 타일에서 몬스터를 만나진 않지만,\n   상점에는 들릴 수 있습니다." << endl;
+	cout << endl;
+	cout << " - 조작법은 게임 내에 설명되어 있습니다." << endl;
+	cout << endl;
+	cout << "-------------------------------------------------------------" << endl;
+	cout << endl;
+
+	//string hehe = "";
+	//string space = " ";
+	//string haha = "♪（ｖ＾＿＾）ｖ";
+	//
+
+	//for (int i = 0; i < haha.size; i++)
+	//{
+	//	cout << hehe;
+	//	hehe = haha;
+	//	hehe = space + haha;
+	//	hehe = space + space + haha;
+	//}
 }
