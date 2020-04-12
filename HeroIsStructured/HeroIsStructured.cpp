@@ -1,17 +1,17 @@
-/*
-	¿µ¿õÀº ±¸Á¶Àû
+ï»¿/*
+	ì˜ì›…ì€ êµ¬ì¡°ì 
 
-	** ¿µ¿õÀº ÀıÂ÷Àû 2 : ¿µ¿õÀº ±¸Á¶Àû
-	1) °¡·Î * ¼¼·Î Å¸ÀÏ »çÀÌÁî¸¦ ¿øÇÏ°Ô ¼³Á¤ÇÒ ¼ö ÀÖµµ·Ï ¸¸µéÀÚ. (µ¿Àû ÇÒ´ç)
-	2) w, a, s, dÀÌµ¿
-	***3) ¹è¿­, ±¸Á¶Ã¼, ÇÔ¼ö¸¦ ÃÖ´ëÇÑ È°¿ëÇØº¸ÀÚ.
-	4) ÀüÅõ´Â °¡À§ ¹ÙÀ§ º¸
-	5) ¸ó½ºÅÍ´Â Æ÷ÄÏ¸ó½ºÅÍÃ³·³ ·£´ıÇÑ ÀÎÄ«¿îÅÍ ¹æ½Ä. //ÀÌ Å¸ÀÏ¿¡ µé¾î°¬À» ¶§ È®·ü¿¡ µû¶ó¼­ ¸¸³¯¼öµµ ÀÖ°í ¾È¸¸³¯¼öµµÀÖ°í
-	6) Å¸ÀÏ¿¡ Á¾·ù°¡ ÀÖ´Ù. (½£, ´Ë, ¶¥) ¸¶´Ù ¸¸³ª´Â ¸ó½ºÅÍµµ ´Ù¸£´Ù. ½£¿¡¼­ ¸¸³ª´Â ¾êµé ´Ë¿¡¼­ ¸¸³ª´Â ¾êµé ... ´Ù ´Ù¸£°Ô
-	7) ÇÃ·¹ÀÌ¾î ¼Ó¼º : ÀÌ¸§ / ÃÖ´ë HP(·¹º§¿¡ µû¶ó Áõ°¡) / ÇöÀç HP / °æÇèÄ¡ / ·¹º§ / °ñµå
-	8) ¹°¾à : ÀÌ¸§ / °¡°İ / È¸º¹Ä¡
-	9) ¸ó½ºÅÍ : ÀÌ¸§(Æ÷ÄÏ¸ó½ºÅÍ) / ÃÖ´ë HP / ÇöÀç HP / È¹µæ °æÇèÄ¡ / È¹µæ °ñµå / ¼Ó¼º
-	10) »óÁ¡ : ¾ÆÀÌÅÛ Á¾·ù
+	** ì˜ì›…ì€ ì ˆì°¨ì  2 : ì˜ì›…ì€ êµ¬ì¡°ì 
+	1) ê°€ë¡œ * ì„¸ë¡œ íƒ€ì¼ ì‚¬ì´ì¦ˆë¥¼ ì›í•˜ê²Œ ì„¤ì •í•  ìˆ˜ ìˆë„ë¡ ë§Œë“¤ì. (ë™ì  í• ë‹¹)
+	2) w, a, s, dì´ë™
+	***3) ë°°ì—´, êµ¬ì¡°ì²´, í•¨ìˆ˜ë¥¼ ìµœëŒ€í•œ í™œìš©í•´ë³´ì.
+	4) ì „íˆ¬ëŠ” ê°€ìœ„ ë°”ìœ„ ë³´
+	5) ëª¬ìŠ¤í„°ëŠ” í¬ì¼“ëª¬ìŠ¤í„°ì²˜ëŸ¼ ëœë¤í•œ ì¸ì¹´ìš´í„° ë°©ì‹. //ì´ íƒ€ì¼ì— ë“¤ì–´ê°”ì„ ë•Œ í™•ë¥ ì— ë”°ë¼ì„œ ë§Œë‚ ìˆ˜ë„ ìˆê³  ì•ˆë§Œë‚ ìˆ˜ë„ìˆê³ 
+	6) íƒ€ì¼ì— ì¢…ë¥˜ê°€ ìˆë‹¤. (ìˆ², ëŠª, ë•…) ë§ˆë‹¤ ë§Œë‚˜ëŠ” ëª¬ìŠ¤í„°ë„ ë‹¤ë¥´ë‹¤. ìˆ²ì—ì„œ ë§Œë‚˜ëŠ” ì–˜ë“¤ ëŠªì—ì„œ ë§Œë‚˜ëŠ” ì–˜ë“¤ ... ë‹¤ ë‹¤ë¥´ê²Œ
+	7) í”Œë ˆì´ì–´ ì†ì„± : ì´ë¦„ / ìµœëŒ€ HP(ë ˆë²¨ì— ë”°ë¼ ì¦ê°€) / í˜„ì¬ HP / ê²½í—˜ì¹˜ / ë ˆë²¨ / ê³¨ë“œ
+	8) ë¬¼ì•½ : ì´ë¦„ / ê°€ê²© / íšŒë³µì¹˜
+	9) ëª¬ìŠ¤í„° : ì´ë¦„(í¬ì¼“ëª¬ìŠ¤í„°) / ìµœëŒ€ HP / í˜„ì¬ HP / íšë“ ê²½í—˜ì¹˜ / íšë“ ê³¨ë“œ / ì†ì„±
+	10) ìƒì  : ì•„ì´í…œ ì¢…ë¥˜
 */
 
 #include <iostream>
@@ -22,98 +22,122 @@
 #include <cmath>
 
 #define MONSTERSIZE 16 
-#define SHOPSIZE 3 //»óÁ¡ 3°³
+#define SHOPSIZE 3 //ìƒì  3ê°œ
 
-enum TILETYPE{ SHOP=1, LAND , WATER , FOREST, FLY }; //¶¥, ¹°, ½£, ºñÇà
+enum TILETYPE{ SHOP=1, LAND , WATER , FOREST, FLY }; //ë•…, ë¬¼, ìˆ², ë¹„í–‰
 enum SRP { SCISSORS=1, ROCK, PAPER };
 
 using namespace std;
 
-//¿µ¿õ ±¸Á¶Ã¼
+//ì˜ì›… êµ¬ì¡°ì²´
 struct Hero
 {
-	string heroName{""}; //È÷¾î·Î ÀÌ¸§
+	string heroName{""}; //íˆì–´ë¡œ ì´ë¦„
 	int level{0};
-	int maxHp{0}; //ÃÖ´ëÃ¼·Â
-	int currentHp{0}; //ÇöÀçÃ¼·Â
-	int maxExp{0}; //´ÙÀ½ ·¹º§¾÷À» ÇÏ±â À§ÇÑ °æÇèÄ¡
-	int currentExp{0}; //°æÇèÄ¡
-	int myGold{0}; //ÀçÈ­
-	int myXPosition{ 0 }, myYPosition{0}; //³ªÀÇ x, yÁÂÇ¥
+	int maxHp{0}; //ìµœëŒ€ì²´ë ¥
+	int currentHp{0}; //í˜„ì¬ì²´ë ¥
+	int maxExp{0}; //ë‹¤ìŒ ë ˆë²¨ì—…ì„ í•˜ê¸° ìœ„í•œ ê²½í—˜ì¹˜
+	int currentExp{0}; //ê²½í—˜ì¹˜
+	int myGold{0}; //ì¬í™”
+	int myXPosition{ 0 }, myYPosition{0}; //ë‚˜ì˜ x, yì¢Œí‘œ
 	int damage{0};
 	bool freeMove;
 };
 
-//¸ó½ºÅÍ ±¸Á¶Ã¼
+//ëª¬ìŠ¤í„° êµ¬ì¡°ì²´
 struct Monster
 {
-	string monsterName{""}; //¸ó½ºÅÍ ÀÌ¸§
-	int maxHp{0}; //¸ó½ºÅÍÀÇ ÃÖ´ëÃ¼·Â
-	int currentHp{0}; //¸ó½ºÅÍÀÇ ÇöÀçÃ¼·Â
-	int giveExp{0}; //¸ó½ºÅÍÀÇ °æÇèÄ¡
-	int giveGold{0}; //È¹µæ °ñµå
-	int tileType{0}; //¸ó½ºÅÍ°¡ »ıÁ¸ÇÏ°í ÀÖ´Â Å¸ÀÏ
-	int monsterDmg{0}; //¸ó½ºÅÍ µ¥¹ÌÁö
+	string monsterName{""}; //ëª¬ìŠ¤í„° ì´ë¦„
+	int maxHp{0}; //ëª¬ìŠ¤í„°ì˜ ìµœëŒ€ì²´ë ¥
+	int currentHp{0}; //ëª¬ìŠ¤í„°ì˜ í˜„ì¬ì²´ë ¥
+	int giveExp{0}; //ëª¬ìŠ¤í„°ì˜ ê²½í—˜ì¹˜
+	int giveGold{0}; //íšë“ ê³¨ë“œ
+	int tileType{0}; //ëª¬ìŠ¤í„°ê°€ ìƒì¡´í•˜ê³  ìˆëŠ” íƒ€ì¼
+	int monsterDmg{0}; //ëª¬ìŠ¤í„° ë°ë¯¸ì§€
 };
 
-//¹°¾à ±¸Á¶Ã¼
+//ë¬¼ì•½ êµ¬ì¡°ì²´
 struct Portion 
 {
-	string name; //¹°¾àÀÇ ÀÌ¸§
-	int price; //¹°¾à °¡°İ
-	int healHp; //È¸º¹Ä¡
+	string name; //ë¬¼ì•½ì˜ ì´ë¦„
+	int price; //ë¬¼ì•½ ê°€ê²©
+	int healHp; //íšŒë³µì¹˜
 };
 
-//»óÁ¡ ±¸Á¶Ã¼
+//ìƒì  êµ¬ì¡°ì²´
 struct Shop
 {
 	int shopXPosition, shopYPosition;
 };
 
-void IntroPrint();
-void MapCreate(char** map, int width, int height, int* tilePositionSave, Shop* shop); //¸Ê µ¿ÀûÇÒ´ç ÇÔ¼ö ¿øÇü
-void MapFree(char** map, int width, int height); //¸ÊÀ» ÇØÁ¦ÇÏ´Â ÇÔ¼ö ¿øÇü
-void Settings(Hero* hero, Monster* monster, string monsterName[], int area); // È÷¾î·Î¿Í ¸ó½ºÅÍ¸¦ ¼¼ÆÃÇÏ±â À§ÇÑ ÇÔ¼ö
-void HeroSetting(Hero* hero, int count); //È÷¾î·Î¸¦ ¼¼ÆÃÇÏ±â À§ÇØ area°ªÀ» ³Ñ°ÜÁÖ±â À§ÇÑ ÇÔ¼ö
-void MonsterSetting(Monster* monster, string monsterName[], int count); //¸ó½ºÅÍ¸¦ ¼¼ÆÃÇÏ±âÀ§ÇØ area°ªÀ» ³Ñ°ÜÁÖ±â À§ÇÑ ÇÔ¼ö
-void MapPrint(char** map, int width, int height, Hero* hero); //¸Ê Ãâ·Â ÇÔ¼ö
-int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int* tilePositionSave, int*, int*); //Ä³¸¯ÅÍ ¿òÁ÷ÀÓ °è»ê ÇÔ¼ö ¿øÇü
-void Move(Hero* hero, char** map, int* tilePositionSave, int y, int x, int*, int*); //½ÇÁ¦·Î ¿òÁ÷ÀÌ´Â ÄÚµå
-void FightAndShop(Hero* hero, Monster* monster, int moveResult, int* tilePositionSave, char** map, int*, int*); //»óÁ¡ ¹æ¹® or ¸ó½ºÅÍ¿Í ½Î¿ï ÇÔ¼ö
-void ShopVisit(Hero* hero); //»óÁ¡À» ¹æ¹®ÇßÀ» ¶§
-void MonsterMeet(Hero* hero, Monster* monster, int monsterType, int* tilePositionSave); //¸ó½ºÅÍ¿Í ¸¸³ª´Â ÇÔ¼ö ¿øÇü
-inline bool RandResult(int result); //¸ó½ºÅÍ¸¦ ¸¸³¯ È®·üÀ» ±¸ÇÏ´Â ÇÔ¼ö
-bool Fight(Hero* hero, Monster* monster, int monNumber); //ÀüÅõÇÔ¼ö
-bool Draw(Hero* hero, Monster* monster, int monNumber, int result); //°¡À§¹ÙÀÌº¸ ºñ±è ÇÔ¼ö
-bool Win(Hero* hero, Monster* monster, int monNumber, int result); //°¡À§¹ÙÀ§º¸ ÀÌ±è ÇÔ¼ö
-bool Defeat(Hero* hero, Monster* monster, int monNumber, int result); //°¡À§¹ÙÀ§º¸ ÆĞ¹è ÇÔ¼ö
-void LevelUp(Hero* hero); //·¹º§¾÷ ÇÔ¼ö
+void IntroEmoticon(); // 
+void GameStartPrint(); // ì¸íŠ¸ë¡œ ì¶œë ¥
+void MapCreate(char** map, int width, int height, int* tilePositionSave, Shop* shop); //ë§µ ë™ì í• ë‹¹ í•¨ìˆ˜ ì›í˜•
+void MapFree(char** map, int width, int height); //ë§µì„ í•´ì œí•˜ëŠ” í•¨ìˆ˜ ì›í˜•
+void Settings(Hero* hero, Monster* monster, string monsterName[], int area); // íˆì–´ë¡œì™€ ëª¬ìŠ¤í„°ë¥¼ ì„¸íŒ…í•˜ê¸° ìœ„í•œ í•¨ìˆ˜
+void HeroSetting(Hero* hero, int count); //íˆì–´ë¡œë¥¼ ì„¸íŒ…í•˜ê¸° ìœ„í•´ areaê°’ì„ ë„˜ê²¨ì£¼ê¸° ìœ„í•œ í•¨ìˆ˜
+void MonsterSetting(Monster* monster, string monsterName[], int count); //ëª¬ìŠ¤í„°ë¥¼ ì„¸íŒ…í•˜ê¸°ìœ„í•´ areaê°’ì„ ë„˜ê²¨ì£¼ê¸° ìœ„í•œ í•¨ìˆ˜
+void MapPrint(char** map, int width, int height, Hero* hero); //ë§µ ì¶œë ¥ í•¨ìˆ˜
+int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int* tilePositionSave, int*, int*); //ìºë¦­í„° ì›€ì§ì„ ê³„ì‚° í•¨ìˆ˜ ì›í˜•
+void Move(Hero* hero, char** map, int* tilePositionSave, int y, int x, int*, int*); //ì‹¤ì œë¡œ ì›€ì§ì´ëŠ” ì½”ë“œ
+void FightAndShop(Hero* hero, Monster* monster, int moveResult, int* tilePositionSave, char** map, int*, int*); //ìƒì  ë°©ë¬¸ or ëª¬ìŠ¤í„°ì™€ ì‹¸ìš¸ í•¨ìˆ˜
+void ShopVisit(Hero* hero); //ìƒì ì„ ë°©ë¬¸í–ˆì„ ë•Œ
+void MonsterMeet(Hero* hero, Monster* monster, int monsterType, int* tilePositionSave); //ëª¬ìŠ¤í„°ì™€ ë§Œë‚˜ëŠ” í•¨ìˆ˜ ì›í˜•
+inline bool RandResult(int result); //ëª¬ìŠ¤í„°ë¥¼ ë§Œë‚  í™•ë¥ ì„ êµ¬í•˜ëŠ” í•¨ìˆ˜
+bool Fight(Hero* hero, Monster* monster, int monNumber); //ì „íˆ¬í•¨ìˆ˜
+bool Draw(Hero* hero, Monster* monster, int monNumber, int result); //ê°€ìœ„ë°”ì´ë³´ ë¹„ê¹€ í•¨ìˆ˜
+bool Win(Hero* hero, Monster* monster, int monNumber, int result); //ê°€ìœ„ë°”ìœ„ë³´ ì´ê¹€ í•¨ìˆ˜
+bool Defeat(Hero* hero, Monster* monster, int monNumber, int result); //ê°€ìœ„ë°”ìœ„ë³´ íŒ¨ë°° í•¨ìˆ˜
+void LevelUp(Hero* hero); //ë ˆë²¨ì—… í•¨ìˆ˜
 
 
 void MyCode(Hero* hero)
 {
-	string code = "kyw8918";
+	string mySecretCode = "20";
 	string inputPassword;
+	
+	string inputStringPrint = "InputCode : ";
+	
+	cout << endl;
+	cout << " < ì½”ë“œ ì…ë ¥ ì„±ê³µ ì‹œ ê³µê²©ë ¥ +1, ëˆ 1000íšë“! >" << endl;
+	Sleep(1500);
+	cout << "   ( íŒíŠ¸ : í˜„ì¬ ê²½ì¼ ê²Œì„ì•„ì¹´ë°ë¯¸ì˜ ê¸°ìˆ˜ )" << endl;
+	cout << endl;
 
-	cout << "ÄÚµå ÀÔ·Â : ";
+	Sleep(2000);
+
+	for (int i = 0; i < inputStringPrint.size(); i++)
+	{
+		cout << inputStringPrint.at(i);
+		Sleep(100);
+	}
+
 	cin >> inputPassword;
 
-	if (inputPassword == code)
+	if (inputPassword == mySecretCode)
 	{
-		cout << "ÄÚµå ÀÔ·Â ¿Ï·á!!" << endl;
-		hero->damage = 100;
-		cout << "¿µ¿õ ±âº» °ø°İ·Â : " << hero->damage;
+		cout << endl;
+		cout << " < ì½”ë“œ ì…ë ¥ ì™„ë£Œ!! >" << endl;
+		cout << endl;
+		int tmp = hero->damage;
+		(hero->damage)++;
+
+		cout << " ì˜ì›… ê³µê²©ë ¥ : " << tmp << " -- > " << hero->damage << endl;
+		cout << " ëˆ 1000íšë“!" << endl;
+		
+		hero->myGold += 1000;
+
 		Sleep(2000);
 	}
 	else
 	{
-		cout << "ÄÚµå ÀÔ·Â ½ÇÆĞ..";
+		cout << endl;
+		cout << "ì½”ë“œ ì…ë ¥ ì‹¤íŒ¨..";
 		Sleep(2000);
 	}
 }
 
-
-int monsterCount = 0; //ÃÑ ¸ó½ºÅÍ ¸¶¸®¼ö Àü¿ªº¯¼ö ¼³Á¤
+int monsterCount = 0; //ì´ ëª¬ìŠ¤í„° ë§ˆë¦¬ìˆ˜ ì „ì—­ë³€ìˆ˜ ì„¤ì •
 
 int main()
 {
@@ -121,163 +145,199 @@ int main()
 	Hero hero;
 	Monster* monster;
 	Shop* shop = nullptr;
-	string monsterName[] = { "¸ğ·¡µÎÁö", "´ÚÆ®¸®¿À", "µü±¸¸®", "»ÔÄ«³ë", //monsterName[0] ~ monsterName[3] : ¶¥
-		"¼ö·úÃ¬ÀÌ", "¾ßµµ¶õ", "Å·Å©·¦", "¾ÆÄí½ºÅ¸",					 //monsterName[4] ~ monsterName[7] : ¹°
-		"µ¶Ä§ºØ", "ÄÜÆÎ", "¶óÇÃ·¹½Ã¾Æ", "µ¶ÆÄ¸®",						 //monsterNmae[8] ~ monsterName[11] : ½£
-		"¸Á³ª´¨", "¹öÅÍÇÃ", "¸®ÀÚ¸ù", "°¼¶óµµ½º"};						 //monsterName[12] ~ monsterName[15] : ºñÇà
+	string monsterName[] = { "ëª¨ë˜ë‘ì§€", "ë‹¥íŠ¸ë¦¬ì˜¤", "ë”±êµ¬ë¦¬", "ë¿”ì¹´ë…¸", //monsterName[0] ~ monsterName[3] : ë•…
+		"ìˆ˜ë¥™ì±™ì´", "ì•¼ë„ë€", "í‚¹í¬ë©", "ì•„ì¿ ìŠ¤íƒ€",					 //monsterName[4] ~ monsterName[7] : ë¬¼
+		"ë…ì¹¨ë¶•", "ì½˜íŒ¡", "ë¼í”Œë ˆì‹œì•„", "ë…íŒŒë¦¬",						 //monsterNmae[8] ~ monsterName[11] : ìˆ²
+		"ë§ë‚˜ë‡½", "ë²„í„°í”Œ", "ë¦¬ìëª½", "ê°¸ë¼ë„ìŠ¤"};						 //monsterName[12] ~ monsterName[15] : ë¹„í–‰
 	
 	monster = new Monster[MONSTERSIZE];
 	shop = new Shop[SHOPSIZE];
 
-	int saveXPosition = 0, saveYPosition = 0; //¿òÁ÷ÀÏ¶§¸¶´Ù Àü ÁÂÇ¥¸¦ ÀúÀåÇØ³õÀ» º¯¼ö
+	int saveXPosition = 0, saveYPosition = 0; //ì›€ì§ì¼ë•Œë§ˆë‹¤ ì „ ì¢Œí‘œë¥¼ ì €ì¥í•´ë†“ì„ ë³€ìˆ˜
 	int width;
 	int height;
 
-	IntroPrint();
+	GameStartPrint();
 
-	cout << "°¡·Î ÀÔ·Â : ";
-	cin >> width;
-	cout << "³ôÀÌ ÀÔ·Â : ";
-	cin >> height;
+	while (1)
+	{
+		cout << "ê°€ë¡œ ì…ë ¥ : ";
+		cin >> width;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(256, '\n');
+			cout << "ìˆ«ìë¥¼ ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”." << endl;
+			Sleep(1000);
+			cout << endl;
+		}
+		else
+			break;
+	}
+	while (1)
+	{
+		cout << "ë†’ì´ ì…ë ¥ : ";
+		cin >> height;
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(256, '\n');
+			cout << "ìˆ«ìë¥¼ ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”." << endl;
+			Sleep(1000);
+			cout << endl;
+		}
+		else
+			break;
+	}
 	
-	hero.myXPosition = 0, hero.myYPosition = 0; //³ªÀÇ À§Ä¡ ÃÊ±âÈ­
+	
+	hero.myXPosition = 0, hero.myYPosition = 0; //ë‚˜ì˜ ìœ„ì¹˜ ì´ˆê¸°í™”
 	int tilePositionSave = 0;
-	char** map = new char*[height]; //2Â÷¿ø ¹è¿­ µ¿ÀûÇÒ´ç ÇÏ±â À§ÇÑ ÀÌÁß Æ÷ÀÎÅÍ º¯¼ö
-	MapCreate(map, width, height, &tilePositionSave, shop); //¸Ê µ¿ÀûÇÒ´ç ÇÔ¼ö
+	char** map = new char*[height]; //2ì°¨ì› ë°°ì—´ ë™ì í• ë‹¹ í•˜ê¸° ìœ„í•œ ì´ì¤‘ í¬ì¸í„° ë³€ìˆ˜
+	MapCreate(map, width, height, &tilePositionSave, shop); //ë§µ ë™ì í• ë‹¹ í•¨ìˆ˜
 
-#pragma region ÀÌ »çÀÌ¿¡¼­ °ÔÀÓÀÌ ÀÌ·ç¾îÁø´Ù.
+#pragma region ì´ ì‚¬ì´ì—ì„œ ê²Œì„ì´ ì´ë£¨ì–´ì§„ë‹¤.
 
-	Settings( &hero, monster, monsterName , width * height); //È÷¾î·Î¿Í ¸ó½ºÅÍ ¼¼ÆÃ ÇÔ¼ö
+	Settings( &hero, monster, monsterName , width * height); //íˆì–´ë¡œì™€ ëª¬ìŠ¤í„° ì„¸íŒ… í•¨ìˆ˜
 
-	char move; //¿òÁ÷ÀÓÀ» ¹Ş´Â º¯¼ö CharacterMoveÇÔ¼öÀÇ º¯¼ö·Î È°¿ë.
-	int moveResult; //¿òÁ÷ÀÌ°í ³ª¼­ ³ª¿Â ¹İÈ¯°ªÀ» ¹ŞÀ» º¯¼ö // 1 = Shop, 2 = Land, 3 = Water, 4 = Forest, 5 = Fly;
+	char move; //ì›€ì§ì„ì„ ë°›ëŠ” ë³€ìˆ˜ CharacterMoveí•¨ìˆ˜ì˜ ë³€ìˆ˜ë¡œ í™œìš©.
+	int moveResult; //ì›€ì§ì´ê³  ë‚˜ì„œ ë‚˜ì˜¨ ë°˜í™˜ê°’ì„ ë°›ì„ ë³€ìˆ˜ // 1 = Shop, 2 = Land, 3 = Water, 4 = Forest, 5 = Fly;
 
 	MyCode(&hero);
 	
-	//¸ó½ºÅÍ ´É·ÂÄ¡ È®ÀÎ ÄÚµå
+	//for (int i = 0; i < MONSTERSIZE; i++)
+	//{
+	//	monster[i].giveExp = 2000;
+	//}
+
+	//ëª¬ìŠ¤í„° ëŠ¥ë ¥ì¹˜ í™•ì¸ ì½”ë“œ
 	/*for (int i = 0; i < MONSTERSIZE; i++)
 	{
-		cout << "ÀÌ¸§ : " << (*(monster+i)).monsterName << ", ÃÖ´ë Ã¼·Â : " << monster[i].maxHp << ", ÇöÀç Ã¼·Â : " << monster[i].currentHp
-			<< ", ¸ó½ºÅÍ °æÇèÄ¡ : " << monster[i].giveExp << ", È¹µæ °ñµå : " << monster[i].giveGold << ", Å¸ÀÏ : " << monster[i].tileType << endl;
+		cout << "ì´ë¦„ : " << (*(monster+i)).monsterName << ", ìµœëŒ€ ì²´ë ¥ : " << monster[i].maxHp << ", í˜„ì¬ ì²´ë ¥ : " << monster[i].currentHp
+			<< ", ëª¬ìŠ¤í„° ê²½í—˜ì¹˜ : " << monster[i].giveExp << ", íšë“ ê³¨ë“œ : " << monster[i].giveGold << ", íƒ€ì¼ : " << monster[i].tileType << endl;
 	}*/
 
 	//Sleep(2000);
 	
-
-	////////////////////////////////////// °ÔÀÓ ÁøÇà ////////////////////////////////////////////////
+	IntroEmoticon();
+	////////////////////////////////////// ê²Œì„ ì§„í–‰ ////////////////////////////////////////////////
 	while (1)
 	{
 		system("cls");
-		MapPrint(map, width, height, &hero); //¸Ê Ãâ·Â ÇÔ¼ö
-		moveResult = CharacterMove(&hero, &move, map, width, height, &tilePositionSave, &saveXPosition, &saveYPosition); //Ä³¸¯ÅÍ°¡ ¿òÁ÷ÀÌ´Â ÇÔ¼ö
+		MapPrint(map, width, height, &hero); //ë§µ ì¶œë ¥ í•¨ìˆ˜
+		moveResult = CharacterMove(&hero, &move, map, width, height, &tilePositionSave, &saveXPosition, &saveYPosition); //ìºë¦­í„°ê°€ ì›€ì§ì´ëŠ” í•¨ìˆ˜
 		if(moveResult != 0)
-			FightAndShop(&hero, monster, moveResult, &tilePositionSave, map, &saveXPosition, &saveYPosition) ; //¿òÁ÷ÀÌ°í ³­ ÈÄÀÇ Å¸ÀÏÀÌ »óÁ¡ÀÎÁö ¸ó½ºÅÍÀÎÁö
+			FightAndShop(&hero, monster, moveResult, &tilePositionSave, map, &saveXPosition, &saveYPosition) ; //ì›€ì§ì´ê³  ë‚œ í›„ì˜ íƒ€ì¼ì´ ìƒì ì¸ì§€ ëª¬ìŠ¤í„°ì¸ì§€
 	}
 
 #pragma endregion
-	MapFree(map, width, height); //¸Ê ÇØÁ¦ ÇÔ¼ö
+	MapFree(map, width, height); //ë§µ í•´ì œ í•¨ìˆ˜
 	   	  
 	delete[] shop;
 	delete[] monster;
 	return 0;
 }
 
-//¸ÊÀ» Ãâ·ÂÇÏ´Â ÇÔ¼ö
+//ë§µì„ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜
 void MapPrint(char** map, int width, int height, Hero* hero)
 {
 	cout << endl;
-	cout << "\t\t\t < ¿µ¿õ Á¤º¸ > " << endl;
+	cout << " < ì˜ì›… ì •ë³´ > " << endl;
 	cout << endl;
-	cout << "\t - ÀÌ¸§ : \t" << hero->heroName << "\t - ·¹º§ : \t" << hero->level << endl;
-	cout << "\t - °ø°İ·Â : \t" << hero->damage << "\t - ÇöÀç Ã¼·Â : \t" << hero->currentHp << endl;
-	cout << "\t - ÇöÀç °æÇèÄ¡ : " << hero->currentExp  << "\t - ¸ñÇ¥ °æÇèÄ¡ : " << hero->maxExp << endl;
-	cout << "\t - ¼ÒÀ¯ÇÑ °ñµå : " << hero->myGold << endl;
+	cout << " - ì´ë¦„ : \t" << hero->heroName << "\t - ë ˆë²¨ : \t" << hero->level << endl;
+	cout << " - ê³µê²©ë ¥ : \t" << hero->damage << "\t - í˜„ì¬ ì²´ë ¥ : \t" << hero->currentHp << endl;
+	cout << " - í˜„ì¬ ê²½í—˜ì¹˜ : " << hero->currentExp  << "\t - ëª©í‘œ ê²½í—˜ì¹˜ : " << hero->maxExp << endl;
+	cout << " - ì†Œìœ í•œ ê³¨ë“œ : " << hero->myGold << endl;
 	cout << endl;
-
+	cout << endl;
+	cout << " < ì„¤  ëª… >  " << endl;
+	cout << endl;
+	cout << " - í‚¤ ì„¤ëª… : (w, a, s, d : ì´ë™, g : ì˜ì›… íˆ¬ëª…í™”)" << endl;
+	cout << " - ì¼€ë¦­í„° ëª¨ì–‘ : (â— : ì˜ì›…, â— : ì˜ì›… íˆ¬ëª…í™”)" << endl;
+	cout << " - ìƒì    ëª¨ì–‘ : (â™¨ : ìƒì )" << endl;
+	cout << " - íƒ€ì¼   ëª¨ì–‘ : (â–¡ : ë•…, ã†€ : ë¬¼, â™§ : ìˆ², ï¼¾ : ë¹„í–‰) " << endl;
+	cout << endl;
+	cout << endl;
+	cout << " - ë‚¨ì€ ëª¬ìŠ¤í„° ìˆ˜ : " << monsterCount << "ë§ˆë¦¬" << endl;
+	cout << endl;
+	cout << endl;
 	for (int i = 0; i < height; i++)
 	{
-		cout << "\t";
+		cout << " ";
 		for (int j = 0; j < width; j++)
 		{
 			switch (map[i][j])
 			{
-				case 0:	cout << "¡Ü";  break; // ÄÉ¸¯ÅÍ
+				case 0:	cout << "â—";  break; // ì¼€ë¦­í„°
 
-				case 1:	cout << "¢Í"; break; // »óÁ¡
+				case 1:	cout << "â™¨"; break; // ìƒì 
 
-				case TILETYPE::LAND: cout << "¡à"; break; // ¶¥
+				case TILETYPE::LAND: cout << "â–¡"; break; // ë•…
 
-				case TILETYPE::WATER: cout << "¤ğ"; break; //¹°
+				case TILETYPE::WATER: cout << "ã†€"; break; //ë¬¼
 					
-				case TILETYPE::FOREST: cout << "¢¿"; break; //½£
+				case TILETYPE::FOREST: cout << "â™§"; break; //ìˆ²
 					
-				case TILETYPE::FLY: cout << "£Ş"; break; //ºñÇà
+				case TILETYPE::FLY: cout << "ï¼¾"; break; //ë¹„í–‰
 					
-				case 6:	cout << "¡İ"; break;//ÄÉ¸¯ÅÍ Åõ¸íÈ­
+				case 6:	cout << "â—"; break;//ì¼€ë¦­í„° íˆ¬ëª…í™”
 					
 			}
 		}
 		cout << endl;
 	}
 
-	cout << endl;
-	cout << "\t\t\t < ¼³  ¸í >  " << endl;
-	cout << endl;
-	cout << "\t     Å° ¼³¸í >> (w, a, s, d : ÀÌµ¿, g : ¿µ¿õ Åõ¸íÈ­)" << endl;
-	cout << "\t ÄÉ¸¯ÅÍ ¸ğ¾ç >> (¡Ü : ¿µ¿õ, ¡İ : ¿µ¿õ Åõ¸íÈ­)" << endl;
-	cout << "\t »óÁ¡   ¸ğ¾ç >> (¢Í : »óÁ¡)" << endl;
-	cout << "\t Å¸ÀÏ   ¸ğ¾ç >> (¡à : ¶¥, ¤ğ : ¹°, ¢¿ : ½£, £Ş : ºñÇà) " << endl;
-	cout << endl;
+
 }
 
-//¸Ê µ¿ÀûÇÒ´ç ¹× ¼¼ÆÃÇÔ¼ö
+//ë§µ ë™ì í• ë‹¹ ë° ì„¸íŒ…í•¨ìˆ˜
 void MapCreate(char** map, int width, int height, int* tileSavePosition, Shop* shop)
 {
 	for (int i = 0; i < height; i++)
 		*(map + i) = new char[width];
 
-	//¶¥ ÃÊ±âÈ­
+	//ë•… ì´ˆê¸°í™”
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			if (rand() % 100 < 50) //¶¥ 50%»ı¼º
+			if (rand() % 100 < 50) //ë•… 50%ìƒì„±
 			{
 				map[i][j] = TILETYPE::LAND;
 			}
 		}
 	}
 
-	//¹Ù´Ù ÃÊ±âÈ­
+	//ë°”ë‹¤ ì´ˆê¸°í™”
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			if (map[i][j] != TILETYPE::LAND && (rand() % 100 < 30)) //¹Ù´Ù 30%»ı¼º
+			if (map[i][j] != TILETYPE::LAND && (rand() % 100 < 30)) //ë°”ë‹¤ 30%ìƒì„±
 			{
 				map[i][j] = TILETYPE::WATER;
 			}
 		}
 	}
 
-	//½£ ÃÊ±âÈ­
+	//ìˆ² ì´ˆê¸°í™”
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			if (map[i][j] != TILETYPE::LAND && map[i][j] != TILETYPE::WATER && ( rand() % 100 < 30)) //½£ 30%»ı¼º
+			if (map[i][j] != TILETYPE::LAND && map[i][j] != TILETYPE::WATER && ( rand() % 100 < 30)) //ìˆ² 30%ìƒì„±
 			{
 				map[i][j] = TILETYPE::FOREST;
 			}
 		}
 	}
 
-	//ºñÇà ÃÊ±âÈ­
+	//ë¹„í–‰ ì´ˆê¸°í™”
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++)
 		{
-			if (map[i][j] != TILETYPE::LAND && map[i][j] != TILETYPE::WATER && map[i][j] != TILETYPE::FOREST) //³ª¸ÓÁö ºñÇàÅ¸ÀÏ »ı¼º
+			if (map[i][j] != TILETYPE::LAND && map[i][j] != TILETYPE::WATER && map[i][j] != TILETYPE::FOREST) //ë‚˜ë¨¸ì§€ ë¹„í–‰íƒ€ì¼ ìƒì„±
 			{
 				map[i][j] = TILETYPE::FLY;
 			}
@@ -285,12 +345,12 @@ void MapCreate(char** map, int width, int height, int* tileSavePosition, Shop* s
 	}
 
 	int count = 0;
-	//»óÁ¡ À§Ä¡ ¼³Á¤
+	//ìƒì  ìœ„ì¹˜ ì„¤ì •
 	for (int i = 0; i < SHOPSIZE; i++)
 	{
 		shop[i].shopXPosition = rand() % width, shop[i].shopYPosition = rand() % height;
 		
-		//1 - »óÁ¡ÀÇ À§Ä¡°¡ ³ªÀÇ À§Ä¡¿Í °ãÄ¡Áö ¾Ê°Ô ÁÂÇ¥ ¼³Á¤
+		//1 - ìƒì ì˜ ìœ„ì¹˜ê°€ ë‚˜ì˜ ìœ„ì¹˜ì™€ ê²¹ì¹˜ì§€ ì•Šê²Œ ì¢Œí‘œ ì„¤ì •
 		while ((shop[i].shopXPosition == 0) && (shop[i].shopYPosition == 0) )
 		{
 			shop[i].shopXPosition = rand() % width; shop[i].shopYPosition = rand() % height; 
@@ -298,7 +358,7 @@ void MapCreate(char** map, int width, int height, int* tileSavePosition, Shop* s
 
 		if (i != 0)
 		{
-			for (int j = 0; j < i ; j++) //»óÁ¡ÀÌ °ãÄ¡Áö ¾Ê°Ô ¼³Á¤
+			for (int j = 0; j < i ; j++) //ìƒì ì´ ê²¹ì¹˜ì§€ ì•Šê²Œ ì„¤ì •
 			{
 				while ( ((shop[i].shopXPosition == 0) && (shop[i].shopYPosition == 0))
 					|| ((shop[i].shopXPosition == shop[j].shopXPosition) && (shop[i].shopYPosition == shop[j].shopYPosition)))
@@ -315,14 +375,14 @@ void MapCreate(char** map, int width, int height, int* tileSavePosition, Shop* s
 		map[shop[i].shopYPosition][shop[i].shopXPosition] = 1;
 	}
 
-	*tileSavePosition = map[0][0]; //³» À§Ä¡¿¡ ´ëÇÑ Å¸ÀÏÀÇ °ªÀ» ÀúÀå
-	map[0][0] = 0; //³» À§Ä¡ ¼³Á¤
+	*tileSavePosition = map[0][0]; //ë‚´ ìœ„ì¹˜ì— ëŒ€í•œ íƒ€ì¼ì˜ ê°’ì„ ì €ì¥
+	map[0][0] = 0; //ë‚´ ìœ„ì¹˜ ì„¤ì •
 }
 
-//¸Ê ¸Ş¸ğ¸® ÇØÁ¦
+//ë§µ ë©”ëª¨ë¦¬ í•´ì œ
 void MapFree(char** map, int width, int height)
 {
-	//µ¿ÀûÇÒ´ç ¸Ş¸ğ¸® ÇØÁ¦
+	//ë™ì í• ë‹¹ ë©”ëª¨ë¦¬ í•´ì œ
 	for (int i = 0; i < height; i++)
 	{
 		delete[] map[i];
@@ -330,7 +390,7 @@ void MapFree(char** map, int width, int height)
 	delete[] map;
 }
 
-//È÷¾î·Î ¹× ¸ó½ºÅÍ¸¦ ¼¼ÆÃÇÏ´Â ÇÔ¼ö
+//íˆì–´ë¡œ ë° ëª¬ìŠ¤í„°ë¥¼ ì„¸íŒ…í•˜ëŠ” í•¨ìˆ˜
 void Settings(Hero* hero, Monster* monster, string monsterName[] ,int area)
 {
 	int count = 0;
@@ -342,7 +402,7 @@ void Settings(Hero* hero, Monster* monster, string monsterName[] ,int area)
 			area -= 100;
 			count++;
 		}
-		monsterCount = (count + 1) * 20; //¹ë·±½º
+		monsterCount = (count + 1) * 20; //ë°¸ëŸ°ìŠ¤
 	}
 	else
 	{
@@ -351,31 +411,31 @@ void Settings(Hero* hero, Monster* monster, string monsterName[] ,int area)
 			area -= 10;
 			count++;
 		}
-		monsterCount = (count + 1) * 3; //¹ë·±½º
+		monsterCount = (count + 1) * 3; //ë°¸ëŸ°ìŠ¤
 	}
 	
-	HeroSetting(hero, count); //È÷¾î·Î ÃÊ±âÈ­ ¹× ¼¼ÆÃ
-	MonsterSetting(monster, monsterName, count); //¸ó½ºÅÍ ÃÊ±âÈ­ ¹× ¼¼ÆÃ
+	HeroSetting(hero, count); //íˆì–´ë¡œ ì´ˆê¸°í™” ë° ì„¸íŒ…
+	MonsterSetting(monster, monsterName, count); //ëª¬ìŠ¤í„° ì´ˆê¸°í™” ë° ì„¸íŒ…
 }
 
-//È÷¾î·Î ¼¼ÆÃ ÇÔ¼ö
+//íˆì–´ë¡œ ì„¸íŒ… í•¨ìˆ˜
 void HeroSetting(Hero* hero = nullptr, int count = 0)
 {
-	cout << "È÷¾î·ÎÀÇ ÀÌ¸§À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ";
+	cout << "íˆì–´ë¡œì˜ ì´ë¦„ì„ ì…ë ¥í•´ ì£¼ì„¸ìš” : ";
 	cin >> hero->heroName;
 
-	hero->maxHp = 100 + count * 10; //È÷¾î·ÎÀÇ ±âº» Ã¼·ÂÀº ÃÖ¼Ò 100ÀÇ Ã¼·ÂÀ» °¡Áö°í ÀÖ´Â´Ù. 
-	hero->level = 1; //·¹º§ 1·Î ¼¼ÆÃ.
-	hero->currentHp = hero->maxHp; //¼¼ÆÃ ½Ã¿¡´Â ÇöÀç Ã¼·ÂÀÌ ¸Æ½º Ã¼·ÂÀÌ¾î¾ß ÇÑ´Ù.
-	hero->maxExp = 1000 + count * 200;  //ÃÖ¼Ò °æÇèÄ¡ : 1000 ¼³Á¤
+	hero->maxHp = 100 + count * 10; //íˆì–´ë¡œì˜ ê¸°ë³¸ ì²´ë ¥ì€ ìµœì†Œ 100ì˜ ì²´ë ¥ì„ ê°€ì§€ê³  ìˆëŠ”ë‹¤. 
+	hero->level = 1; //ë ˆë²¨ 1ë¡œ ì„¸íŒ….
+	hero->currentHp = hero->maxHp; //ì„¸íŒ… ì‹œì—ëŠ” í˜„ì¬ ì²´ë ¥ì´ ë§¥ìŠ¤ ì²´ë ¥ì´ì–´ì•¼ í•œë‹¤.
+	hero->maxExp = 1600;  //1000 ì„¤ì •
 	hero->damage = 1;
-	hero->currentExp = 0; //ÇöÀç °æÇèÄ¡
-	hero->myGold = 0; //ÇöÀç °ñµå
-	hero->myXPosition = 0, hero->myYPosition = 0; //¿µ¿õÀÇ ÁÂÇ¥
+	hero->currentExp = 0; //í˜„ì¬ ê²½í—˜ì¹˜
+	hero->myGold = 0; //í˜„ì¬ ê³¨ë“œ
+	hero->myXPosition = 0, hero->myYPosition = 0; //ì˜ì›…ì˜ ì¢Œí‘œ
 	hero->freeMove = false;
 }
 
-//¸ó½ºÅÍ ¼¼ÆÃÇÔ¼ö
+//ëª¬ìŠ¤í„° ì„¸íŒ…í•¨ìˆ˜
 void MonsterSetting(Monster* monster, string monsterName[], int count)
 {
 	int j = 0;
@@ -384,26 +444,26 @@ void MonsterSetting(Monster* monster, string monsterName[], int count)
 	{
 		(monster + i)->monsterName = monsterName[i];
 		(monster + i)->tileType = TILETYPE(j);
-		(monster + i)->maxHp = (rand() % 3 + (int)ceil(1 + j*1.5f)) + count; //¶¥ Æ÷ÄÏ¸óÀº Ã¼·ÂÀÌ 1~2°¡ µÈ´Ù.
+		(monster + i)->maxHp = (rand() % 2 + (int)ceil(j*1.5f) + i/2) + count/2; //ë•… í¬ì¼“ëª¬ì€ ì²´ë ¥ì´ 1~2ê°€ ëœë‹¤.
 		(monster + i)->currentHp = (monster + i)->maxHp;
-		(monster + i)->giveExp = (rand() % 20 + 100 + (i * 5)) + (count * 50); //ÃÖ¼Ò °æÇèÄ¡ 100 //¹ë·±½º Á¶Àı
-		(monster + i)->giveGold = (rand() % 10 + 10 + (i * 5)) + (count + 1) * 2; //ÃÖ¼Ò °ñµå È¹µæ
+		(monster + i)->giveExp = (rand() % 100 + 100 + (i * 5) + j * 50) + (count * 50); //ìµœì†Œ ê²½í—˜ì¹˜ 100 //ë°¸ëŸ°ìŠ¤ ì¡°ì ˆ
+		(monster + i)->giveGold = (rand() % 10 + 10 + (i * 5)) + (count + 1) * 2; //ìµœì†Œ ê³¨ë“œ íšë“
 		(monster + i)->monsterDmg = count + 3;
 
 		if ((i + 1) % 4 == 0)
 		{
-			j++; // TILETYPEÀ» 1Áõ°¡ ½ÃÅ°±â À§ÇÑ º¯¼ö
+			j++; // TILETYPEì„ 1ì¦ê°€ ì‹œí‚¤ê¸° ìœ„í•œ ë³€ìˆ˜
 		}
 	}
 }
 
-//ÄÉ¸¯ÅÍ ¿òÁ÷ÀÓ ÇÔ¼ö
+//ì¼€ë¦­í„° ì›€ì§ì„ í•¨ìˆ˜
 void Move(Hero* hero, char** map, int* tilePositionSave, int y, int x, int* saveXPosition, int* saveYPosition)
 {
-	map[hero->myYPosition][hero->myXPosition] = *tilePositionSave; //ÇöÀç ³» À§Ä¡¿¡ *tilePositionSave°ªÀ» ´ëÀÔ.
+	map[hero->myYPosition][hero->myXPosition] = *tilePositionSave; //í˜„ì¬ ë‚´ ìœ„ì¹˜ì— *tilePositionSaveê°’ì„ ëŒ€ì….
 	*saveYPosition = hero->myYPosition, *saveXPosition = hero->myXPosition;
-	(hero->myYPosition) += y; (hero->myXPosition) += x; //³ªÀÇ À§Ä¡¸¦ x, y¸¸Å­ ÀÌµ¿ÇÏ¿© ÀúÀå.
-	*tilePositionSave = map[hero->myYPosition][hero->myXPosition]; //Å¸ÀÏ ¹øÈ£¸¦ ÀúÀåÇÑ´Ù.
+	(hero->myYPosition) += y; (hero->myXPosition) += x; //ë‚˜ì˜ ìœ„ì¹˜ë¥¼ x, yë§Œí¼ ì´ë™í•˜ì—¬ ì €ì¥.
+	*tilePositionSave = map[hero->myYPosition][hero->myXPosition]; //íƒ€ì¼ ë²ˆí˜¸ë¥¼ ì €ì¥í•œë‹¤.
 	if (hero->freeMove == true)
 	{
 		map[hero->myYPosition][hero->myXPosition] = 6;
@@ -412,7 +472,7 @@ void Move(Hero* hero, char** map, int* tilePositionSave, int y, int x, int* save
 		map[hero->myYPosition][hero->myXPosition] = 0;
 }
 
-//ÄÉ¸¯ÅÍ ¿òÁ÷ÀÓ °è»ê ¾Ë°í¸®Áò
+//ì¼€ë¦­í„° ì›€ì§ì„ ê³„ì‚° ì•Œê³ ë¦¬ì¦˜
 int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int* tilePositionSave, int* saveXPosition, int* saveYPosition)
 {
 	*move = _getch();
@@ -470,11 +530,11 @@ int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int
 			}
 
 			break;
-		default: //ÀÚÀ¯·Ó°Ô ¿òÁ÷ÀÌµµ·Ï ¼³Á¤ÇÏ´Â ÄÚµå
+		default: //ììœ ë¡­ê²Œ ì›€ì§ì´ë„ë¡ ì„¤ì •í•˜ëŠ” ì½”ë“œ
 			if ((*move == 'g') && (hero->freeMove == false))
 			{
 				hero->freeMove = true;
-				map[hero->myYPosition][hero->myXPosition] = 6; //ÀÚÀ¯·Ó°Ô ¿òÁ÷ÀÏ ¼ö ÀÖ´Â ÀÌ¸ğÆ¼ÄÜ
+				map[hero->myYPosition][hero->myXPosition] = 6; //ììœ ë¡­ê²Œ ì›€ì§ì¼ ìˆ˜ ìˆëŠ” ì´ëª¨í‹°ì½˜
 				
 			}
 			else if (((*move) == 'g') && (hero->freeMove == true))
@@ -490,7 +550,7 @@ int CharacterMove(Hero* hero, char* move, char** map, int width, int height, int
 	return (*tilePositionSave);
 }
 
-//Å¸ÀÏ¿¡ Á¢±Ù ÇßÀ»¶§
+//íƒ€ì¼ì— ì ‘ê·¼ í–ˆì„ë•Œ
 void FightAndShop(Hero* hero, Monster* monster , int moveResult, int* tilePositionSave, char** map, int* saveXPosition, int* saveYPosition)
 {
 	if (moveResult == SHOP)
@@ -500,14 +560,14 @@ void FightAndShop(Hero* hero, Monster* monster , int moveResult, int* tilePositi
 		{
 			map[hero->myYPosition][hero->myXPosition] = 1; //shop
 			*tilePositionSave = map[*saveYPosition][*saveXPosition];
-			map[*saveYPosition][*saveXPosition] = 6; //Åõ¸íÇÑ ¿µ¿õ Ç¥Çö
+			map[*saveYPosition][*saveXPosition] = 6; //íˆ¬ëª…í•œ ì˜ì›… í‘œí˜„
 			hero->myYPosition = *saveYPosition, hero->myXPosition = *saveXPosition;
 		}
 		else
 		{
 			map[hero->myYPosition][hero->myXPosition] = 1; //shop
 			*tilePositionSave = map[*saveYPosition][*saveXPosition];
-			map[*saveYPosition][*saveXPosition] = 0; //¿µ¿õ Ç¥Çö
+			map[*saveYPosition][*saveXPosition] = 0; //ì˜ì›… í‘œí˜„
 			hero->myYPosition = *saveYPosition, hero->myXPosition = *saveXPosition;
 		}
 		
@@ -515,11 +575,11 @@ void FightAndShop(Hero* hero, Monster* monster , int moveResult, int* tilePositi
 	else
 	{
 		if (hero->freeMove == false) {
-			if (RandResult(moveResult) == true) //¸ó½ºÅÍ¿Í ¸¸³¯ È®·üÀ» ÅëÇØ trueÀÌ¸é
+			if (RandResult(moveResult) == true) //ëª¬ìŠ¤í„°ì™€ ë§Œë‚  í™•ë¥ ì„ í†µí•´ trueì´ë©´
 			{
 				MonsterMeet(hero, monster, moveResult, tilePositionSave);
 			}
-			else	//¸ó½ºÅÍ ¾È¸¸³²
+			else	//ëª¬ìŠ¤í„° ì•ˆë§Œë‚¨
 			{
 				return;
 			}
@@ -527,7 +587,7 @@ void FightAndShop(Hero* hero, Monster* monster , int moveResult, int* tilePositi
 	}
 }
 
-//¸ó½ºÅÍ¿Í ¸¸³ª´Â ÇÔ¼ö
+//ëª¬ìŠ¤í„°ì™€ ë§Œë‚˜ëŠ” í•¨ìˆ˜
 void MonsterMeet(Hero* hero, Monster* monster, int monsterType, int* tilePositionSave) 
 {
 	int randNum;
@@ -550,7 +610,7 @@ void MonsterMeet(Hero* hero, Monster* monster, int monsterType, int* tilePositio
 		default: break;
 	}
 	cout << endl;
-	cout << monster[randNum].monsterName << "(ÀÌ)°¡ ÃâÇöÇß´Ù!!!" << endl;
+	cout << monster[randNum].monsterName << "(ì´)ê°€ ì¶œí˜„í–ˆë‹¤!!!" << endl;
 
 	Sleep(1000);
 
@@ -558,87 +618,128 @@ void MonsterMeet(Hero* hero, Monster* monster, int monsterType, int* tilePositio
 	{
 		system("cls");
 		cout << endl;
-		cout << "\t < ¸ó½ºÅÍ Á¤º¸ > " << endl;
+		cout << "\t < ëª¬ìŠ¤í„° ì •ë³´ > " << endl;
 		cout << endl;
-		cout << "\t- ÀÌ¸§ : " << monster[randNum].monsterName << endl;
-		cout << "\t- Ã¼·Â : " << monster[randNum].currentHp << endl;
-		cout << "\t- °ø°İ·Â : " << monster[randNum].monsterDmg << endl;
+		cout << "\t- ì´ë¦„ : " << monster[randNum].monsterName << endl;
+		cout << "\t- ë‚¨ì€ ì²´ë ¥ : " << monster[randNum].currentHp << endl;
+		cout << "\t- ê³µê²©ë ¥ : " << monster[randNum].monsterDmg << endl;
+		cout << "\t- íšë“ ê³¨ë“œ : " << monster[randNum].giveGold << endl;
+		cout << "\t- íšë“ ê²½í—˜ì¹˜ : " << monster[randNum].giveExp << endl;
 		cout << endl;
-		cout << "\t < ¿µ¿õÀÇ Á¤º¸ > " << endl;
+		cout << "\t < ì˜ì›…ì˜ ì •ë³´ > " << endl;
 		cout << endl;
-		cout << "\t- ÀÌ¸§ : " << hero->heroName << endl;
-		cout << "\t- ·¹º§ : " << hero->level << endl;
-		cout << "\t- °ø°İ·Â : " << hero->damage << endl;
-		cout << "\t- Ã¼·Â : " << hero->currentHp << endl;
-		cout << "\t- º¸À¯ÇÑ ±İ¾× : " << hero->myGold << endl;
-		cout << "\t- ÇöÀç °æÇèÄ¡ : " << hero->currentExp << endl;
-		cout << "\t- ¸ñÇ¥ °æÇèÄ¡ : " << hero->maxExp << endl;
+		cout << "\t- ì´ë¦„ : " << hero->heroName << endl;
+		cout << "\t- ë ˆë²¨ : " << hero->level << endl;
+		cout << "\t- ê³µê²©ë ¥ : " << hero->damage << endl;
+		cout << "\t- í˜„ì¬ ì²´ë ¥ : " << hero->currentHp << endl;
+		cout << "\t- ìµœëŒ€ ì²´ë ¥ : " << hero->maxHp << endl;
+		cout << "\t- ë³´ìœ í•œ ê¸ˆì•¡ : " << hero->myGold << endl;
+		cout << "\t- í˜„ì¬ ê²½í—˜ì¹˜ : " << hero->currentExp << endl;
+		cout << "\t- ëª©í‘œ ê²½í—˜ì¹˜ : " << hero->maxExp << endl;
 		cout << endl;
-		cout << " >> ½Î¿ì½Ã°Ú½À´Ï±î?(1) µµ¸Á°¡½Ã°Ú½À´Ï±î?(2) : ";
-		cin >> selectFightOrRun;
+
+		//ì˜¤ë¥˜ì²˜ë¦¬
+		while (1)
+		{
+			cout << " >> ì‹¸ìš°ì‹œê² ìŠµë‹ˆê¹Œ?(1) ë„ë§ê°€ì‹œê² ìŠµë‹ˆê¹Œ?(2) : ";
+			cin >> selectFightOrRun;
+
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(256, '\n');
+				cout << "ìˆ«ìë¥¼ ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”." << endl;
+				Sleep(1000);
+				cout << endl;
+			}
+			else
+				break;
+		}
 
 		if (selectFightOrRun == 1)
 		{
-			if (Fight(hero, monster, randNum) == true) //ÀÌ°åÀ» ¶§ while ·çÇÁ Á¾·á
+			if (Fight(hero, monster, randNum) == true) //ì´ê²¼ì„ ë•Œ while ë£¨í”„ ì¢…ë£Œ
 				break;
+		}
+		else if (selectFightOrRun == 2)
+		{
+			cout << endl;
+			cout << hero->heroName << " : í•˜...ë‹¤ìŒì— ë‹¤ì‹œë³´ì.... " << endl;
+			Sleep(1000);
+			cout << endl;
+			cout << monster[randNum].monsterName << " : í—¤í—¤í—¤~ ë°”ë³´!! ë©ì¶©ì´!!!! " << endl;
+			Sleep(1000);
+			break;
 		}
 		else
 		{
 			cout << endl;
-			cout << hero->heroName << " : ÇÏ...´ÙÀ½¿¡ ´Ù½Ãº¸ÀÚ.... " << endl;
+			cout << "ìˆ«ìë¥¼ ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”. " << endl;
 			Sleep(1000);
-			cout << endl;
-			cout << monster[randNum].monsterName << " : ÇìÇìÇì~ ¹Ùº¸!! ¸ÛÃæÀÌ!!!! " << endl;
-			Sleep(1000);
-			break;
+			continue;
 		}
 	}
 }
 
-void ShopVisit(Hero* hero) //»óÁ¡À» ¹æ¹®ÇßÀ» ¶§
+void ShopVisit(Hero* hero) //ìƒì ì„ ë°©ë¬¸í–ˆì„ ë•Œ
 {
-	int inputNumber; //ÀÔ·Â¹ŞÀ» º¯¼ö
+	int inputNumber; //ì…ë ¥ë°›ì„ ë³€ìˆ˜
 
-	//»óÁ¡¿¡ ´ëÇÑ Á¤º¸¸¦ Ãâ·Â
+	//ìƒì ì— ëŒ€í•œ ì •ë³´ë¥¼ ì¶œë ¥
 	while (true)
 	{
 		system("cls");
 		cout << endl;
-		cout << "< ¾î¼­¿À¼¼¿ä~ " << hero->heroName << "´Ô. °æÀÏ»óÁ¡ ÀÔ´Ï´Ù! >" << endl;
+		cout << "< ì–´ì„œì˜¤ì„¸ìš”~ " << hero->heroName << "ë‹˜. ê²½ì¼ìƒì  ì…ë‹ˆë‹¤! >" << endl;
 		cout << endl;
 		cout << "=========================================" << endl;
-		cout << "| Ã¼·Â8  Æ÷¼Ç È¸º¹ÇÏ±â(±İ¾×  10) : 1ÀÔ·Â| " << endl;
-		cout << "| hp¸¸¶¥ Æ÷¼Ç È¸º¹ÇÏ±â(±İ¾× 100) : 2ÀÔ·Â|" << endl;
-		cout << "| µ¥¹ÌÁö 1Áõ°¡ÇÏ±â (±İ¾×200¿ø)   : 3ÀÔ·Â| " << endl;
-		cout << "| »óÁ¡ ³ª°¡±â\t\t\t : 4ÀÔ·Â|" << endl;
+		cout << "| ì²´ë ¥8  í¬ì…˜ íšŒë³µí•˜ê¸°(ê¸ˆì•¡  10) : 1ì…ë ¥| " << endl;
+		cout << "| hpë§Œë•… í¬ì…˜ íšŒë³µí•˜ê¸°(ê¸ˆì•¡ 100) : 2ì…ë ¥|" << endl;
+		cout << "| ë°ë¯¸ì§€ 1ì¦ê°€í•˜ê¸° (ê¸ˆì•¡200ì›)   : 3ì…ë ¥| " << endl;
+		cout << "| ìƒì  ë‚˜ê°€ê¸°\t\t\t : 4ì…ë ¥|" << endl;
 		cout << "=========================================" << endl;
 		cout << endl;
-		cout << " * * < ¿µ ¿õ Á¤ º¸ > * * " << endl;
+		cout << " * * < ì˜ ì›… ì • ë³´ > * * " << endl;
 		cout << endl;
-		cout << "< - ÀÌ¸§ : " << hero->heroName << " > " << endl;
-		cout << "< - ·¹º§ : " << hero->level << " > " << endl;
-		cout << "< - °ø°İ·Â : " << hero->damage << " >" << endl;
-		cout << "< - ÇöÀç Ã¼·Â / ÃÑ Ã¼·Â : " << hero->currentHp << " / " << hero->maxHp << " >" << endl;
-		cout << "< - ³²Àº ¸ó½ºÅÍ ¼ö : " << monsterCount << " >" << endl;
-		cout << "< - °¡Áø ±İ¾× : " << hero->myGold << " >" << endl;
+		cout << "< - ì´ë¦„ : " << hero->heroName << " > " << endl;
+		cout << "< - ë ˆë²¨ : " << hero->level << " > " << endl;
+		cout << "< - ê³µê²©ë ¥ : " << hero->damage << " >" << endl;
+		cout << "< - í˜„ì¬ ì²´ë ¥ / ì´ ì²´ë ¥ : " << hero->currentHp << " / " << hero->maxHp << " >" << endl;
+		cout << "< - ë‚¨ì€ ëª¬ìŠ¤í„° ìˆ˜ : " << monsterCount << " >" << endl;
+		cout << "< - ê°€ì§„ ê¸ˆì•¡ : " << hero->myGold << " >" << endl;
 
 		cout << endl;
 
-		cout << "¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä : ";
-		cin >> inputNumber;
+		while (1)
+		{
+			cout << "ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš” : ";
+			cin >> inputNumber;
+		
+			if (cin.fail())
+			{
+				cin.clear();
+				cin.ignore(256, '\n');
+				cout << "ìˆ«ìë¥¼ ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”." << endl;
+				Sleep(1000);
+				cout << endl;
+			}
+			else
+				break;
+		}
+		
 		if (inputNumber == 1)
 		{
-			//µ·ÀÌ ¾ø´Â °æ¿ì
+			//ëˆì´ ì—†ëŠ” ê²½ìš°
 			if (hero->myGold < 10)
 			{
-				cout << "±İ¾×ÀÌ ºÎÁ·ÇÕ´Ï´Ù." << endl;
+				cout << "ê¸ˆì•¡ì´ ë¶€ì¡±í•©ë‹ˆë‹¤." << endl;
 			}
-			//Ã¼·ÂÀÌ fullÀÎ °æ¿ì
+			//ì²´ë ¥ì´ fullì¸ ê²½ìš°
 			else if (hero->currentHp >= hero->maxHp)
 			{
-				cout << "Ã¼·ÂÀÌ Ç® ÀÔ´Ï´Ù." << endl;
+				cout << "ì²´ë ¥ì´ í’€ ì…ë‹ˆë‹¤." << endl;
 			}
-			//Ã¼·ÂÀÌ fullÀÌ ¾Æ´Ï°í µ·µµ ÃæºĞÇÑ °æ¿ì
+			//ì²´ë ¥ì´ fullì´ ì•„ë‹ˆê³  ëˆë„ ì¶©ë¶„í•œ ê²½ìš°
 			else
 			{
 				hero->myGold -= 10;
@@ -649,55 +750,55 @@ void ShopVisit(Hero* hero) //»óÁ¡À» ¹æ¹®ÇßÀ» ¶§
 					hero->currentHp = hero->maxHp;
 				}
 
-				cout << "Ã¼·ÂÀÌ 5È¸º¹ µÇ¾ú½À´Ï´Ù. " << endl;
-				cout << "ÇöÀç Ã¼·Â : " << hero->currentHp << endl;
+				cout << "ì²´ë ¥ì´ 8íšŒë³µ ë˜ì—ˆìŠµë‹ˆë‹¤. " << endl;
+				cout << "í˜„ì¬ ì²´ë ¥ : " << hero->currentHp << endl;
 			}
 		}
 		else if (inputNumber == 2)
 		{
-			//µ·ÀÌ ¾ø´Â °æ¿ì
+			//ëˆì´ ì—†ëŠ” ê²½ìš°
 			if (hero->myGold < 200)
 			{
-				cout << "±İ¾×ÀÌ ºÎÁ·ÇÕ´Ï´Ù." << endl;
+				cout << "ê¸ˆì•¡ì´ ë¶€ì¡±í•©ë‹ˆë‹¤." << endl;
 			}
-			//Ã¼·ÂÀÌ fullÀÎ °æ¿ì
+			//ì²´ë ¥ì´ fullì¸ ê²½ìš°
 			else if (hero->currentHp >= hero->maxHp)
 			{
-				cout << "Ã¼·ÂÀÌ Ç® ÀÔ´Ï´Ù." << endl;
+				cout << "ì²´ë ¥ì´ í’€ ì…ë‹ˆë‹¤." << endl;
 			}
-			//Ã¼·ÂÀÌ fullÀÌ ¾Æ´Ï°í µ·µµ ÃæºĞÇÑ °æ¿ì
+			//ì²´ë ¥ì´ fullì´ ì•„ë‹ˆê³  ëˆë„ ì¶©ë¶„í•œ ê²½ìš°
 			else
 			{
 				hero->myGold -= 100;
 				hero->currentHp = hero->maxHp;
 
-				cout << "Ã¼·ÂÀÌ Ç®·Î È¸º¹µÇ¾ú½À´Ï´Ù. " << endl;
-				cout << "ÇöÀç Ã¼·Â : " << hero->currentHp << endl;
+				cout << "ì²´ë ¥ì´ í’€ë¡œ íšŒë³µë˜ì—ˆìŠµë‹ˆë‹¤. " << endl;
+				cout << "í˜„ì¬ ì²´ë ¥ : " << hero->currentHp << endl;
 			}
 		}
 		else if (inputNumber == 3)
 		{
 			if (hero->myGold < 200)
 			{
-				cout << "±İ¾×ÀÌ ºÎÁ·ÇÕ´Ï´Ù." << endl;
+				cout << "ê¸ˆì•¡ì´ ë¶€ì¡±í•©ë‹ˆë‹¤." << endl;
 			}
 			else
 			{
 				hero->myGold -= 200;
 				++(hero->damage);
-				cout << "µ¥¹ÌÁö°¡ 1Áõ°¡µÇ¾ú½À´Ï´Ù." << endl;
+				cout << "ë°ë¯¸ì§€ê°€ 1ì¦ê°€ë˜ì—ˆìŠµë‹ˆë‹¤." << endl;
 			}
 		}
 		else if (inputNumber == 4)
 		{
-			cout << "»óÁ¡¿¡¼­ ³ª°©´Ï´Ù." << endl;
+			cout << "ìƒì ì—ì„œ ë‚˜ê°‘ë‹ˆë‹¤." << endl;
 			Sleep(2000);
 			system("cls");
 			break;
 		}
 		else
 		{
-			cout << "´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä." << endl;
+			cout << "ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”." << endl;
 			Sleep(2000);
 			system("cls");
 		}
@@ -705,50 +806,66 @@ void ShopVisit(Hero* hero) //»óÁ¡À» ¹æ¹®ÇßÀ» ¶§
 	}
 }
 
-//°¡À§¹ÙÀ§º¸ ÇÔ¼ö
+//ê°€ìœ„ë°”ìœ„ë³´ í•¨ìˆ˜
 bool Fight(Hero* hero, Monster* monster, int monNumber)
 {
-	int inputSPR; //°¡À§ ¹ÙÀ§ º¸¸¦ ÀÔ·Â¹ŞÀ» º¯¼ö
-	int comSPR; //ÄÄÇ»ÅÍ°¡ ·£´ıÀ¸·Î °¡À§ ¹ÙÀ§ º¸¸¦ °áÁ¤ÇÒ º¯¼ö
+	int inputSPR; //ê°€ìœ„ ë°”ìœ„ ë³´ë¥¼ ì…ë ¥ë°›ì„ ë³€ìˆ˜
+	int comSPR; //ì»´í“¨í„°ê°€ ëœë¤ìœ¼ë¡œ ê°€ìœ„ ë°”ìœ„ ë³´ë¥¼ ê²°ì •í•  ë³€ìˆ˜
 
 	system("cls");
-	comSPR = rand() % 3 + 1; // ÄÄÇ»ÅÍ°¡ ·£´ıÇÏ°Ô °ªÀ» ¼³Á¤.
+	comSPR = rand() % 3 + 1; // ì»´í“¨í„°ê°€ ëœë¤í•˜ê²Œ ê°’ì„ ì„¤ì •.
 
 	cout << endl;
-	cout << "\t < Àü Åõ ½Ã ÀÛ ! ! >" << endl;
+	cout << "\t < ì „ íˆ¬ ì‹œ ì‘ ! ! >" << endl;
 	cout << endl;
-	cout << " - °¡À§(1), ¹ÙÀ§(2), º¸(3) ¼ıÀÚ·Î ÀÔ·Â : ";
-	cin >> inputSPR;
+
+	while (1)
+	{
+		cout << " - ê°€ìœ„(1), ë°”ìœ„(2), ë³´(3) ìˆ«ìë¡œ ì…ë ¥ : ";
+		cin >> inputSPR;
+
+		if (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(256, '\n');
+
+			cout << "ìˆ«ìë¥¼ ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”." << endl;
+			Sleep(1000);
+			cout << endl;
+		}
+		else
+			break;
+	}
 
 	switch (inputSPR)
 	{
 		case SRP::SCISSORS:
 
-			if (comSPR == SRP::SCISSORS) //ºñ±è Á¶°Ç
+			if (comSPR == SRP::SCISSORS) //ë¹„ê¹€ ì¡°ê±´
 				return Draw(hero, monster, monNumber, SRP::SCISSORS);
-			else if (comSPR == SRP::ROCK) //ÆĞ¹è Á¶°Ç
+			else if (comSPR == SRP::ROCK) //íŒ¨ë°° ì¡°ê±´
 				return Defeat(hero, monster, monNumber, SRP::SCISSORS);
-			else //½Â¸® Á¶°Ç
+			else //ìŠ¹ë¦¬ ì¡°ê±´
 				return Win(hero, monster, monNumber, SRP::SCISSORS);
 			break;
 
 		case SRP::ROCK:
 
-			if (comSPR == SRP::ROCK) //ºñ±è Á¶°Ç
+			if (comSPR == SRP::ROCK) //ë¹„ê¹€ ì¡°ê±´
 				return Draw(hero, monster, monNumber, SRP::ROCK);
-			else if (comSPR == SRP::PAPER) //ÆĞ¹è Á¶°Ç
+			else if (comSPR == SRP::PAPER) //íŒ¨ë°° ì¡°ê±´
 				return Defeat(hero, monster, monNumber, SRP::ROCK);
-			else //½Â¸® Á¶°Ç
+			else //ìŠ¹ë¦¬ ì¡°ê±´
 				return Win(hero, monster, monNumber, SRP::ROCK);
 			break;
 
 		case SRP::PAPER:
 
-			if (comSPR == SRP::PAPER) //ºñ±è Á¶°Ç
+			if (comSPR == SRP::PAPER) //ë¹„ê¹€ ì¡°ê±´
 				return Draw(hero, monster, monNumber, SRP::PAPER);
-			else if (comSPR == SRP::SCISSORS) //ÆĞ¹è Á¶°Ç
+			else if (comSPR == SRP::SCISSORS) //íŒ¨ë°° ì¡°ê±´
 				return Defeat(hero, monster, monNumber, SRP::PAPER);
-			else //½Â¸® Á¶°Ç
+			else //ìŠ¹ë¦¬ ì¡°ê±´
 				return Win(hero, monster, monNumber, SRP::PAPER);
 			break;
 
@@ -758,112 +875,120 @@ bool Fight(Hero* hero, Monster* monster, int monNumber)
 	}
 }
 
-//Å¸ÀÏ¿¡ ´ê¾ÒÀ» ¶§ ¶¥Å¸ÀÔÀº ¸¸³¯È®·ü ³ô°Ô ~ ÇÏ´ÃÀº ¸¸³¯ È®·ü ³·°Ô ¼³Á¤.
+//íƒ€ì¼ì— ë‹¿ì•˜ì„ ë•Œ ë•…íƒ€ì…ì€ ë§Œë‚ í™•ë¥  ë†’ê²Œ ~ í•˜ëŠ˜ì€ ë§Œë‚  í™•ë¥  ë‚®ê²Œ ì„¤ì •.
 inline bool RandResult(int result)
 {
 	return ((rand() % 100) < (70-10*result));
 }
 
-//ºñ±è ÇÔ¼ö
-bool Draw(Hero* hero, Monster* monster, int monNumber, int result) // ºñ±è ÇÔ¼ö
+//ë¹„ê¹€ í•¨ìˆ˜
+bool Draw(Hero* hero, Monster* monster, int monNumber, int result) // ë¹„ê¹€ í•¨ìˆ˜
 {
 	cout << endl;
-	cout << " >> °á°ú : ¹æ¾î!!" << endl;
+	cout << " >> ê²°ê³¼ : ë°©ì–´!!" << endl;
 	cout << endl;
 	if (result == SRP::SCISSORS)
 	{
-		cout << " " << monster[monNumber].monsterName << " : '°¡À§'´Â '°¡À§'·Î!" << endl;
+		cout << " " << monster[monNumber].monsterName << " : 'ê°€ìœ„'ëŠ” 'ê°€ìœ„'ë¡œ!" << endl;
 	}
 	else if(result == SRP::ROCK)
-		cout << " " << monster[monNumber].monsterName << " : '¹ÙÀ§'´Â '¹ÙÀ§'·Î!" << endl;
+		cout << " " << monster[monNumber].monsterName << " : 'ë°”ìœ„'ëŠ” 'ë°”ìœ„'ë¡œ!" << endl;
 	else
-		cout << " " << monster[monNumber].monsterName << " : 'º¸'´Â 'º¸'·Î!" << endl;
+		cout << " " << monster[monNumber].monsterName << " : 'ë³´'ëŠ” 'ë³´'ë¡œ!" << endl;
 
-	cout << " " << hero->heroName << " : 'À½... Á» ´õ ½ÅÁßÇÏ°Ô.....'" << endl;
+	cout << " " << hero->heroName << " : 'ìŒ... ì¢€ ë” ì‹ ì¤‘í•˜ê²Œ.....'" << endl;
 	cout << endl;
-	cout << " >> ¾Æ¹«Å°³ª ÀÔ·ÂÇØ ÁÖ¼¼¿ä << ";
+	cout << " >> ì•„ë¬´í‚¤ë‚˜ ì…ë ¥í•´ ì£¼ì„¸ìš” << ";
 	int ch = _getch();
 
 	return false;
 }
 
-//½Â¸® ÇÔ¼ö
-bool Win(Hero* hero, Monster* monster, int monNumber, int result) // ÀÌ±è ÇÔ¼ö
+//ìŠ¹ë¦¬ í•¨ìˆ˜
+bool Win(Hero* hero, Monster* monster, int monNumber, int result) // ì´ê¹€ í•¨ìˆ˜
 {
 	int tmp;
-	tmp = hero->damage + rand() % 2;
+	int critical = rand() % 2;
+	tmp = hero->damage + critical;
 	cout << endl;
-	cout << " >> °á°ú : ½Â!!" << endl;
-	cout << " >> " << hero->heroName << " ´ÔÀÌ " << tmp << " ¸¸Å­ °ø°İ!" << endl;
+	cout << " >> ê²°ê³¼ : ìŠ¹!!" << endl;
+	if (critical > 0)
+	{
+		cout << " >> í¬ë¦¬í‹°ì»¬ ë°œë™!!" << endl;
+	}
+	cout << " >> " << hero->heroName << " ë‹˜ì´ " << tmp << " ë§Œí¼ ê³µê²©!" << endl;
 	cout << endl;
 	monster[monNumber].currentHp -= tmp;
 
 	if (result == SRP::SCISSORS)
-		cout << " " << hero->heroName << " : ³¯Ä«·Î¿î °¡À§!!" << endl;
+		cout << " " << hero->heroName << " : ë‚ ì¹´ë¡œìš´ ê°€ìœ„!!" << endl;
 	else if (result == SRP::ROCK)
-		cout << " " << hero->heroName << " : ´Ü´ÜÇÑ ¹ÙÀ§!!" << endl;
+		cout << " " << hero->heroName << " : ë‹¨ë‹¨í•œ ë°”ìœ„!!" << endl;
 	else
-		cout << " " << hero->heroName << " : ÂÓ ÆîÄ£ º¸!!" << endl;
+		cout << " " << hero->heroName << " : ì«™ í¼ì¹œ ë³´!!" << endl;
 
 	if (monster[monNumber].currentHp <= 0)
 	{
-		cout << " " << monster[monNumber].monsterName << " : À¸¾Æ¾Æ¤¿¤¿¤¡....." << endl;
-		hero->myGold += monster[monNumber].giveGold; //µ· È¹µæ.
-		hero->currentExp += monster[monNumber].giveExp; //°æÇèÄ¡ È¹µæ
+		cout << " " << monster[monNumber].monsterName << " : ìœ¼ì•„ì•„ã…ã…ã„±....." << endl;
+		hero->myGold += monster[monNumber].giveGold; //ëˆ íšë“.
+		hero->currentExp += monster[monNumber].giveExp; //ê²½í—˜ì¹˜ íšë“
 
 		cout << endl;
-		cout << "\t < º¸  »ó >" << endl;
+		cout << "\t < ë³´  ìƒ >" << endl;
 		cout << endl;
-		cout << " - " << monster[monNumber].monsterName << "¸¦(À») Àâ¾Æ µ· " << monster[monNumber].giveGold << "¿ø"
-			" È¹µæ!" << endl;
-		cout << " - °æÇèÄ¡ : " << monster[monNumber].giveExp << "È¹µæ!" << endl;
-		if (hero->currentExp >= hero->maxExp) //·¹º§ ¾÷
+		cout << " - " << monster[monNumber].monsterName << "ë¥¼(ì„) ì¡ì•„ ëˆ " << monster[monNumber].giveGold << "ì›"
+			" íšë“!" << endl;
+		cout << " - ê²½í—˜ì¹˜ : " << monster[monNumber].giveExp << "íšë“!" << endl;
+		if (hero->currentExp >= hero->maxExp) //ë ˆë²¨ ì—…
 		{
-			Sleep(1000);
+			cout << endl;
+			cout << " >> ì•„ë¬´í‚¤ë‚˜ ì…ë ¥í•´ ì£¼ì„¸ìš” << ";
+			int ch = _getch();
 			system("cls");
 			LevelUp(hero);
 		}
 		else
 		{
-			cout << " - ÇöÀç ³²Àº Ã¼·Â : " << hero->currentHp << endl;
-			cout << " - º¸À¯ÇÑ ±İ¾× : " << hero->myGold << endl;
-			cout << " - ³²Àº ¸ó½ºÅÍÀÇ ¼ö : " << --monsterCount << endl;
+			cout << " - í˜„ì¬ ë‚¨ì€ ì²´ë ¥ : " << hero->currentHp << endl;
+			cout << " - ë³´ìœ í•œ ê¸ˆì•¡ : " << hero->myGold << endl;
+			cout << " - ë‚¨ì€ ëª¬ìŠ¤í„°ì˜ ìˆ˜ : " << --monsterCount << endl;
 
 			cout << endl;
-			cout << " >> ¾Æ¹«Å°³ª ÀÔ·ÂÇØ ÁÖ¼¼¿ä << ";
+			cout << " >> ì•„ë¬´í‚¤ë‚˜ ì…ë ¥í•´ ì£¼ì„¸ìš” << ";
 			int ch = _getch();
 		}
 		
-		monster[monNumber].currentHp = monster[monNumber].maxHp; //ÇöÀç ¸ó½ºÅÍ¸¦ ¾Æ¿¹ ¾ø¾ÖÁö ¾Ê°í ´Ù½Ã ÃÖ´ëÃ¼·ÂÀ¸·Î È¸º¹ÇÏ¿© ÀâÀ» ¼ö ÀÖµµ·Ï ¼³Á¤ÇÑ´Ù.
+		monster[monNumber].currentHp = monster[monNumber].maxHp; //í˜„ì¬ ëª¬ìŠ¤í„°ë¥¼ ì•„ì˜ˆ ì—†ì• ì§€ ì•Šê³  ë‹¤ì‹œ ìµœëŒ€ì²´ë ¥ìœ¼ë¡œ íšŒë³µí•˜ì—¬ ì¡ì„ ìˆ˜ ìˆë„ë¡ ì„¤ì •í•œë‹¤.
 		
 		system("cls");
 
 		if (monsterCount <= 0)
 		{
 			cout << endl;
-			cout << " ¢Ü£¨£ö£Ş£ß£Ş£©£ö£ö£¨£Ş£ß£Ş£ö£©¢Ü " << endl;
+			cout << " â™ªï¼ˆï½–ï¼¾ï¼¿ï¼¾ï¼‰ï½–ï½–ï¼ˆï¼¾ï¼¿ï¼¾ï½–ï¼‰â™ª " << endl;
 			cout << endl;
-			cout << hero->heroName << "´ÔÀÌ ¸ğµç ¸ó½ºÅÍ¸¦ Ã³Ä¡ÇÏ°í ½Â¸®!" << endl;
-			cout << "º¸À¯ÇÑ ±İ¾× : " << hero->myGold << endl;
+			cout << hero->heroName << "ë‹˜ì´ ëª¨ë“  ëª¬ìŠ¤í„°ë¥¼ ì²˜ì¹˜í•˜ê³  ìŠ¹ë¦¬!" << endl;
+			cout << "ë ˆë²¨ : " << hero->level << endl;
+			cout << "ë°ë¯¸ì§€ : " << hero->damage << endl;
+			cout << "ë³´ìœ í•œ ê¸ˆì•¡ : " << hero->myGold << endl;
 			cout << endl;
 			exit(1);
 		}
-
 		return true;
 	}
 	else
 	{
-		cout << " " << monster[monNumber].monsterName << " : ¾Ñ..! " << endl;
+		cout << " " << monster[monNumber].monsterName << " : ì•—..! " << endl;
 		
 		cout << endl;
-		cout << " >> ¾Æ¹«Å°³ª ÀÔ·ÂÇØ ÁÖ¼¼¿ä << ";
+		cout << " >> ì•„ë¬´í‚¤ë‚˜ ì…ë ¥í•´ ì£¼ì„¸ìš” << ";
 		int ch = _getch();
 		return false;
 	}
 }
 
-//ÆĞ ÇÔ¼ö
-bool Defeat(Hero* hero, Monster* monster, int monNumber, int result) //ÆĞ¹è ÇÔ¼ö
+//íŒ¨ í•¨ìˆ˜
+bool Defeat(Hero* hero, Monster* monster, int monNumber, int result) //íŒ¨ë°° í•¨ìˆ˜
 {
 	hero->currentHp -= monster[monNumber].monsterDmg;
 	if (hero->currentHp <= 0)
@@ -872,107 +997,126 @@ bool Defeat(Hero* hero, Monster* monster, int monNumber, int result) //ÆĞ¹è ÇÔ¼ö
 	}
 
 	cout << endl;
-	cout << " >> °á°ú : ÆĞ.." << endl;
-	cout << " >> ÇöÀç ³²Àº Ã¼·Â : " << hero->currentHp << endl;
+	cout << " >> ê²°ê³¼ : íŒ¨.." << endl;
+	cout << " >> í˜„ì¬ ë‚¨ì€ ì²´ë ¥ : " << hero->currentHp << endl;
 	cout << endl;
 	if(result == SRP::SCISSORS)
-		cout << " " << monster[monNumber].monsterName << " : °¡À§¿£ ´Ü´ÜÇÑ ¹ÙÀ§!!" << endl;	
+		cout << " " << monster[monNumber].monsterName << " : ê°€ìœ„ì—” ë‹¨ë‹¨í•œ ë°”ìœ„!!" << endl;	
 	if(result == SRP::ROCK)
-		cout << " " << monster[monNumber].monsterName << " : ÁÖ¸Ô¿£ ÂÓ ÆîÄ£ º¸!!" << endl;
+		cout << " " << monster[monNumber].monsterName << " : ì£¼ë¨¹ì—” ì«™ í¼ì¹œ ë³´!!" << endl;
 	if(result == SRP::PAPER)
-		cout << " " << monster[monNumber].monsterName << " : º¸¿¡´Â ³¯Ä«·Î¿î °¡À§!!" << endl;
-	cout << " " << hero->heroName << " : ¾Ñ...!" << endl;
+		cout << " " << monster[monNumber].monsterName << " : ë³´ì—ëŠ” ë‚ ì¹´ë¡œìš´ ê°€ìœ„!!" << endl;
+	cout << " " << hero->heroName << " : ì•—...!" << endl;
 	cout << endl;
 
-	//°ÔÀÓ Á¾·á
+	//ê²Œì„ ì¢…ë£Œ
 	if (hero->currentHp <= 0)
 	{
-		cout << monster[monNumber].monsterName << "ÀÇ °ø°İÀ¸·Î ÀÎÇØ " << hero->heroName <<
-			"´ÔÀÌ ÆĞ¹èÇÏ¿´½À´Ï´Ù. " << endl;
+		cout << monster[monNumber].monsterName << "ì˜ ê³µê²©ìœ¼ë¡œ ì¸í•´ " << hero->heroName <<
+			"ë‹˜ì´ íŒ¨ë°°í•˜ì˜€ìŠµë‹ˆë‹¤. " << endl;
 		exit(1);
 	}
 
-	cout << " >> ¾Æ¹«Å°³ª ÀÔ·ÂÇØ ÁÖ¼¼¿ä << ";
+	cout << " >> ì•„ë¬´í‚¤ë‚˜ ì…ë ¥í•´ ì£¼ì„¸ìš” << ";
 	int ch = _getch();
 
 	return false;
 }
 
-//·¹º§ ¾÷ ÇÔ¼ö
+//ë ˆë²¨ ì—… í•¨ìˆ˜
 void LevelUp(Hero* hero)
 {
 	int tmp = 0;
 
 	cout << endl;
-	cout << "\t\t< ·¹º§ÀÌ ¿Ã¶ú½À´Ï´Ù!!! >" << endl;
+	cout << "\t\t< ë ˆë²¨ì´ ì˜¬ëìŠµë‹ˆë‹¤!!! >" << endl;
 	cout << endl;
 
 	tmp = hero->level+1;
-	cout << "\t·¹º§ : \t\t" << hero->level << "\t --> \t" << tmp << endl;
+	cout << "\të ˆë²¨ : \t\t" << hero->level << "\t --> \t" << tmp << endl;
 	(hero->level)++;
 	
 	tmp = hero->damage + 1;
-	cout << "\t°ø°İ·Â : \t" << hero->damage << "\t --> \t" << tmp << endl;
+	cout << "\tê³µê²©ë ¥ : \t" << hero->damage << "\t --> \t" << tmp << endl;
 	(hero->damage)++;
 
-	tmp = ((hero->maxHp) + (hero->level) * 50); //·¹º§¾÷ ÇÑ ÈÄ ¸Æ½º hp¸¦ ¸ÕÀú °è»ê.
+	tmp = ((hero->maxHp) + (hero->level) * 50); //ë ˆë²¨ì—… í•œ í›„ ë§¥ìŠ¤ hpë¥¼ ë¨¼ì € ê³„ì‚°.
 
-	cout << "\tÃÖ´ë Ã¼·Â : \t" << hero->maxHp << "\t --> \t" << tmp << endl;
+	cout << "\tìµœëŒ€ ì²´ë ¥ : \t" << hero->maxHp << "\t --> \t" << tmp << endl;
 	hero->maxHp = tmp;
 	hero->currentHp = hero->maxHp;
 
-	tmp = (hero->maxExp) + (hero->level) * 300;
-	cout << "\tÃÖ´ë °æÇèÄ¡ : \t" << hero->maxExp << "\t --> \t" << tmp << endl;
+	tmp = (hero->maxExp) + (hero->level) * 400;
+	cout << "\tìµœëŒ€ ê²½í—˜ì¹˜ : \t" << hero->maxExp << "\t --> \t" << tmp << endl;
 	hero->maxExp = tmp;
 	hero->currentExp = 0;
 
 	cout << endl;
-	cout << "\t\t¾Æ¹«Å°³ª ÀÔ·ÂÇØ ÁÖ¼¼¿ä." << endl;
+	cout << "\t\tì•„ë¬´í‚¤ë‚˜ ì…ë ¥í•´ ì£¼ì„¸ìš”." << endl;
 	int ch = _getch();
 }
 
-void IntroPrint() //ÀÎÆ®·Î Ãâ·Â ÇÔ¼ö
+void GameStartPrint() //ì¸íŠ¸ë¡œ ì¶œë ¥ í•¨ìˆ˜
 {
 	cout << endl;
 	cout << "\t =======================================" << endl;
 	cout << "\t|\t\t\t\t\t|" << endl;
-	cout << "\t|  ¢Ü£¨£ö£Ş£ß£Ş£©£ö£ö£¨£Ş£ß£Ş£ö£©¢Ü\t|" << endl;
+	cout << "\t|  â™ªï¼ˆï½–ï¼¾ï¼¿ï¼¾ï¼‰ï½–ï½–ï¼ˆï¼¾ï¼¿ï¼¾ï½–ï¼‰â™ª\t|" << endl;
 	cout << "\t|\t\t\t\t\t|" << endl;
 	cout << "\t|\t\t\t\t\t|" << endl;
-	cout << "\t|\t  ¢º ¿µ¿õÀº ±¸Á¶Àû ¢¸ \t\t|" << endl;
+	cout << "\t|\t  â–¶ ì˜ì›…ì€ êµ¬ì¡°ì  â—€ \t\t|" << endl;
 	cout << "\t|\t\t\t\t\t|" << endl;
 	cout << "\t =======================================" << endl;
 	cout << endl;
 
-	cout << "-------------------- < °Ô ÀÓ ¼³ ¸í > -------------------------" << endl;
+	cout << "-------------------- < ê²Œ ì„ ì„¤ ëª… > -------------------------" << endl;
 	cout << endl;
-	cout << " - »ç¿ëÀÚÀÇ ÀÔ·ÂÀ¸·Î °¡·Î, ¼¼·ÎÀÇ Å©±â¸¦ ¹Ş¾Æ ¸ÊÀÌ\n   ±¸ÇöµÇ¸ç, Å©±â¿¡ µû¶ó ³­ÀÌµµ°¡ ¼³Á¤µË´Ï´Ù." << endl;
+	cout << " - ì‚¬ìš©ìì˜ ì…ë ¥ìœ¼ë¡œ ê°€ë¡œ, ì„¸ë¡œì˜ í¬ê¸°ë¥¼ ë°›ì•„ ë§µì´\n   êµ¬í˜„ë˜ë©°, í¬ê¸°ì— ë”°ë¼ ë‚œì´ë„ê°€ ì„¤ì •ë©ë‹ˆë‹¤." << endl;
 	cout << endl;
-	cout << " - ¸ÊÀ» ÇÑ Ä­¾¿ ÀÌµ¿ÇÏ¸ç °¢ Å¸ÀÏ¸¶´Ù ·£´ıÇÏ°Ô ¸ó½ºÅÍ¸¦\n   ¸¸³ª°Ô µË´Ï´Ù." << endl;
+	cout << " - ë§µì„ í•œ ì¹¸ì”© ì´ë™í•˜ë©° ê° íƒ€ì¼ë§ˆë‹¤ ëœë¤í•˜ê²Œ ëª¬ìŠ¤í„°ë¥¼\n   ë§Œë‚˜ê²Œ ë©ë‹ˆë‹¤." << endl;
 	cout << endl;
-	cout << " - Å¸ÀÏÀÇ Å¸ÀÔ¿¡ µû¶ó ¸¸³ª´Â ¸ó½ºÅÍ°¡ ´Ù¸¨´Ï´Ù." << endl;
+	cout << " - íƒ€ì¼ì˜ íƒ€ì…ì— ë”°ë¼ ë§Œë‚˜ëŠ” ëª¬ìŠ¤í„°ê°€ ë‹¤ë¦…ë‹ˆë‹¤." << endl;
 	cout << endl;
-	cout << " - °ÔÀÓÀº °¡À§, ¹ÙÀ§, º¸ ÇüÅÂ·Î ÁøÇàµÇ¸ç ¸ñÇ¥ ¸ó½ºÅÍÀÇ ¼ö¸¦\n   ´Ù ÀâÀ¸¸é °ÔÀÓÀ» ½Â¸®ÇÕ´Ï´Ù." << endl;
+	cout << " - ê²Œì„ì€ ê°€ìœ„, ë°”ìœ„, ë³´ í˜•íƒœë¡œ ì§„í–‰ë˜ë©° ëª©í‘œ ëª¬ìŠ¤í„°ì˜ ìˆ˜ë¥¼\n   ë‹¤ ì¡ìœ¼ë©´ ê²Œì„ì„ ìŠ¹ë¦¬í•©ë‹ˆë‹¤." << endl;
 	cout << endl;
-	cout << " - ¸ó½ºÅÍ¸¦ Àâ¾Æ µ·À» È¹µæÇÏ¿© »óÁ¡¿¡¼­ µ¥¹ÌÁö¸¦ Áõ°¡½ÃÅ°¼¼¿ä!" << endl;
+	cout << " - ëª¬ìŠ¤í„°ë¥¼ ì¡ì•„ ëˆì„ íšë“í•˜ì—¬ ìƒì ì—ì„œ ë°ë¯¸ì§€ë¥¼ ì¦ê°€ì‹œí‚¤ì„¸ìš”!" << endl;
 	cout << endl;
-	cout << " - ¿µ¿õ Åõ¸íÈ­¸¦ ÁøÇàÇÏ¸é Å¸ÀÏ¿¡¼­ ¸ó½ºÅÍ¸¦ ¸¸³ªÁø ¾ÊÁö¸¸,\n   »óÁ¡¿¡´Â µé¸± ¼ö ÀÖ½À´Ï´Ù." << endl;
+	cout << " - ì˜ì›… íˆ¬ëª…í™”ë¥¼ ì§„í–‰í•˜ë©´ íƒ€ì¼ì—ì„œ ëª¬ìŠ¤í„°ë¥¼ ë§Œë‚˜ì§„ ì•Šì§€ë§Œ,\n   ìƒì ì—ëŠ” ë“¤ë¦´ ìˆ˜ ìˆìŠµë‹ˆë‹¤." << endl;
 	cout << endl;
-	cout << " - Á¶ÀÛ¹ıÀº °ÔÀÓ ³»¿¡ ¼³¸íµÇ¾î ÀÖ½À´Ï´Ù." << endl;
+	cout << " - ì¡°ì‘ë²•ì€ ê²Œì„ ë‚´ì— ì„¤ëª…ë˜ì–´ ìˆìŠµë‹ˆë‹¤." << endl;
 	cout << endl;
 	cout << "-------------------------------------------------------------" << endl;
 	cout << endl;
+}
 
-	//string hehe = "";
-	//string space = " ";
-	//string haha = "¢Ü£¨£ö£Ş£ß£Ş£©£ö";
-	//
+void IntroEmoticon()
+{
+	string space = " ";
+	string haha1 = "â™ªï¼ˆï½–ï¼¾ï¼¿ï¼¾ï¼‰ï½–";
+	string haha2 = "ï½–ï¼ˆï¼¾ï¼¿ï¼¾ï½–ï¼‰â™ª";
 
-	//for (int i = 0; i < haha.size; i++)
-	//{
-	//	cout << hehe;
-	//	hehe = haha;
-	//	hehe = space + haha;
-	//	hehe = space + space + haha;
-	//}
+	for (int k = 0; k < 2; k++)
+	{
+		for (int i = 0; i < 20; i++)
+		{
+			for (int j = 0; j < i; j++)
+			{
+				cout << space;
+			}
+			cout << haha1;
+			system("cls");
+		}
+
+		for (int i = 0; i < 20; i++)
+		{
+			for (int j = 20; j > i; j--)
+			{
+				cout << space;
+			}
+			cout << haha2;
+			system("cls");
+		}
+	}
+
+	
 }
