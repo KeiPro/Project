@@ -24,8 +24,12 @@
 3) cin오류 예외처리 - 
 	if(cin.fail())
 	{
-	
+		cin.clear();
+		cin.ignore(256, '\n');
+		cout << "다시 입력해 주세요" << endl;
 	}
+	else
+		break;
 
 4) 시작부분 꾸미기 ( 완료 ) 
 5) 엔딩크레딧 만들기

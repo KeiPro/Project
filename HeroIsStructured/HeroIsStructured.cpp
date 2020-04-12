@@ -70,7 +70,9 @@ struct Shop
 	int shopXPosition, shopYPosition;
 };
 
-void IntroEmoticon(); // 
+void IntroEmoticon(); //시작 애니메이션
+void RunEmoticon(); //도망가는 애니메이션
+void WinEmoticon(); //승리 애니메이션
 void GameStartPrint(); // 인트로 출력
 void MapCreate(char** map, int width, int height, int* tilePositionSave, Shop* shop); //맵 동적할당 함수 원형
 void MapFree(char** map, int width, int height); //맵을 해제하는 함수 원형
@@ -96,11 +98,17 @@ void MyCode(Hero* hero)
 	string mySecretCode = "20";
 	string inputPassword;
 	
-	string inputStringPrint = "InputCode : ";
+	string inputStringPrint = " InputCode : ";
 	
 	cout << endl;
-	cout << " < 코드 입력 성공 시 공격력 +1, 돈 1000획득! >" << endl;
+	cout << " 왈도 : 힘쎄고 강한아침 만일 내게 물어보면 나는 왈도." << endl;
 	Sleep(1500);
+	cout << "\t써라, 기수 너의." << endl;
+	Sleep(1500);
+	cout << "\t준다, 나랑 같으면 보상." << endl;
+	Sleep(2000);
+	cout << endl;
+	cout << " < 코드 입력 성공 시 공격력 +1, 돈 1000획득! >" << endl;
 	cout << "   ( 힌트 : 현재 경일 게임아카데미의 기수 )" << endl;
 	cout << endl;
 
@@ -122,7 +130,7 @@ void MyCode(Hero* hero)
 		int tmp = hero->damage;
 		(hero->damage)++;
 
-		cout << " 영웅 공격력 : " << tmp << " -- > " << hero->damage << endl;
+		cout << " 영웅 공격력 : " << tmp << " -> " << hero->damage << endl;
 		cout << " 돈 1000획득!" << endl;
 		
 		hero->myGold += 1000;
@@ -161,7 +169,7 @@ int main()
 
 	while (1)
 	{
-		cout << "가로 입력 : ";
+		cout << " >> 가로 입력 : ";
 		cin >> width;
 		if (cin.fail())
 		{
@@ -176,7 +184,7 @@ int main()
 	}
 	while (1)
 	{
-		cout << "높이 입력 : ";
+		cout << " >> 높이 입력 : ";
 		cin >> height;
 		if (cin.fail())
 		{
@@ -402,7 +410,7 @@ void Settings(Hero* hero, Monster* monster, string monsterName[] ,int area)
 			area -= 100;
 			count++;
 		}
-		monsterCount = (count + 1) * 20; //밸런스
+		monsterCount = (count + 1) * 10; //밸런스
 	}
 	else
 	{
@@ -411,7 +419,7 @@ void Settings(Hero* hero, Monster* monster, string monsterName[] ,int area)
 			area -= 10;
 			count++;
 		}
-		monsterCount = (count + 1) * 3; //밸런스
+		monsterCount = (count + 1) * 2; //밸런스
 	}
 	
 	HeroSetting(hero, count); //히어로 초기화 및 세팅
@@ -421,7 +429,7 @@ void Settings(Hero* hero, Monster* monster, string monsterName[] ,int area)
 //히어로 세팅 함수
 void HeroSetting(Hero* hero = nullptr, int count = 0)
 {
-	cout << "히어로의 이름을 입력해 주세요 : ";
+	cout << " >> 히어로의 이름을 입력해 주세요 : ";
 	cin >> hero->heroName;
 
 	hero->maxHp = 100 + count * 10; //히어로의 기본 체력은 최소 100의 체력을 가지고 있는다. 
@@ -570,7 +578,6 @@ void FightAndShop(Hero* hero, Monster* monster , int moveResult, int* tilePositi
 			map[*saveYPosition][*saveXPosition] = 0; //영웅 표현
 			hero->myYPosition = *saveYPosition, hero->myXPosition = *saveXPosition;
 		}
-		
 	}
 	else
 	{
@@ -669,6 +676,7 @@ void MonsterMeet(Hero* hero, Monster* monster, int monsterType, int* tilePositio
 			cout << endl;
 			cout << monster[randNum].monsterName << " : 헤헤헤~ 바보!! 멍충이!!!! " << endl;
 			Sleep(1000);
+			RunEmoticon();
 			break;
 		}
 		else
@@ -910,6 +918,14 @@ bool Win(Hero* hero, Monster* monster, int monNumber, int result) // 이김 함�
 	int tmp;
 	int critical = rand() % 2;
 	tmp = hero->damage + critical;
+	monster[monNumber].currentHp -= tmp;
+	
+	if (monster[monNumber].currentHp <= 0)
+	{
+		WinEmoticon();
+	}
+
+	cout << endl;
 	cout << endl;
 	cout << " >> 결과 : 승!!" << endl;
 	if (critical > 0)
@@ -918,12 +934,13 @@ bool Win(Hero* hero, Monster* monster, int monNumber, int result) // 이김 함�
 	}
 	cout << " >> " << hero->heroName << " 님이 " << tmp << " 만큼 공격!" << endl;
 	cout << endl;
-	monster[monNumber].currentHp -= tmp;
-
+	cout << endl;
+	
+	
 	if (result == SRP::SCISSORS)
-		cout << " " << hero->heroName << " : 날카로운 가위!!" << endl;
+		cout << " " << hero->heroName << " : 유승준의 가위!!" << endl;
 	else if (result == SRP::ROCK)
-		cout << " " << hero->heroName << " : 단단한 바위!!" << endl;
+		cout << " " << hero->heroName << " : 바위처럼 단단하게!!" << endl;
 	else
 		cout << " " << hero->heroName << " : 쫙 펼친 보!!" << endl;
 
@@ -1001,11 +1018,11 @@ bool Defeat(Hero* hero, Monster* monster, int monNumber, int result) //패배 �
 	cout << " >> 현재 남은 체력 : " << hero->currentHp << endl;
 	cout << endl;
 	if(result == SRP::SCISSORS)
-		cout << " " << monster[monNumber].monsterName << " : 가위엔 단단한 바위!!" << endl;	
+		cout << " " << monster[monNumber].monsterName << " : 바위처럼 단단하게!!" << endl;	
 	if(result == SRP::ROCK)
 		cout << " " << monster[monNumber].monsterName << " : 주먹엔 쫙 펼친 보!!" << endl;
 	if(result == SRP::PAPER)
-		cout << " " << monster[monNumber].monsterName << " : 보에는 날카로운 가위!!" << endl;
+		cout << " " << monster[monNumber].monsterName << " : 보에는 가위!!" << endl;
 	cout << " " << hero->heroName << " : 앗...!" << endl;
 	cout << endl;
 
@@ -1081,7 +1098,7 @@ void GameStartPrint() //인트로 출력 함수
 	cout << endl;
 	cout << " - 몬스터를 잡아 돈을 획득하여 상점에서 데미지를 증가시키세요!" << endl;
 	cout << endl;
-	cout << " - 영웅 투명화를 진행하면 타일에서 몬스터를 만나진 않지만,\n   상점에는 들릴 수 있습니다." << endl;
+	cout << " - 영웅 투명화를 진행하면 타일에서 몬스터를 만나진 않지만,\n   상점에는 들를 수 있습니다." << endl;
 	cout << endl;
 	cout << " - 조작법은 게임 내에 설명되어 있습니다." << endl;
 	cout << endl;
@@ -1096,43 +1113,96 @@ void IntroEmoticon()
 	string haha1 = "♪（ｖ＾＿＾）ｖ";
 	string haha2 = "ｖ（＾＿＾ｖ）♪";
 
-	for (int i = 0; i < 15; i++)
+	for (int k = 0; k < 2; k++) {
+		for (int i = 0; i < 15; i++)
+		{
+			cout << endl;
+			for (int j = 0; j < i; j++)
+			{
+				cout << space;
+			}
+			cout << haha1;
+			cout << endl;
+			cout << endl;
+			cout << " Loading... ";
+			Sleep(10);
+			system("cls");
+		}
+
+		for (int i = 0; i < 15; i++)
+		{
+			cout << endl;
+			for (int j = 15; j > i; j--)
+			{
+				cout << space;
+			}
+			cout << haha2;
+			cout << endl;
+			cout << endl;
+			cout << " Loading... ";
+			Sleep(10);
+			system("cls");
+		}
+	}
+
+}
+
+void WinEmoticon()
+{
+	string haha1 = " o(#￣▽￣)==O))￣0￣\")o";
+	string haha2 = " o(#￣▽￣)=O (￣0￣)o";
+	string haha3 = " o(#￣▽￣)O  (￣0￣)o";
+	cout << endl;
+
+	for (int i = 0; i < 21; i++)
 	{
+		system("cls");
+		cout << endl;
+		if (i % 3 == 0)
+		{
+			cout << haha3;
+			Sleep(30);
+		}
+
+		if (i % 3 == 1)
+		{
+			cout << haha2;
+			Sleep(30);
+		}
+
+		if (i % 3 == 2)
+		{
+			cout << haha1;
+			Sleep(30);
+		}
+	}
+
+	Sleep(1000);
+}
+
+void RunEmoticon()
+{
+	string space = " ";
+	string haha1 = "ε = ε = Σ((( つ＞＜)つ";
+	string haha3 = "    ε = Σ((( っ＞＜)っ";
+
+	for (int i = 0; i < 20; i++)
+	{
+		system("cls");
+		cout << endl;
 		for (int j = 0; j < i; j++)
 		{
 			cout << space;
-			
 		}
-		cout << haha1;
-		cout << endl;
-		cout << endl;
-		cout << " Loading... ";
-		system("cls");
-	}
-
-	for (int i = 0; i < 15; i++)
-	{
-		for (int j = 15; j > i; j--)
+		if (i % 2 == 0)
 		{
-			cout << space;
+			cout << haha3;
+			Sleep(10);
 		}
-		cout << haha2;
-		cout << endl;
-		cout << endl;
-		cout << " Loading... ";
-		system("cls");
-	}
-
-	for (int i = 0; i < 15; i++)
-	{
-		for (int j = 0; j < i; j++)
+		else
 		{
-			cout << space;
+			cout << haha1;
+			Sleep(10);
 		}
-		cout << haha1;
-		cout << endl;
-		cout << endl;
-		cout << " Loading... ";
-		system("cls");
 	}
 }
