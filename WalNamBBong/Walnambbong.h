@@ -6,6 +6,7 @@
 
 #define TYPE_COUNT 4
 #define CARD_EACH_NUMBER 13
+#define INIT_MONEY 2000
 
 using namespace std;
 
@@ -21,21 +22,25 @@ class Player
 {
 private:
 
+	string name;
 	int firstCard, secondCard;
 	int myMoney; //나의 소지금
 
 public:
 	Player(int x = 0, int y = 0, int z = 0) : firstCard{ x }, secondCard{ y }, myMoney{ z }
-	{}
+	{} 
 
 	void BaseVetting(); //기본 베팅하는 함수 원형
 	void GameVetting(int); //게임 베팅하는 함수 원형
 	void SetCardSetting(); //카드를 세팅하는 함수
-	void CardSetting(int); //셔플 후 카드를 받을 함수원형
+	void SetNameSetting(string); //이름을 세팅하는 함수
+	void SetMoneySetting(int); // 머니를 설정하는 함수
+	//void GiveMeCard(int); //셔플 후 카드를 받을 함수원형
 	void PullMoney(int); // 돈 받는 함수 원형
 	int GetFirstCard();
 	int GetSecondCard();
 	int GetMoney();
+	
 };
 
 
@@ -49,7 +54,6 @@ private:
 	int totalPlayerNumber; //전체 플레이어 수
 	int remainingPlayerNumber; //남은 플레이어 수
 
-	
 public:
 	//생성자 사용 및 초기화
 	GameManager(int _totalMoney = 0, int _totalCard = 52, int _remainingCard = 52, int _totalPlayer = 0, int _remainingPlayer = 0) : gameTotalMoney{ _totalMoney },
@@ -58,9 +62,21 @@ public:
 
 	}
 
+	//setter
+	void SetGameTotalMoney(int);
+	void SetTotalCardNumber(int);
+	void SetRemainingCardNumebr(int);
+	void SetTotalPlayerNumber(int);
+	void SetRemainingPlayerNumber(int);
+
+	//getter
+	int GetTotalCardNumber();
+	int GetRemainingCardNumebr();
+	int GetTotalPlayerNumber();
+	int GetRemainingPlayerNumber();
+	int GetGameTotalMoney();
+
 	void CardSuffle(Card** _card); //카드 셔플 함수원형
 	void CardDividing(); //카드 나눠주는 함수원형
 	void FirstPlayerSetting(); //선 플레이어 결정 함수원형
-	
-
 };

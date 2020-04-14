@@ -3,8 +3,11 @@
 //기본 베팅 함수.
 void Player::BaseVetting()
 {
-	if (this->myMoney > 200)
+	if (this->myMoney > 200) 
+	{
 		this->myMoney -= 200;
+	}
+	
 }
 
 //게임 베팅 함수.
@@ -23,13 +26,14 @@ void Player::SetCardSetting()
 	this->secondCard = 0;
 }
 
-//카드 세팅 받는 함수 총 2회 호출.
-void Player::CardSetting(int cardNumber)
+void Player::SetNameSetting(string name)
 {
-	if (this->firstCard == 0)
-		this->firstCard = cardNumber;
-	else
-		this->firstCard = cardNumber;
+	this->name = name;
+}
+
+void Player::SetMoneySetting(int _setMoney)
+{
+	this->myMoney = _setMoney;
 }
 
 //돈을 받는 함수
@@ -53,16 +57,84 @@ int Player::GetMoney()
 	return this->myMoney;
 } 
 
+
+void GameManager::SetTotalCardNumber(int totalCardNumber)
+{
+	this->totalCardNumber = totalCardNumber;
+}
+
+void GameManager::SetRemainingCardNumebr(int _remainingCardNumber)
+{
+	this->remainingCardNumebr = _remainingCardNumber;
+}
+
+void GameManager::SetTotalPlayerNumber(int _totalPlayerNumber)
+{
+	this->totalPlayerNumber = _totalPlayerNumber;
+}
+
+void GameManager::SetRemainingPlayerNumber(int _remainingPlayerNumber)
+{
+	this->remainingPlayerNumber = _remainingPlayerNumber;
+}
+
+//게임 판돈
+void GameManager::SetGameTotalMoney(int gameTotalMoney)
+{
+	this->gameTotalMoney = gameTotalMoney;
+}
+
+//게임 총 카드 개수
+int GameManager::GetTotalCardNumber()
+{
+	return this->totalCardNumber;
+}
+
+int GameManager::GetRemainingCardNumebr()
+{
+	return this->remainingCardNumebr;
+}
+
+int GameManager::GetRemainingPlayerNumber()
+{
+	return this->remainingPlayerNumber;
+}
+
+int GameManager::GetGameTotalMoney()
+{
+	return this->gameTotalMoney;
+}
+
+int GameManager::GetTotalPlayerNumber()
+{
+	return this->totalPlayerNumber;
+}
+
+
+
+
+//카드셔플 함수
 void GameManager::CardSuffle(Card** _card)
 {
-	int y = rand() % 4; // 0 ~ 3 까지
-	int x = rand() % 14; // 0 ~ 13 까지
-	Card tmp1, tmp2;
+	Card tmp;
+	int x, y, a, b;
 
-	tmp1 = _card[y][x];
+	for (int i = 0; i < 500; i++)
+	{
+		x = rand() % 4; // 0 ~ 3 까지
+		y = rand() % 13; // 0 ~ 13 까지
+		a = rand() % 4;
+		b = rand() % 13;
 
-	y = rand() % 4; // 0 ~ 3 까지
-	x = rand() % 14; // 0 ~ 13 까지
+		while ((x == a) && (y == b))
+		{
+			a = rand() % 4;
+			b = rand() % 13;
+		}
 
-	tmp2 = _card[y][x];
+		tmp = _card[x][y];
+		_card[x][y] = _card[a][b];
+		_card[a][b] = tmp;
+		
+	}
 }
