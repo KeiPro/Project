@@ -133,30 +133,37 @@ void GameManager::CardSuffle(Card** _card)
 }
 
 //카드 나누기 함수
-void GameManager::CardDividing(Card** _card, Player* _player, Player* _comPlayer, int _playerTotalNumber)
+void GameManager::CardDividing(Card** _card, Player* _player, Player* _comPlayer)
 {
-	for (int i = 0; i < 2; i++)
+	int j = this->GetFirstPlayer(); //선 플레이어의 인덱스를 가져온다. 0이면 플레이어, 1 ~ 3 : 컴퓨터1,2,3
+	for (int i = 0; i < this->GetRemainingPlayerNumber() * 2; i++)
 	{
-		_player->GiveMeCard(_card[this->x][this->y]);
-		cout << this->x << ", " << this->y << endl;
-		(this->y)++;
+		if (j == 0) 
+		{
+			_player->GiveMeCard(_card[this->x][this->y]);
+			(this->y)++;
+			
+		}
+		else
+		{
+			_comPlayer[j-1].GiveMeCard(_card[this->x][this->y]);
+			(this->y)++;
 
-		//y값이 한 모양의 카드 개수(13개-1) 보다 커진다면 y를 0으로 바꿔주고 x를 1증가시킨다.
+		}
+
+		if ((j + 1) % this->GetRemainingPlayerNumber() == 0)
+		{
+			j = 0;
+		}
+		else
+		{
+			j++;
+		}
+
 		if (this->y > CARD_EACH_NUMBER - 1)
 		{
 			this->y = 0;
 			this->x++;
-		}
-		for (int j = 0; j < _playerTotalNumber-1 ; j++) //비완벽..
-		{
-			_comPlayer[j].GiveMeCard(_card[this->x][this->y]);
-			cout << this->x << ", " << this->y << endl;
-			(this->y)++;
-			if (this->y > CARD_EACH_NUMBER - 1)
-			{
-				this->y = 0;
-				this->x++;
-			}
 		}
 	}
 }

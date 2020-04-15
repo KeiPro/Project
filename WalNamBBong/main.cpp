@@ -32,8 +32,8 @@ int main()
 		//cout << comPlayer[i].GetName() << endl;
 	}
 
-	//게임 메니저 초기화가 일어나야 된다.
-	 //게임매니저 객체 생성 및 초기화.
+	//게임 매니저 초기화가 일어나야 된다.
+	//게임매니저 객체 생성 및 초기화.
 	GameManager gm{0 ,0, TYPE_COUNT * CARD_EACH_NUMBER, TYPE_COUNT * CARD_EACH_NUMBER, playerTotalNumber + 1 , playerTotalNumber + 1, 0};
 
 #pragma endregion
@@ -46,6 +46,20 @@ int main()
 	CardBaseSetting(card); //기본 카드 세팅. 스페이드~클로바까지, 숫자 순서대로 되어있는 새 카드 준비.
 	gm.CardSuffle(card); //카드 셔플
 
+#pragma region 기본 선 플레이어 결정구간
+	int turn = rand() % 4; // 0 ~ 3
+	gm.SetFirstPlayer(turn);
+
+	if (gm.GetFirstPlayer() == 0)
+	{
+		cout << "당신이 선 플레이어 입니다." << endl;
+	}
+	else
+	{
+		cout << comPlayer[gm.GetFirstPlayer() - 1].GetName() << "이 선 플레이어 입니다." << endl;
+	}
+#pragma endregion
+	
 #pragma region 게임이 진행되는 구간
 	while (1)
 	{
@@ -59,7 +73,7 @@ int main()
 		}
 //
 #pragma endregion
-//	
+
 #pragma region 기본 베팅을 하는 구간
 //
 //		// 2.게임에 참가를 해야하므로 각 플레이어마다 소지금 -200을 한다.
@@ -72,30 +86,35 @@ int main()
 
 #pragma endregion
 
-#pragma region 선 플레이어를 결정하는 구간
 
-		gm.SetFirstPlayer(rand()%4);
-		if (gm.GetFirstPlayer() == 0)
-		{
-			cout << "당신이 선 플레이어 입니다." << endl;
-		}
-		else
-		{
-			cout << comPlayer[gm.GetFirstPlayer()-1].GetName() << "이 선 플레이어 입니다." << endl;
-		}
-
-#pragma endregion
 
 #pragma region 게임 매니져가 카드를 나눠주는 구간
 
-		gm.CardDividing(card , &player, comPlayer, gm.GetRemainingPlayerNumber());
+		gm.CardDividing(card , &player, comPlayer);
 		
-		gm.SetRemainingCardNumeber(gm.GetRemainingCardNumber() - gm.GetRemainingPlayerNumber() * 2);
-		cout << gm.GetRemainingCardNumber();
-
+		//각 플레이어간의 카드 출력
+		/*
+		//for (int i = 0; i < gm.GetTotalPlayerNumber(); i++)
+		//{
+		//	if (i == 0)
+		//	{
+		//		cout << player.GetFirstCard().type << ", " << player.GetFirstCard().cardNumber << endl;
+		//		cout << player.GetSecondCard().type << ", " << player.GetSecondCard().cardNumber << endl;
+		//	}
+		//	else
+		//	{
+		//		cout << comPlayer[i-1].GetFirstCard().type << ", " << comPlayer[i - 1].GetFirstCard().cardNumber << endl;
+		//		cout << comPlayer[i-1].GetSecondCard().type << ", " << comPlayer[i - 1].GetSecondCard().cardNumber << endl;
+		//	}
+		//	cout << endl;
+		//}
+		//gm.SetRemainingCardNumeber(gm.GetRemainingCardNumber() - gm.GetRemainingPlayerNumber() * 2);
+		//cout << "남은 카드 개수 : " << gm.GetRemainingCardNumber(); //남은 카드의 개수 출력
+		*/
+		
 #pragma endregion
-			  
-
+		
+		//순서대로 베팅을 한다.
 
 
 		break;
