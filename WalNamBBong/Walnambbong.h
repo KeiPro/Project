@@ -100,6 +100,7 @@ public:
 
 	void CardSuffle(Card** _card); //카드 셔플 메소드
 	void CardDividing(Card** _card, Player* _player, Player* _comPlayer); //카드 나눠주는 메소드
-	int PullMoney(); //돈을 받을 메소드
+	void PlayerVetting(Card** _card, Player* _player, Player* _comPlayer); //베팅하는 메소드
+	//int PullMoney(); //돈을 받을 메소드
 	//void GameStart(); //게임 진행하는 함수
 };

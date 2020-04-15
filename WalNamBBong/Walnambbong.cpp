@@ -64,12 +64,10 @@ void Player::GiveMeCard(Card _card)
 	if ((this->GetFirstCard().cardNumber == 0))
 	{
 		this->SetFirstCard(_card);
-		cout << "첫 번째 카드 설정!" << endl;
 	}
 	else
 	{
 		this->SetSecondCard(_card);
-		cout << "두 번째 카드 설정!" << endl;
 	}
 }
 
@@ -165,6 +163,22 @@ void GameManager::CardDividing(Card** _card, Player* _player, Player* _comPlayer
 			this->y = 0;
 			this->x++;
 		}
+	}
+}
+
+void GameManager::PlayerVetting(Card ** _card, Player * _player, Player * _comPlayer)
+{
+	if (this->GetFirstPlayer() == 0)
+	{
+		cout << _player->GetName() << "님 선 플레이어 입니다." << endl;
+		cout << endl;
+		cout << _player->GetName() << "님이 가진 카드 : " << _player->GetFirstCard().cardNumber << ", " << _player->GetSecondCard().cardNumber << endl;
+	}
+	else
+	{
+		cout << _comPlayer[this->GetFirstPlayer()-1].GetName() << "님 선 플레이어 입니다." << endl;
+		cout << endl;
+		cout << _comPlayer[this->GetFirstPlayer() - 1].GetName() << "님이 가진 카드 : " << _comPlayer[this->GetFirstPlayer() - 1].GetFirstCard().cardNumber << ", " << _comPlayer[this->GetFirstPlayer() - 1].GetSecondCard().cardNumber << endl;
 	}
 }
 

@@ -9,8 +9,9 @@ int main()
 	srand(time(NULL));
 
 	Player player; //플레이어 객체 생성.
-	int playerTotalNumber; //플레이어 총 수 입력 변수
+	int playerTotalNumber; //플레이어 총 수를 입력 변수
 	string playerName; //플레이어 이름을 입력받을 변수
+	int vettingCall;
 
 	cout << "플레이어의 이름을 입력해 주세요 : ";
 	cin >> playerName;
@@ -50,14 +51,14 @@ int main()
 	int turn = rand() % 4; // 0 ~ 3
 	gm.SetFirstPlayer(turn);
 
-	if (gm.GetFirstPlayer() == 0)
-	{
-		cout << "당신이 선 플레이어 입니다." << endl;
-	}
-	else
-	{
-		cout << comPlayer[gm.GetFirstPlayer() - 1].GetName() << "이 선 플레이어 입니다." << endl;
-	}
+	//if (gm.GetFirstPlayer() == 0)
+	//{
+	//	cout << "당신이 선 플레이어 입니다." << endl;
+	//}
+	//else
+	//{
+	//	cout << comPlayer[gm.GetFirstPlayer() - 1].GetName() << "이 선 플레이어 입니다." << endl;
+	//}
 #pragma endregion
 	
 #pragma region 게임이 진행되는 구간
@@ -83,11 +84,10 @@ int main()
 		{
 			comPlayer[i].BaseVetting(&gm);
 		}
+		
 
 #pragma endregion
-
-
-
+		
 #pragma region 게임 매니져가 카드를 나눠주는 구간
 
 		gm.CardDividing(card , &player, comPlayer);
@@ -114,8 +114,12 @@ int main()
 		
 #pragma endregion
 		
-		//순서대로 베팅을 한다.
+#pragma region 본격 베팅게임 시작
+		gm.PlayerVetting(card, &player, comPlayer); 
+		
+#pragma endregion
 
+		Sleep(3000);
 
 		break;
 	}
