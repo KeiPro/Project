@@ -106,6 +106,29 @@ bool Player::GetIsAlive()
 	return this->isAlive;
 }
 
+int Player::JudgementFunction(GameManager* _gm)
+{
+	int highNumber;
+	int lowNumber;
+	int probability;
+	if (this->firstCard.cardNumber > this->secondCard.cardNumber)
+	{
+		highNumber = this->firstCard.cardNumber;
+		lowNumber = this->secondCard.cardNumber;
+	}
+	else if (this->firstCard.cardNumber < this->secondCard.cardNumber)
+	{
+		highNumber = this->secondCard.cardNumber;
+		lowNumber = this->firstCard.cardNumber;
+	}
+	else
+		return 0;
+
+	probability = (int)(((double)highNumber - lowNumber) / CARD_EACH_NUMBER); // %의 결과가 나온다.
+	cout << "확률 계산 중...." << probability << endl;
+	return probability;
+}
+
 
 #pragma endregion
 

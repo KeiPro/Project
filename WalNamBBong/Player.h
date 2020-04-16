@@ -9,13 +9,16 @@ private:
 	string name;
 	Card firstCard, secondCard;
 	bool isAlive;
+	int judgement;
 
 	int myMoney; //나의 소지금
 	//bool defeat;
 
 public:
 	Player(int _cardNumber = 0, int _myMoney = 0, bool _isAlive = true) : firstCard{ _cardNumber, "" }, secondCard{ _cardNumber, "" }, myMoney{ _myMoney }, isAlive{ _isAlive }
-	{}
+	{
+		
+	}
 
 	void GiveMeCard(Card); //셔플 후 카드를 받을 함수원형
 	void PullMoney(int); // 돈 받는 함수 원형
@@ -30,6 +33,7 @@ public:
 	void SetFirstCard(Card); //첫 번째 카드를 세팅하는 함수
 	void SetSecondCard(Card); //두 번째 카드를 세팅하는 함수
 	void SetIsAlive(bool); //살았나 죽었나를 체크하는 함수
+	
 
 	//Getter
 	Card GetFirstCard();
@@ -37,6 +41,6 @@ public:
 	int GetMoney();
 	string GetName();
 	bool GetIsAlive();
-
+	int JudgementFunction(GameManager* _gm);
 
 };

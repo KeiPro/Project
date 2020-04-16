@@ -41,7 +41,7 @@ int main()
 	//게임 매니저 초기화가 일어나야 된다.
 	//게임매니저 객체 생성 및 초기화.
 	GameManager gm{0 ,0, TYPE_COUNT * CARD_EACH_NUMBER, TYPE_COUNT * CARD_EACH_NUMBER, playerTotalNumber + 1 , playerTotalNumber + 1, 0};
-	gm.SetLeftMoneyIsTrue(true);
+	//gm.SetLeftMoneyIsTrue(true);
 
 #pragma endregion
 
@@ -83,10 +83,10 @@ int main()
 
 #pragma region 기본 베팅을 하는 구간
 
-		//판에 잔여 금액이 남아있는 경우.
-		if (gm.GetLeftMoneyIsTrue() == false)
+		//판에 잔여 금액이 남아있지 않으면
+		if (gm.GetGameTotalMoney() <= 0)
 		{
-			//		// 2.게임에 참가를 해야하므로 각 플레이어마다 소지금 -200을 한다.
+			// 2.게임에 참가를 해야하므로 각 플레이어마다 소지금 -200을 한다.
 			if (player.GetIsAlive())
 			{
 				player.BaseVetting(&gm);
@@ -94,7 +94,6 @@ int main()
 				Sleep(1000);
 			}
 
-			//cout << gm.GetRemainingPlayerNumber();
 			for (int i = 0; i < gm.GetTotalPlayerNumber() - 1; i++)
 			{
 				if (comPlayer[i].GetIsAlive())
@@ -104,6 +103,9 @@ int main()
 					Sleep(1000);
 				}
 			}
+
+			//카드 분배
+			gm.CardDividing(card, &player, comPlayer);
 		}
 		
 		cout << "현재 판 돈 : " << gm.GetGameTotalMoney() << endl;
@@ -111,32 +113,27 @@ int main()
 
 #pragma endregion
 		
-#pragma region 게임 매니져가 카드를 나눠주는 구간
+		
+	//각 플레이어간의 카드 출력
+	/*
+	//for (int i = 0; i < gm.GetTotalPlayerNumber(); i++)
+	//{
+	//	if (i == 0) 
+	//	{
+	//		cout << player.GetFirstCard().type << ", " << player.GetFirstCard().cardNumber << endl;
+	//		cout << player.GetSecondCard().type << ", " << player.GetSecondCard().cardNumber << endl;
+	//	}
+	//	else
+	//	{
+	//		cout << comPlayer[i-1].GetFirstCard().type << ", " << comPlayer[i - 1].GetFirstCard().cardNumber << endl;
+	//		cout << comPlayer[i-1].GetSecondCard().type << ", " << comPlayer[i - 1].GetSecondCard().cardNumber << endl;
+	//	}
+	//	cout << endl;
+	//}
+	//gm.SetRemainingCardNumeber(gm.GetRemainingCardNumber() - gm.GetRemainingPlayerNumber() * 2);
+	//cout << "남은 카드 개수 : " << gm.GetRemainingCardNumber(); //남은 카드의 개수 출력
+	*/
 
-		gm.CardDividing(card , &player, comPlayer);
-		
-		//각 플레이어간의 카드 출력
-		/*
-		//for (int i = 0; i < gm.GetTotalPlayerNumber(); i++)
-		//{
-		//	if (i == 0)
-		//	{
-		//		cout << player.GetFirstCard().type << ", " << player.GetFirstCard().cardNumber << endl;
-		//		cout << player.GetSecondCard().type << ", " << player.GetSecondCard().cardNumber << endl;
-		//	}
-		//	else
-		//	{
-		//		cout << comPlayer[i-1].GetFirstCard().type << ", " << comPlayer[i - 1].GetFirstCard().cardNumber << endl;
-		//		cout << comPlayer[i-1].GetSecondCard().type << ", " << comPlayer[i - 1].GetSecondCard().cardNumber << endl;
-		//	}
-		//	cout << endl;
-		//}
-		//gm.SetRemainingCardNumeber(gm.GetRemainingCardNumber() - gm.GetRemainingPlayerNumber() * 2);
-		//cout << "남은 카드 개수 : " << gm.GetRemainingCardNumber(); //남은 카드의 개수 출력
-		*/
-		
-#pragma endregion
-		
 #pragma region 베팅 true? false?
 		gameProgress = gm.PlayerGameStart(card, &player, comPlayer);
 		
@@ -144,33 +141,22 @@ int main()
 		{ 
 			case 0: // 빗자루로 승리.
 				// 승리한 사람이 선 플레이어가 된다.
+				cout << "빗자루!" << endl; 
 				player.PullMoney(gm.GetGameTotalMoney()); //판돈에 올라와있는 모든 돈을 다 받고,
 				gm.PullGameTotalMoney(-gm.GetGameTotalMoney()); //게임 매니저에서는 이 만큼 판돈이 빠져야 된다.
-
+				continue;
 				break;
 
 			case 1: // 베팅 시작
-				
+				cout << "베팅!!" << endl;
 				break;
 
 			case 2: // 다이
 				
+				cout << "다이!!" << endl;
 				break;
 
-		}
-
-		////본격 베팅 시작
-		//if (gameProgress == true)
-		//{
-		//	
-		//}
-		//else //다이 
-		//{
-
-		//}
-
-		
-		
+		}		
 #pragma endregion
 
 #pragma region 게임 종료 구간

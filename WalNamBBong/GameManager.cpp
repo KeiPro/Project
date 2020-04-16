@@ -123,9 +123,9 @@ int GameManager::PlayerGameStart(Card ** _card, Player * _player, Player * _comP
 		cout << _comPlayer[j - 1].GetName() << "님이 가진 카드 : " << _comPlayer[j-1].GetFirstCard().type << " " << _comPlayer[j - 1].GetFirstCard().cardNumber 
 			 << ", " << _comPlayer[j - 1].GetSecondCard().type << " " << _comPlayer[j - 1].GetSecondCard().cardNumber << endl;
 
-		if ((_comPlayer[j - 1].GetFirstCard().cardNumber == 13) || (_comPlayer[j - 1].GetFirstCard().cardNumber == 13))
+		if ((_comPlayer[j - 1].GetFirstCard().cardNumber == 13) || (_comPlayer[j - 1].GetSecondCard().cardNumber == 13))
 		{
-			if ((_comPlayer[j - 1].GetFirstCard().cardNumber == 13) && (_comPlayer[j - 1].GetFirstCard().cardNumber == 13)) //빗자루.
+			if ((_comPlayer[j - 1].GetFirstCard().cardNumber == 13) && (_comPlayer[j - 1].GetSecondCard().cardNumber == 13)) //빗자루.
 			{
 				cout << " 13이 두 개!! " << endl;
 				cout << " 빗 자 루 !!" << endl;
@@ -147,12 +147,35 @@ int GameManager::PlayerGameStart(Card ** _card, Player * _player, Player * _comP
 		//컴퓨터 판단....
 
 		//판단에 의해 return 1, return 2;
+		return (rand() % 100) < (_player->JudgementFunction(this)) ? 1 : 2;
 	}
 }
 
 void GameManager::PlayerVetting(Card ** _card, Player * _player, Player * _comPlayer)
 {
+	int inputVetting;
 
+	if (this->GetFirstPlayer() == 0)
+	{
+		cout << "얼마를 베팅 하시겠습니까? (판돈 : " << this->GetGameTotalMoney() << "원, 보유금 : " << _player->GetMoney() << "원) " << endl;
+
+		do
+		{
+			cout << "판돈과 보유금보다 작게 입력해 주세요 >> ";
+			cin >> inputVetting;
+		} while ((inputVetting > this->GetGameTotalMoney()) || (inputVetting > _player->GetMoney()));
+	}
+	else
+	{
+		cout << "얼마를 베팅 하시겠습니까? (판돈 : " << this->GetGameTotalMoney() << "원, 보유금 : " << _comPlayer[this->GetFirstPlayer()-1].GetMoney() << "원) " << endl;
+
+		cout << "판 돈과 보유금보다 작게 입력해 주세요 >> ";
+				
+
+	}
+
+	
+	
 }
 
 #pragma endregion
@@ -189,11 +212,6 @@ void GameManager::SetFirstPlayer(int _firstPlayer)
 	this->firstPlayer = _firstPlayer;
 }
 
-void GameManager::SetLeftMoneyIsTrue(bool _data)
-{
-	this->leftMoneyIsTure = _data;
-}
-
 //게임 판돈
 void GameManager::PullGameTotalMoney(int _pullMoney)
 {
@@ -227,11 +245,6 @@ int GameManager::GetGameTotalMoney()
 int GameManager::GetFirstPlayer()
 {
 	return this->firstPlayer;
-}
-
-bool GameManager::GetLeftMoneyIsTrue()
-{
-	return this->leftMoneyIsTure;
 }
 
 int GameManager::GetTotalPlayerNumber()
