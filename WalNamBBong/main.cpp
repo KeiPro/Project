@@ -1,4 +1,6 @@
 #include "Walnambbong.h"
+#include "Player.h"
+#include "GameManager.h"
 
 void CardBaseSetting(Card** card); //기본적인 카드 준비 함수원형 // 1~13 차례대로 세팅됨.
 
@@ -12,12 +14,14 @@ int main()
 	int playerTotalNumber; //플레이어 총 수를 입력 변수
 	string playerName; //플레이어 이름을 입력받을 변수
 	int vettingCall;
+	int gameProgress; //게임 계속 진행하나?
 
 	cout << "플레이어의 이름을 입력해 주세요 : ";
 	cin >> playerName;
 	player.SetNameSetting(playerName); //이름 설정
 	player.SetMoneySetting(INIT_MONEY); //초기 소지금 설정
-	player.SetCardSetting({ 0, -1 }, {0, -1}); //플레이어 카드 초기화
+	player.SetCardSetting({ 0, "" }, {0, ""}); //플레이어 카드 초기화
+	player.SetIsAlive(true);
 
 	cout << "상대할 플레이어의 수를 입력해 주세요 : ";
 	cin >> playerTotalNumber;
@@ -29,13 +33,15 @@ int main()
 	{
 		comPlayer[i].SetNameSetting("com" + to_string(i+1)); //컴퓨터 이름 초기화
 		comPlayer[i].SetMoneySetting(INIT_MONEY); // 컴퓨터 소지금 초기화
-		comPlayer[i].SetCardSetting({ 0, -1 }, {0, -1}); //카드 초기화
+		comPlayer[i].SetCardSetting({ 0, "" }, {0, ""}); //카드 초기화
+		comPlayer[i].SetIsAlive(true);
 		//cout << comPlayer[i].GetName() << endl;
 	}
 
 	//게임 매니저 초기화가 일어나야 된다.
 	//게임매니저 객체 생성 및 초기화.
 	GameManager gm{0 ,0, TYPE_COUNT * CARD_EACH_NUMBER, TYPE_COUNT * CARD_EACH_NUMBER, playerTotalNumber + 1 , playerTotalNumber + 1, 0};
+	gm.SetLeftMoneyIsTrue(true);
 
 #pragma endregion
 
@@ -76,15 +82,32 @@ int main()
 #pragma endregion
 
 #pragma region 기본 베팅을 하는 구간
-//
-//		// 2.게임에 참가를 해야하므로 각 플레이어마다 소지금 -200을 한다.
-		player.BaseVetting(&gm);
-		//cout << gm.GetRemainingPlayerNumber();
-		for (int i = 0; i < gm.GetRemainingPlayerNumber()-1; i++)
+
+		//판에 잔여 금액이 남아있는 경우.
+		if (gm.GetLeftMoneyIsTrue() == false)
 		{
-			comPlayer[i].BaseVetting(&gm);
+			//		// 2.게임에 참가를 해야하므로 각 플레이어마다 소지금 -200을 한다.
+			if (player.GetIsAlive())
+			{
+				player.BaseVetting(&gm);
+				cout << "플레이어 기본 베팅 200" << endl;
+				Sleep(1000);
+			}
+
+			//cout << gm.GetRemainingPlayerNumber();
+			for (int i = 0; i < gm.GetTotalPlayerNumber() - 1; i++)
+			{
+				if (comPlayer[i].GetIsAlive())
+				{
+					comPlayer[i].BaseVetting(&gm);
+					cout << comPlayer[i].GetName() << " 기본베팅 200" << endl;
+					Sleep(1000);
+				}
+			}
 		}
 		
+		cout << "현재 판 돈 : " << gm.GetGameTotalMoney() << endl;
+		Sleep(2000);
 
 #pragma endregion
 		
@@ -114,12 +137,48 @@ int main()
 		
 #pragma endregion
 		
-#pragma region 본격 베팅게임 시작
-		gm.PlayerVetting(card, &player, comPlayer); 
+#pragma region 베팅 true? false?
+		gameProgress = gm.PlayerGameStart(card, &player, comPlayer);
+		
+		switch (gameProgress)
+		{ 
+			case 0: // 빗자루로 승리.
+				// 승리한 사람이 선 플레이어가 된다.
+				player.PullMoney(gm.GetGameTotalMoney()); //판돈에 올라와있는 모든 돈을 다 받고,
+				gm.PullGameTotalMoney(-gm.GetGameTotalMoney()); //게임 매니저에서는 이 만큼 판돈이 빠져야 된다.
+
+				break;
+
+			case 1: // 베팅 시작
+				
+				break;
+
+			case 2: // 다이
+				
+				break;
+
+		}
+
+		////본격 베팅 시작
+		//if (gameProgress == true)
+		//{
+		//	
+		//}
+		//else //다이 
+		//{
+
+		//}
+
+		
 		
 #pragma endregion
 
-		Sleep(3000);
+#pragma region 게임 종료 구간
+
+
+
+#pragma endregion
+
 
 		break;
 	}
@@ -141,14 +200,27 @@ void CardBaseSetting(Card** card) //기본적인 카드 준비 함수
 		for (int j = 0; j < CARD_EACH_NUMBER; j++)
 		{
 			card[i][j].cardNumber = (j + 1);
-			if (i == 0)
-				card[i][j].type = CARD_TYPE::SPADE;
-			else if (i == 1)
-				card[i][j].type = CARD_TYPE::DIAMOND;
-			else if (i == 2)
-				card[i][j].type = CARD_TYPE::HEART;
-			else
-				card[i][j].type = CARD_TYPE::CLOVER;
+			
+			switch (i)
+			{
+			case CARD_TYPE::SPADE:
+				card[i][j].type = "♠";
+				break;
+
+			case CARD_TYPE::DIAMOND:
+					card[i][j].type = "◆";
+					break;
+
+			case CARD_TYPE::HEART:
+				card[i][j].type = "♥";
+				break;
+
+			case CARD_TYPE::CLOVER:
+				card[i][j].type = "♣";
+
+				break;
+
+			}
 		}
 	}
 }
