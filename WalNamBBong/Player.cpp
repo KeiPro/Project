@@ -65,6 +65,11 @@ void Player::SetIsAlive(bool _isAlive)
 	this->isAlive = _isAlive;
 }
 
+void Player::SetJudgement(int _probability)
+{
+	judgement = _probability;
+}
+
 void Player::GiveMeCard(Card _card)
 {
 	if ((this->GetFirstCard().cardNumber == 0))
@@ -106,6 +111,11 @@ bool Player::GetIsAlive()
 	return this->isAlive;
 }
 
+int Player::GetJudgement()
+{
+	return this->judgement;
+}
+
 int Player::JudgementFunction(GameManager* _gm)
 {
 	int highNumber;
@@ -124,7 +134,8 @@ int Player::JudgementFunction(GameManager* _gm)
 	else
 		return 0;
 
-	probability = (int)(((double)highNumber - lowNumber) / CARD_EACH_NUMBER); // %의 결과가 나온다.
+	cout << highNumber << ", " << lowNumber << endl;
+	probability = (int)( 100 * ((double)highNumber - lowNumber-1) / CARD_EACH_NUMBER); // %의 결과가 나온다.
 	cout << "확률 계산 중...." << probability << endl;
 	return probability;
 }

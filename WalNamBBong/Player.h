@@ -24,7 +24,7 @@ public:
 	void PullMoney(int); // 돈 받는 함수 원형
 	void BaseVetting(GameManager* _gm);	//기본 베팅하는 함수 원형
 	void GameVetting(int, GameManager* _gm); //게임 베팅하는 함수 원형
-
+	int JudgementFunction(GameManager* _gm);
 
 	//Setter
 	void SetCardSetting(Card, Card); //카드를 세팅하는 함수
@@ -33,6 +33,7 @@ public:
 	void SetFirstCard(Card); //첫 번째 카드를 세팅하는 함수
 	void SetSecondCard(Card); //두 번째 카드를 세팅하는 함수
 	void SetIsAlive(bool); //살았나 죽었나를 체크하는 함수
+	void SetJudgement(int);
 	
 
 	//Getter
@@ -41,6 +42,7 @@ public:
 	int GetMoney();
 	string GetName();
 	bool GetIsAlive();
-	int JudgementFunction(GameManager* _gm);
+	int GetJudgement();
+	
 
 };

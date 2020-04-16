@@ -15,6 +15,7 @@ int main()
 	string playerName; //플레이어 이름을 입력받을 변수
 	int vettingCall;
 	int gameProgress; //게임 계속 진행하나?
+	
 
 	cout << "플레이어의 이름을 입력해 주세요 : ";
 	cin >> playerName;
@@ -42,7 +43,7 @@ int main()
 	//게임매니저 객체 생성 및 초기화.
 	GameManager gm{0 ,0, TYPE_COUNT * CARD_EACH_NUMBER, TYPE_COUNT * CARD_EACH_NUMBER, playerTotalNumber + 1 , playerTotalNumber + 1, 0};
 	//gm.SetLeftMoneyIsTrue(true);
-
+	gm.order = 0;
 #pragma endregion
 
 	//카드 동적할당
@@ -54,8 +55,10 @@ int main()
 	gm.CardSuffle(card); //카드 셔플
 
 #pragma region 기본 선 플레이어 결정구간
-	int turn = rand() % 4; // 0 ~ 3
-	gm.SetFirstPlayer(turn);
+	gm.SetTurn(rand() % 4); // 0 ~ 3
+
+	gm.order++;
+	gm.SetFirstPlayer(gm.GetTurn());
 
 	//if (gm.GetFirstPlayer() == 0)
 	//{
@@ -107,8 +110,12 @@ int main()
 			//카드 분배
 			gm.CardDividing(card, &player, comPlayer);
 		}
+		else if (gm.order % (gm.GetTotalPlayerNumber() + 1) == 0)
+		{
+			gm.CardDividing(card, &player, comPlayer);
+		}
 		
-		cout << "현재 판 돈 : " << gm.GetGameTotalMoney() << endl;
+		cout << "현재 판돈 : " << gm.GetGameTotalMoney() << endl;
 		Sleep(2000);
 
 #pragma endregion
@@ -142,22 +149,69 @@ int main()
 			case 0: // 빗자루로 승리.
 				// 승리한 사람이 선 플레이어가 된다.
 				cout << "빗자루!" << endl; 
-				player.PullMoney(gm.GetGameTotalMoney()); //판돈에 올라와있는 모든 돈을 다 받고,
-				gm.PullGameTotalMoney(-gm.GetGameTotalMoney()); //게임 매니저에서는 이 만큼 판돈이 빠져야 된다.
+				if (gm.GetFirstPlayer() == 0)
+				{
+					player.PullMoney(gm.GetGameTotalMoney()); //판돈에 올라와있는 모든 돈을 다 받고,
+					cout << player.GetName() << "님이 돈 " << gm.GetGameTotalMoney() << "원 획득!" << endl;
+					gm.PullGameTotalMoney(-gm.GetGameTotalMoney()); //게임 매니저에서는 이 만큼 판돈이 빠져야 된다.
+				}
+				else
+				{
+					comPlayer[gm.GetFirstPlayer() - 1].PullMoney(gm.GetGameTotalMoney()); //판돈에 올라와있는 모든 돈을 다 받는다.
+					cout << comPlayer[gm.GetFirstPlayer() - 1].GetName() << "님이 돈 " << gm.GetGameTotalMoney() << "원 획득!" << endl;
+					gm.PullGameTotalMoney(-gm.GetGameTotalMoney());
+				}
 				continue;
 				break;
 
 			case 1: // 베팅 시작
 				cout << "베팅!!" << endl;
+
+				gm.PlayerVetting(card, &player, comPlayer);
+
 				break;
 
 			case 2: // 다이
 				
 				cout << "다이!!" << endl;
+				if (gm.GetFirstPlayer() == 0)
+				{
+					cout << "현재 판돈 : " << gm.GetGameTotalMoney() << endl;
+					cout << player.GetName() << "님 남은 금액 : " << player.GetMoney() << endl;
+					
+					if (player.GetMoney() < 300)
+					{
+						cout << "게임에서 패배하셨습니다. " << endl;
+						exit(1);
+					}
+				}
+				else
+				{
+					cout << "현재 판돈 : " << gm.GetGameTotalMoney() << endl;
+					cout << comPlayer[gm.GetFirstPlayer() - 1].GetName() << "님 남은 금액 : " << comPlayer[gm.GetFirstPlayer() - 1].GetMoney() << endl;
+					
+					if (comPlayer[gm.GetFirstPlayer() - 1].GetMoney() < 300)
+					{
+						comPlayer[gm.GetFirstPlayer() - 1].SetIsAlive(false);
+						gm.SetRemainingPlayerNumber((gm.GetRemainingPlayerNumber()) - 1);
+						if (gm.GetRemainingPlayerNumber() <= 1)
+						{
+							cout << "승리하셨습니다! " << endl;
+							exit(1);
+						}
+					}
+				}
 				break;
-
 		}		
 #pragma endregion
+
+		//다음 순서 설정.
+		gm.order++;
+		gm.SetTurn((gm.GetTurn() + 1) % gm.GetTotalPlayerNumber());
+		cout << "순서순서 : " << (gm.GetTurn() + 1) % gm.GetTotalPlayerNumber();
+		gm.SetFirstPlayer((gm.GetTurn()+1)%gm.GetTotalPlayerNumber());
+
+		
 
 #pragma region 게임 종료 구간
 
@@ -166,7 +220,7 @@ int main()
 #pragma endregion
 
 
-		break;
+		//break;
 	}
 #pragma endregion
 

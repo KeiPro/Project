@@ -13,7 +13,11 @@ private:
 	int totalPlayerNumber; //전체 플레이어 수
 	int remainingPlayerNumber; //남은 플레이어 수
 	int x, y; //카드의 위치를 가리킬 위치 좌표.
+	int turn;
+public:
+	int order;
 	//bool leftMoneyIsTure; //남은 판돈이 존재하는지.
+	
 
 public:
 	//생성자 사용 및 초기화
@@ -32,6 +36,7 @@ public:
 	void SetRemainingPlayerNumber(int);
 	void SetXPositionYPosition(int, int);
 	void SetFirstPlayer(int);
+	void SetTurn(int);
 	//void SetLeftMoneyIsTrue(bool);
 
 	//getter
@@ -41,12 +46,14 @@ public:
 	int GetRemainingPlayerNumber();
 	int GetGameTotalMoney();
 	int GetFirstPlayer();
+	int GetTurn();
 	//bool GetLeftMoneyIsTrue();
 
 	void CardSuffle(Card** _card); //카드 셔플 메소드
 	void CardDividing(Card** _card, Player* _player, Player* _comPlayer); //카드 나눠주는 메소드
 	int PlayerGameStart(Card** _card, Player* _player, Player* _comPlayer); //베팅 할 지 말 지를 결정하는 메소드
 	void PlayerVetting(Card** _card, Player* _player, Player* _comPlayer); // 베팅 시작
+	bool NextCardOpen(Card** _card, Player* _player, Player* _comPlayer); //카드 오픈 함수
 	//int PullMoney(); //돈을 받을 메소드
 	//void GameStart(); //게임 진행하는 함수
 };
