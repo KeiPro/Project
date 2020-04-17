@@ -55,7 +55,7 @@ void GameManager::CardDividing(Card** _card, Player* _player, Player* _comPlayer
 			//cout << "2" << endl;
 		}
 
-		if ( (j + 1) % this->GetTotalPlayerNumber() == 0 )
+		if ((j+1) % this->GetTotalPlayerNumber() == 0)
 		{
 			j = 0;
 		}
@@ -85,7 +85,7 @@ int GameManager::PlayerGameStart(Card ** _card, Player * _player, Player * _comP
 		cout << _player->GetName() << "님이 가진 카드 : " << _player->GetFirstCard().type << " " << _player->GetFirstCard().cardNumber << ", " << 
 			_player->GetSecondCard().type << " " << _player->GetSecondCard().cardNumber << endl;
 
-		Sleep(2000);
+		Sleep(SLEEP_NUMBER);
 
 		if ((_player->GetFirstCard().cardNumber == 13) || (_player->GetSecondCard().cardNumber == 13))
 		{
@@ -93,12 +93,12 @@ int GameManager::PlayerGameStart(Card ** _card, Player * _player, Player * _comP
 			{
 				cout << " 13이 두 개!! " << endl;
 				cout << " 빗 자 루 !!" << endl;
-				
+				this->sackSSleE = true;
 				return 0; //빗자루로 승리.
 			}
 			else
 			{
-				cout << "13..다이.." << endl;
+				//cout << "13..다이.." << endl;
 				return 2;
 			}
 		}
@@ -118,38 +118,45 @@ int GameManager::PlayerGameStart(Card ** _card, Player * _player, Player * _comP
 	}
 	else
 	{
-		cout << _comPlayer[j - 1].GetName() << "님 차례입니다." << endl;
-		cout << endl;
-		cout << _comPlayer[j - 1].GetName() << "님이 가진 카드 : " << _comPlayer[j-1].GetFirstCard().type << " " << _comPlayer[j - 1].GetFirstCard().cardNumber 
-			 << ", " << _comPlayer[j - 1].GetSecondCard().type << " " << _comPlayer[j - 1].GetSecondCard().cardNumber << endl;
-
-		if ((_comPlayer[j - 1].GetFirstCard().cardNumber == 13) || (_comPlayer[j - 1].GetSecondCard().cardNumber == 13))
+		if (_comPlayer[j - 1].GetIsAlive() == true)
 		{
-			if ((_comPlayer[j - 1].GetFirstCard().cardNumber == 13) && (_comPlayer[j - 1].GetSecondCard().cardNumber == 13)) //빗자루.
-			{
-				cout << " 13이 두 개!! " << endl;
-				cout << " 빗 자 루 !!" << endl;
+			cout << _comPlayer[j - 1].GetName() << "님 차례입니다." << endl;
+			cout << endl;
+			cout << _comPlayer[j - 1].GetName() << "님이 가진 카드 : " << _comPlayer[j - 1].GetFirstCard().type << " " << _comPlayer[j - 1].GetFirstCard().cardNumber
+				<< ", " << _comPlayer[j - 1].GetSecondCard().type << " " << _comPlayer[j - 1].GetSecondCard().cardNumber << endl;
 
-				//_player->PullMoney(this->GetGameTotalMoney());
-
-				return 0; //빗자루로 승리.
-			}
-			else
+			if ((_comPlayer[j - 1].GetFirstCard().cardNumber == 13) || (_comPlayer[j - 1].GetSecondCard().cardNumber == 13))
 			{
-				cout << "13 하나.. 다이.." << endl;
-				return 2;
+				if ((_comPlayer[j - 1].GetFirstCard().cardNumber == 13) && (_comPlayer[j - 1].GetSecondCard().cardNumber == 13)) //빗자루.
+				{
+					cout << " 13이 두 개!! " << endl;
+					cout << " 빗 자 루 !!" << endl;
+					this->sackSSleE = true;
+					//_player->PullMoney(this->GetGameTotalMoney());
+
+					return 0; //빗자루로 승리.
+				}
+				else
+				{
+					return 2;
+				}
 			}
+
+			cout << endl;
+			cout << " < 베팅 여부 결정 > " << endl;
+			cout << endl;
+
+			Sleep(SLEEP_NUMBER);
+
+			//컴퓨터 판단....
+			_comPlayer[j - 1].SetJudgement(_comPlayer[j - 1].JudgementFunction(this));
+
+			//판단에 의해 return 1, return 2; // 1은 베팅하기 2는 다이
+			return ((rand() % 80) < _comPlayer[j - 1].GetJudgement()) ? 1 : 2;
 		}
-
-		cout << "베팅 하시겠습니까? >> "; 
-		Sleep(2000);
-
-		//컴퓨터 판단....
-		_comPlayer[j - 1].SetJudgement(_comPlayer[j - 1].JudgementFunction(this));
-
-		//판단에 의해 return 1, return 2; // 1은 베팅하기 2는 다이
-		return ((rand() % 100) < _comPlayer[j - 1].GetJudgement()) ? 1 : 2;
 	}
+
+	return -1;
 }
 
 void GameManager::PlayerVetting(Card ** _card, Player * _player, Player * _comPlayer)
@@ -158,11 +165,13 @@ void GameManager::PlayerVetting(Card ** _card, Player * _player, Player * _comPl
 
 	if (this->GetFirstPlayer() == 0)
 	{
+		system("cls");
+		cout << endl;
 		cout << "얼마를 베팅 하시겠습니까? (판돈 : " << this->GetGameTotalMoney() << "원, 보유금 : " << _player->GetMoney() << "원) " << endl;
 
 		do
 		{
-			cout << "판돈과 보유금보다 작게 입력해 주세요 >> ";
+			cout << "판돈과 보유금보다 적게 입력해 주세요 >> ";
 			cin >> inputVetting;
 		} while ((inputVetting > this->GetGameTotalMoney()) || (inputVetting > _player->GetMoney()) || inputVetting <= 0);
 
@@ -175,19 +184,24 @@ void GameManager::PlayerVetting(Card ** _card, Player * _player, Player * _comPl
 		//카드 오픈
 		if (NextCardOpen(_card, _player, _comPlayer) == true)
 		{
-			Sleep(2000);
+			Sleep(3000);
 			cout << "베팅한 금액 * 2 ( " << inputVetting << " * 2 ) = " << inputVetting * 2 << "원 획득!" << endl;
 			_player->PullMoney(inputVetting * 2);
 
-			cout << _player->GetName() << "님 보유 금액 : " << _player->GetMoney();
+			Sleep(SLEEP_NUMBER);
+			cout << _player->GetName() << "님 보유 금액 : " << _player->GetMoney() << endl;
 
+			Sleep(2000);
 			this->PullGameTotalMoney(-inputVetting * 2);
 
 			cout << "남은 판돈 : " << this->GetGameTotalMoney() << "원 " << endl;
+			if (this->GetGameTotalMoney() <= 0)
+				this->sackSSleE = true;
+			Sleep(SLEEP_NUMBER);
 		}
 		else
 		{
-			Sleep(2000);
+			Sleep(SLEEP_NUMBER);
 			if ( _player->GetMoney() < 300 )
 			{
 				cout << "금액이 300원 미만이 되어 게임 패배... " << endl;
@@ -202,16 +216,43 @@ void GameManager::PlayerVetting(Card ** _card, Player * _player, Player * _comPl
 		cout << "얼마를 베팅 하시겠습니까? (판돈 : " << this->GetGameTotalMoney() << "원, 보유금 : " << _comPlayer[this->GetFirstPlayer()-1].GetMoney() << "원) " << endl;
 
 		cout << "처리중...." << endl;
-		Sleep(2000);
+		Sleep(SLEEP_NUMBER);
 
+		cout << _comPlayer[this->GetFirstPlayer() - 1].GetName() << "님이 입력한 금액 : ";
 		tmp = _comPlayer[this->GetFirstPlayer() - 1].GetJudgement(); //이길 확률 저장
 		
 		if (this->GetGameTotalMoney() <= _comPlayer[this->GetFirstPlayer() - 1].GetMoney())
 		{
-			tmp2 = this->GetGameTotalMoney();
+			if (tmp < 20)
+			{
+				tmp2 = ( this->GetGameTotalMoney() / 10 ) * 2;
+			}
+			else if (tmp < 30)
+			{
+				tmp2 = (int)(this->GetGameTotalMoney() * 0.4) + rand() % tmp;
+			}
+			else if (tmp < 50)
+				tmp2 = (int)( this->GetGameTotalMoney() * 1 / 3) + rand() % tmp ;
+			else
+				tmp2 = this->GetGameTotalMoney();			//올인
 		}
 		else
-			tmp2 = 100;
+		{
+			if (tmp < 20)
+			{
+				tmp2 = (_comPlayer[this->GetFirstPlayer() - 1].GetMoney() / 10) * 2;
+			}
+			else if (tmp < 30)
+			{
+				tmp2 = (int)(_comPlayer[this->GetFirstPlayer() - 1].GetMoney() * 0.4) + rand() % tmp;
+			}
+			else if (tmp < 50)
+				tmp2 = (int)(_comPlayer[this->GetFirstPlayer() - 1].GetMoney() * 1 / 3) + rand() % tmp;
+			else
+				tmp2 = _comPlayer[this->GetFirstPlayer() - 1].GetMoney(); //올인
+		}
+
+		cout << tmp2 << endl;
 		
 		////얼마 베팅할지 정해준다.	
 		//if (tmp < 20)
@@ -240,11 +281,11 @@ void GameManager::PlayerVetting(Card ** _card, Player * _player, Player * _comPl
 
 		//게임 메니져의 판돈이 증가.
 		this->PullGameTotalMoney(tmp2);
-
+		
 		//카드 오픈
 		if (NextCardOpen(_card, _player, _comPlayer) == true)
 		{
-			Sleep(2000);
+			Sleep(SLEEP_NUMBER);
 			cout << "베팅한 금액 * 2 ( " << tmp2 << " * 2 ) = " << tmp2 * 2 << "원 획득!" << endl;
 			_comPlayer[this->GetFirstPlayer() - 1].PullMoney(tmp2 * 2);
 
@@ -252,14 +293,19 @@ void GameManager::PlayerVetting(Card ** _card, Player * _player, Player * _comPl
 
 			this->PullGameTotalMoney(-tmp2 * 2);
 
+			cout << endl;
 			cout << "남은 판돈 : " << this->GetGameTotalMoney() << "원 " << endl;
+
+			if (this->GetGameTotalMoney() <= 0)
+				this->sackSSleE = true;
 		}
 		else
 		{
-			Sleep(2000);
+			Sleep(SLEEP_NUMBER);
 			if (_comPlayer[this->GetFirstPlayer() - 1].GetMoney() < 300)
 			{
 				cout << "금액이 300원 미만이 되어 게임 탈락... " << endl;
+				this->SetRemainingPlayerNumber((this->GetRemainingPlayerNumber()) - 1);
 				_comPlayer[this->GetFirstPlayer() - 1].SetIsAlive(false);
 			}
 		}
@@ -270,9 +316,12 @@ void GameManager::PlayerVetting(Card ** _card, Player * _player, Player * _comPl
 //카드 오픈 구간.
 bool GameManager::NextCardOpen(Card ** _card, Player * _player, Player * _comPlayer)
 {
+	this->SetRemainingCardNumeber(this->GetRemainingCardNumber()-1);
+
 	int tmp = _card[this->x][this->y].cardNumber;
+	cout << endl;
 	cout << "오픈한 카드 -> " << _card[this->x][this->y].type << " " << tmp << endl;
-	
+	Sleep(2000);
 	this->y++;
 	if (this->y > CARD_EACH_NUMBER - 1)
 	{
@@ -280,24 +329,33 @@ bool GameManager::NextCardOpen(Card ** _card, Player * _player, Player * _comPla
 		this->x++;
 	}
 
-	Sleep(2000);
+	Sleep(SLEEP_NUMBER);
+	cout << endl;
 	if (this->GetFirstPlayer() == 0)
 	{
+		
 		if (tmp > _player->GetFirstCard().cardNumber && tmp < _player->GetSecondCard().cardNumber)
 		{
-			cout << "베팅 성공!! " << endl;
+			
+			cout << _player->GetFirstCard().cardNumber << " < " << tmp << " < " << _player->GetSecondCard().cardNumber << endl;
+			cout << "베팅 결과 : 성공!! " << endl;
+
 
 			return true;
 		}
 		else if (tmp < _player->GetFirstCard().cardNumber && tmp > _player->GetSecondCard().cardNumber)
 		{
 			//성공!!
-			cout << "베팅 성공!! " << endl;
+			
+			cout << _player->GetSecondCard().cardNumber<< " < " << tmp << " < " << _player->GetFirstCard().cardNumber << endl;
+			cout << "베팅 결과 : 성공!! " << endl;
 			return true;
 		}
 		else
 		{
-			cout << "베팅 실패... " << endl;
+			cout << "베팅 결과 : 실패... " << endl;
+			Sleep(SLEEP_NUMBER);
+			cout << _player->GetName() << "님 보유 금액 : " << _player->GetMoney() << endl;
 			//베팅 실패..
 			return false;
 		}
@@ -306,23 +364,28 @@ bool GameManager::NextCardOpen(Card ** _card, Player * _player, Player * _comPla
 	{
 		if (tmp > _comPlayer[this->GetFirstPlayer()-1].GetFirstCard().cardNumber && tmp < _comPlayer[this->GetFirstPlayer() - 1].GetSecondCard().cardNumber)
 		{
-			cout << "베팅 성공!! " << endl;
+			cout << _comPlayer[this->GetFirstPlayer() - 1].GetFirstCard().cardNumber << " < " << tmp << " < " << _comPlayer[this->GetFirstPlayer() - 1].GetSecondCard().cardNumber << endl;
+			cout << "베팅 결과 : 성공!! " << endl;
 
 			return true;
 		}
 		else if (tmp < _comPlayer[this->GetFirstPlayer() - 1].GetFirstCard().cardNumber && tmp > _comPlayer[this->GetFirstPlayer() - 1].GetSecondCard().cardNumber)
 		{
 			//성공!!
-			cout << "베팅 성공!! " << endl;
+			cout << _comPlayer[this->GetFirstPlayer() - 1].GetSecondCard().cardNumber << " < " << tmp << " < " << _comPlayer[this->GetFirstPlayer() - 1].GetFirstCard().cardNumber << endl;
+			cout << "베팅 결과 : 성공!! " << endl;
 			return true;
 		}
 		else
 		{
-			cout << "베팅 실패... " << endl;
+			cout << "베팅 결과 : 실패... " << endl;
+			Sleep(SLEEP_NUMBER);
+			cout << _comPlayer[this->GetFirstPlayer() - 1].GetName() << "님 보유 금액 : " << _comPlayer[this->GetFirstPlayer() - 1].GetMoney() << endl;
 			//베팅 실패..
 			return false;
 		}
 	}
+	cout << endl;
 }
 
 #pragma endregion

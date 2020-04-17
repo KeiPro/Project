@@ -8,6 +8,7 @@
 #define CARD_EACH_NUMBER 13
 #define INIT_MONEY 2000
 #define BASE_GAME_MONEY 200
+#define SLEEP_NUMBER 3000
 
 using namespace std;
 

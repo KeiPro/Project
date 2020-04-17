@@ -44,6 +44,7 @@ int main()
 	GameManager gm{0 ,0, TYPE_COUNT * CARD_EACH_NUMBER, TYPE_COUNT * CARD_EACH_NUMBER, playerTotalNumber + 1 , playerTotalNumber + 1, 0};
 	//gm.SetLeftMoneyIsTrue(true);
 	gm.order = 0;
+	gm.sackSSleE = false;
 #pragma endregion
 
 	//카드 동적할당
@@ -74,10 +75,13 @@ int main()
 	while (1)
 	{
 #pragma region 카드 셔플
-
+		cout << gm.GetRemainingCardNumber() << ", " << gm.GetRemainingPlayerNumber() * 3 << endl;
 		// 1.남아있는 카드의 개수가 총 플레이어 수 * 3보다 작으면 카드 셔플이 일어난다.
 		if (gm.GetRemainingCardNumber() < gm.GetRemainingPlayerNumber() * 3)
 		{
+			cout << "카드 셔플!" << endl;
+			Sleep(SLEEP_NUMBER);
+			gm.SetRemainingCardNumeber(gm.GetTotalCardNumber());
 			gm.CardSuffle(card); //카드 셔플
 			gm.SetXPositionYPosition(0, 0); //다시 0, 0위치를 가리키도록 설정.
 		}
@@ -89,12 +93,16 @@ int main()
 		//판에 잔여 금액이 남아있지 않으면
 		if (gm.GetGameTotalMoney() <= 0)
 		{
+			cout << endl;
+			cout << " < 판돈 0원, 참가자 전원 기본 베팅 시작! > " << endl;
+			Sleep(SLEEP_NUMBER);
+			system("cls");
 			// 2.게임에 참가를 해야하므로 각 플레이어마다 소지금 -200을 한다.
 			if (player.GetIsAlive())
 			{
 				player.BaseVetting(&gm);
-				cout << "플레이어 기본 베팅 200" << endl;
-				Sleep(1000);
+				cout << player.GetName() << " 기본 베팅 200" << endl;
+				Sleep(100);
 			}
 
 			for (int i = 0; i < gm.GetTotalPlayerNumber() - 1; i++)
@@ -103,26 +111,30 @@ int main()
 				{
 					comPlayer[i].BaseVetting(&gm);
 					cout << comPlayer[i].GetName() << " 기본베팅 200" << endl;
-					Sleep(1000);
+					Sleep(100);
 				}
 			}
 
 			//카드 분배
 			gm.CardDividing(card, &player, comPlayer);
+			gm.SetRemainingCardNumeber(gm.GetRemainingCardNumber() - gm.GetRemainingPlayerNumber() * 2);
+
 		}
 		else if (gm.order % (gm.GetTotalPlayerNumber() + 1) == 0)
 		{
 			gm.CardDividing(card, &player, comPlayer);
+			gm.SetRemainingCardNumeber(gm.GetRemainingCardNumber() - gm.GetRemainingPlayerNumber() * 2);
+
 		}
 		
 		cout << "현재 판돈 : " << gm.GetGameTotalMoney() << endl;
-		Sleep(2000);
+		Sleep(SLEEP_NUMBER);
 
 #pragma endregion
 		
 		
 	//각 플레이어간의 카드 출력
-	/*
+	
 	//for (int i = 0; i < gm.GetTotalPlayerNumber(); i++)
 	//{
 	//	if (i == 0) 
@@ -137,16 +149,18 @@ int main()
 	//	}
 	//	cout << endl;
 	//}
-	//gm.SetRemainingCardNumeber(gm.GetRemainingCardNumber() - gm.GetRemainingPlayerNumber() * 2);
-	//cout << "남은 카드 개수 : " << gm.GetRemainingCardNumber(); //남은 카드의 개수 출력
-	*/
+	
+	cout << "남은 카드 개수 : " << gm.GetRemainingCardNumber() << endl; //남은 카드의 개수 출력
+	Sleep(4000);
+
+	
 
 #pragma region 베팅 true? false?
 		gameProgress = gm.PlayerGameStart(card, &player, comPlayer);
 		
 		switch (gameProgress)
 		{ 
-			system("cls");
+			
 			case 0: // 빗자루로 승리.
 				// 승리한 사람이 선 플레이어가 된다.
 				cout << "빗자루!" << endl; 
@@ -164,7 +178,7 @@ int main()
 				}
 				continue;
 				break;
-
+				
 			case 1: // 베팅 시작
 				cout << "베팅!!" << endl;
 
@@ -203,25 +217,33 @@ int main()
 					}
 				}
 				break;
+
+			default: 
+				break;
 		}		
 #pragma endregion
 
 		//다음 순서 설정.
-		gm.order++;
-		gm.SetTurn((gm.GetTurn() + 1) % gm.GetTotalPlayerNumber());
-		cout << "순서순서 : " << (gm.GetTurn() + 1) % gm.GetTotalPlayerNumber();
-		gm.SetFirstPlayer((gm.GetTurn()+1)%gm.GetTotalPlayerNumber());
-
-		
+		Sleep(3000);
+		if (gm.sackSSleE == true)
+		{
+			gm.sackSSleE = false;
+		}
+		else
+		{
+			system("cls");
+			gm.order++;
+			gm.SetTurn((gm.GetTurn() + 1) % gm.GetTotalPlayerNumber());
+			//
+			cout << "순서순서 : " << (gm.GetTurn()) % gm.GetTotalPlayerNumber() << endl;
+			gm.SetFirstPlayer((gm.GetTurn() % gm.GetTotalPlayerNumber()));
+		}
 
 #pragma region 게임 종료 구간
 
 
 
 #pragma endregion
-
-
-		//break;
 	}
 #pragma endregion
 

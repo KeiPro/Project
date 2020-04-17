@@ -134,9 +134,14 @@ int Player::JudgementFunction(GameManager* _gm)
 	else
 		return 0;
 
-	cout << highNumber << ", " << lowNumber << endl;
+	//cout << highNumber << ", " << lowNumber << endl;
 	probability = (int)( 100 * ((double)highNumber - lowNumber-1) / CARD_EACH_NUMBER); // %의 결과가 나온다.
-	cout << "확률 계산 중...." << probability << endl;
+	cout << "확률 계산 중.... " << endl;
+	Sleep(1000);
+	cout << "계산 결과 : ";
+	Sleep(SLEEP_NUMBER); 
+	cout << probability << "(%)" << endl;
+
 	return probability;
 }
 

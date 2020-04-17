@@ -16,6 +16,7 @@ private:
 	int turn;
 public:
 	int order;
+	bool sackSSleE;
 	//bool leftMoneyIsTure; //남은 판돈이 존재하는지.
 	
 
