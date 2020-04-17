@@ -17,6 +17,7 @@ private:
 public:
 	int order;
 	bool sackSSleE;
+
 	//bool leftMoneyIsTure; //남은 판돈이 존재하는지.
 	
 
@@ -39,6 +40,7 @@ public:
 	void SetFirstPlayer(int);
 	void SetTurn(int);
 	//void SetLeftMoneyIsTrue(bool);
+	void Suffle2(Card** card);
 
 	//getter
 	int GetTotalCardNumber();

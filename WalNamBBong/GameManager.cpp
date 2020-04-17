@@ -10,8 +10,21 @@ void GameManager::CardSuffle(Card** _card)
 	Card tmp;
 	int x, y, a, b;
 
-	for (int i = 0; i < 500; i++)
-	{
+	//for (int i = 0; i < 500; i++)
+	//{
+	//	for (int j = 0; j < 4; j++)
+	//	{
+	//		for (int k = 0; k < 13; k++)
+	//		{
+	//			cout << _card[i][j].cardNumber << " ";
+	//		}
+
+	//		cout << endl;
+	//	}
+
+		//Sleep(10);
+
+
 		x = rand() % 4; // 0 ~ 3 까지
 		y = rand() % 13; // 0 ~ 13 까지
 		a = rand() % 4;
@@ -26,8 +39,6 @@ void GameManager::CardSuffle(Card** _card)
 		tmp = _card[x][y];
 		_card[x][y] = _card[a][b];
 		_card[a][b] = tmp;
-
-	}
 }
 
 //카드 나누기 함수

@@ -211,7 +211,7 @@ int main()
 						gm.SetRemainingPlayerNumber((gm.GetRemainingPlayerNumber()) - 1);
 						if (gm.GetRemainingPlayerNumber() <= 1)
 						{
-							cout << "승리하셨습니다! " << endl;
+							cout << "모든 컴퓨터를 물리치고 승리하셨습니다! " << endl;
 							exit(1);
 						}
 					}
