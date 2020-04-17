@@ -146,6 +146,7 @@ int main()
 		
 		switch (gameProgress)
 		{ 
+			system("cls");
 			case 0: // 빗자루로 승리.
 				// 승리한 사람이 선 플레이어가 된다.
 				cout << "빗자루!" << endl; 

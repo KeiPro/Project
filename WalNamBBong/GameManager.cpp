@@ -281,24 +281,47 @@ bool GameManager::NextCardOpen(Card ** _card, Player * _player, Player * _comPla
 	}
 
 	Sleep(2000);
-
-	if (tmp > _player->GetFirstCard().cardNumber && tmp < _player->GetSecondCard().cardNumber)
+	if (this->GetFirstPlayer() == 0)
 	{
-		cout << "베팅 성공!! " << endl;
+		if (tmp > _player->GetFirstCard().cardNumber && tmp < _player->GetSecondCard().cardNumber)
+		{
+			cout << "베팅 성공!! " << endl;
 
-		return true;
-	}
-	else if (tmp < _player->GetFirstCard().cardNumber && tmp > _player->GetSecondCard().cardNumber)
-	{
-		//성공!!
-		cout << "베팅 성공!! " << endl;
-		return true;
+			return true;
+		}
+		else if (tmp < _player->GetFirstCard().cardNumber && tmp > _player->GetSecondCard().cardNumber)
+		{
+			//성공!!
+			cout << "베팅 성공!! " << endl;
+			return true;
+		}
+		else
+		{
+			cout << "베팅 실패... " << endl;
+			//베팅 실패..
+			return false;
+		}
 	}
 	else
 	{
-		cout << "베팅 실패... " << endl;
-		//베팅 실패..
-		return false;
+		if (tmp > _comPlayer[this->GetFirstPlayer()-1].GetFirstCard().cardNumber && tmp < _comPlayer[this->GetFirstPlayer() - 1].GetSecondCard().cardNumber)
+		{
+			cout << "베팅 성공!! " << endl;
+
+			return true;
+		}
+		else if (tmp < _comPlayer[this->GetFirstPlayer() - 1].GetFirstCard().cardNumber && tmp > _comPlayer[this->GetFirstPlayer() - 1].GetSecondCard().cardNumber)
+		{
+			//성공!!
+			cout << "베팅 성공!! " << endl;
+			return true;
+		}
+		else
+		{
+			cout << "베팅 실패... " << endl;
+			//베팅 실패..
+			return false;
+		}
 	}
 }
 
