@@ -13,5 +13,4 @@ public:
 	inline int GetNum() { return num; }
 	inline string GetShape() { return shape; }
 
-
 };
