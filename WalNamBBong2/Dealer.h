@@ -1,7 +1,7 @@
 #pragma once
 #include "Card.h"
 
-class GameManager
+class Dealer
 {
 private:
 	Card* cards;
@@ -25,7 +25,7 @@ public:
 	inline int GetGameTotalMoney() { return gameTotalMoney; }
 
 	//»ý¼ºÀÚ
-	GameManager(int _distribute, int _gameTotalMoney);
-	~GameManager();
+	Dealer(int _distribute, int _gameTotalMoney);
+	~Dealer();
 	
 };

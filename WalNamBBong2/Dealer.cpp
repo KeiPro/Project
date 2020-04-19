@@ -1,6 +1,6 @@
-#include "GameManager.h"
+#include "Dealer.h"
 
-void GameManager::CardSetting()
+void Dealer::CardSetting()
 {
 	for (int i = 0; i < CARD_TOTAL_NUMBER; i++)
 	{
@@ -26,7 +26,7 @@ void GameManager::CardSetting()
 	}
 }
 
-void GameManager::Print()
+void Dealer::Print()
 {
 	for (int i = 0; i < CARD_TOTAL_NUMBER; i++)
 	{
@@ -36,7 +36,7 @@ void GameManager::Print()
 	}
 }
 
-void GameManager::CardShuffle()
+void Dealer::CardShuffle()
 {
 	int rand1;
 	int rand2;
@@ -51,29 +51,29 @@ void GameManager::CardShuffle()
 		cards[rand1] = cards[rand2];
 		cards[rand2] = tmp;
 
-		Print();
-		Sleep(10);
-		system("cls");
+		//Print();
+		//Sleep(10);
+		//system("cls");
 	}
 }
 
-Card GameManager::Distribuing()
+Card Dealer::Distribuing()
 {
 	return cards[distribute++];
 }
 
-void GameManager::AddingTotalMoney(int money)
+void Dealer::AddingTotalMoney(int money)
 {
 	gameTotalMoney += money;
 }
 
-GameManager::GameManager(int _distribute = 0, int _gameTotalMoney = 0) 
+Dealer::Dealer(int _distribute = 0, int _gameTotalMoney = 0)
 	: distribute {_distribute} , gameTotalMoney{_gameTotalMoney}
 {
 	cards = new Card[52];
 }
 
-GameManager::~GameManager()
+Dealer::~Dealer()
 {
 	delete[] cards;
 }
