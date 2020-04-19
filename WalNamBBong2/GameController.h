@@ -14,7 +14,7 @@ private:
 public:
 	void InputNamePrint(Player* player); //플레이어의 이름을 설정하는 함수
 	void InputTotalNum(); //전체 플레이어 수 입력 함수
-	void TurnSetting(Player* player); //순서를 설정하는 함수
+	void TurnSetting(Player* player, Player** phead); //순서를 설정하는 함수
 	//Getter
 	inline int GetInputTotalNum() { return inputTotalNum; }
 	inline Player* GetPlayer() { return comPlayer; }

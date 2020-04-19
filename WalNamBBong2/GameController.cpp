@@ -85,9 +85,9 @@ int GameController::RegisterComName()
 
 void GameController::AutoRegisterComName(int _totalNumber)
 {
-	string autoName[30] = {"탈론", "리븐", "아무무", "블리츠크랭크", "블라디미르", "카사딘", "피즈", "잭스", "라이즈", "럼블",
+	string autoName[30] = {"탈론", "리븐", "아무무", "카밀", "블라디미르", "카사딘", "피즈", "잭스", "라이즈", "럼블",
 							"레넥톤", "나서스", "마오카이", "말파이트", "럭스", "오리아나", "뽀삐", "자이라", "제드", "케이틀린",
-							"녹턴", "카이사", "아펠리오스", "판테온", "키아나", "트위스티드 페이트", "제라스", "카시오페아", "징크스", "베인"};
+							"녹턴", "카이사", "아펠리오스", "판테온", "키아나", "신드라", "제라스", "카시오페아", "징크스", "베인"};
 
 	int* number = new int[_totalNumber];
 
@@ -140,13 +140,16 @@ void GameController::InputRegisterComName(int _totalNumber)
 	}
 }
 
-void GameController::TurnSetting(Player* player)
+void GameController::TurnSetting(Player* player, Player** phead)
 {
 	system("cls"); 
-	cout << " < 순서를 정합니다. > " << endl;
-	
+	cout << endl;
+	cout << "\t < 순서를 정합니다. > " << endl;
+	cout << endl;
+
 	int* dynamicNum = new int[inputTotalNum]; //
 
+	//랜덤하게 번호를 뽑고
 	for (int i = 0; i < inputTotalNum; i++)
 	{
 		dynamicNum[i] = rand() % inputTotalNum;
@@ -160,49 +163,138 @@ void GameController::TurnSetting(Player* player)
 		}
 	}
 
+	//플레이어에게 랜덤하게 번호를 부여
 	player->SetTurn(dynamicNum[inputTotalNum-1]);
 	for (int i = 0; i < inputTotalNum-1; i++)
 	{
 		comPlayer[i].SetTurn(dynamicNum[i]);
 	}
 
-
-	cout << ">> " << player->GetName() << "님 순서 : " << player->GetTurn()+1 << "번" << endl;
+	cout << ">> \t" << player->GetName() << "님 순서 : " << player->GetTurn()+1 << "번" << endl;
 	for (int i = 0; i < inputTotalNum-1; i++)
 	{
-		cout << comPlayer[i].GetName() << "님 순서 : " << comPlayer[i].GetTurn()+1 << "번" << endl;
+		cout << "\t" << comPlayer[i].GetName() << "님 순서 : " << comPlayer[i].GetTurn()+1 << "번" << endl;
 	}
 
+	cout << endl;
+	cout << endl;
+
+	char ch = _getch();
+	Player* p = new Player;
+
+	for (int i = 0; i < inputTotalNum; i++)
+	{
+		for (int j = 0; j < inputTotalNum-1; j++)
+		{
+			if ( comPlayer[j].GetTurn() == i || player->GetTurn() == i )
+			{
+				if (comPlayer[j].GetTurn() == i)
+				{
+					if (*phead == nullptr)
+					{
+						*phead = (comPlayer + j);
+						p->SetLink(*phead);
+					}
+					else
+					{
+						if (p->GetLink() == nullptr)
+						{
+							p->SetLink(comPlayer+j);
+							p = p->GetLink();
+							//p->SetLink(p->GetLink());
+						}
+					}
+				}
+				else
+				{
+					if (*phead == nullptr)
+					{
+						*phead = player;
+						p->SetLink(*phead);
+					}
+					else
+					{
+						if (p->GetLink() == nullptr)
+						{
+							p->SetLink(player);
+							//p->SetLink(p->GetLink());
+							p = p->GetLink();
+						}
+					}
+				}
+			}
+		}
+	}
+
+	p->SetLink(*phead);
+	
+	Player *t = *phead;
+	
+	for (int i = 0; i < inputTotalNum; i++)
+	{
+		cout << p->GetName() << ", " << endl;
+		p->SetLink(p->GetLink());
+	}
+	
+	delete[] p;
+
+#pragma region 순서 소트
+
+/*	
+	Player* tmpPlayer = new Player[inputTotalNum];
 	Player tmp;
+	
+	for (int i = 0; i < inputTotalNum-1; i++)
+	{
+		tmpPlayer[i] = comPlayer[i];
+	}
+	tmpPlayer[inputTotalNum - 1] = *player;
+	
+	for (int i = 0; i < inputTotalNum; i++)
+	{
+		for (int j = 0; j < inputTotalNum; j++)
+		{
+			if ( (i == tmpPlayer[j].GetTurn()) && ( i != j ) )
+			{
+				tmp = tmpPlayer[j];
+				tmpPlayer[j] = tmpPlayer[i];
+				tmpPlayer[i] = tmp;
+				break;
+			}
+		}
 
-	
-	//for (int i = 0; i < inputTotalNum; i++)
-	//{
-	//	for (int j = 0; j < inputTotalNum-1; j++)
-	//	{
-	//		if ( (comPlayer[j].GetTurn() == i) || player->GetTurn() == i)
-	//		{
-	//			if (comPlayer[j].GetTurn() == i)
-	//			{
-	//				tmp = comPlayer[i];
-	//				comPlayer[i] = comPlayer[j];
-	//				comPlayer[j] = tmp;
-	//				break;
-	//			}
-	//			else
-	//			{
-	//				tmp = *player;
-	//				*player = comPlayer[i]; //이렇게 되면 Player의 turn이 또 바뀌게 되므로, 결국 최종적으로 comPlayer의 i번째가 접근하지 못하는 곳까지 도달하게 된다.
-	//				comPlayer[i] = tmp;
-	//				break;
-	//			}
-	//		}
-	//	}
-	//}
+		system("cls");
+		cout << endl;
+		cout << "\t\t < 순서 정렬 > " << endl;
+		cout << endl;
+		for (int i = 0; i < inputTotalNum; i++)
+		{
+			if (i == player->GetTurn())
+			{
+				if (tmpPlayer[i].GetName().size() < 4)
+				{
+					cout << "\t\b\b\b>>> " << tmpPlayer[i].GetName() << "님 \t\t\t 순서 : " << tmpPlayer[i].GetTurn() + 1 << "번" << endl;
+				}
+				else
+				{
+					cout << "\t\b\b\b>>> " << tmpPlayer[i].GetName() << "님 \t\t 순서 : " << tmpPlayer[i].GetTurn() + 1 << "번" << endl;
+				}
+			}
+			else
+			{
+				cout << "\t " << tmpPlayer[i].GetName() << "님 \t\t 순서 : " << tmpPlayer[i].GetTurn() + 1 << "번" << endl;
+			}
+		}
+		Sleep(50);
+	}
 
-	cout << player->GetName() << endl; 
+	//cout << player->GetName() << endl; 
 	
-	
+	delete[] tmpPlayer;
+*/
+
+#pragma endregion
+
 	delete[] dynamicNum;
 }
 

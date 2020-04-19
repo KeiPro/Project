@@ -24,7 +24,10 @@ public:
 	//Setter
 	inline void SetName(string _name) { name = _name; }
 	inline void SetTurn(int _turn) { turn = _turn; }
-	inline void SetLink(Player* _nextLink) { link = _nextLink; }
+	inline void SetLink(Player* _nextLink) 
+	{
+		link = _nextLink; 
+	}
 
 	//»ı¼ºÀÚ
 	Player();
