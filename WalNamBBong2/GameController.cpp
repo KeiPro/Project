@@ -180,7 +180,7 @@ void GameController::TurnSetting(Player* player, Player** phead)
 	cout << endl;
 
 	char ch = _getch();
-	Player* p = new Player;
+	Player* p = nullptr;
 
 	for (int i = 0; i < inputTotalNum; i++)
 	{
@@ -193,7 +193,8 @@ void GameController::TurnSetting(Player* player, Player** phead)
 					if (*phead == nullptr)
 					{
 						*phead = (comPlayer + j);
-						p->SetLink(*phead);
+						p = *phead;
+						break;
 					}
 					else
 					{
@@ -201,7 +202,7 @@ void GameController::TurnSetting(Player* player, Player** phead)
 						{
 							p->SetLink(comPlayer+j);
 							p = p->GetLink();
-							//p->SetLink(p->GetLink());
+							break;
 						}
 					}
 				}
@@ -210,15 +211,16 @@ void GameController::TurnSetting(Player* player, Player** phead)
 					if (*phead == nullptr)
 					{
 						*phead = player;
-						p->SetLink(*phead);
+						p = *phead;
+						break;
 					}
 					else
 					{
 						if (p->GetLink() == nullptr)
 						{
 							p->SetLink(player);
-							//p->SetLink(p->GetLink());
 							p = p->GetLink();
+							break;
 						}
 					}
 				}
@@ -227,20 +229,15 @@ void GameController::TurnSetting(Player* player, Player** phead)
 	}
 
 	p->SetLink(*phead);
+	p = p->GetLink();
+	//
+	//Player *t = *phead;
 	
-	Player *t = *phead;
-	
-	for (int i = 0; i < inputTotalNum; i++)
-	{
-		cout << p->GetName() << ", " << endl;
-		p->SetLink(p->GetLink());
-	}
-	
-	delete[] p;
 
+	
 #pragma region 순서 소트
 
-/*	
+	
 	Player* tmpPlayer = new Player[inputTotalNum];
 	Player tmp;
 	
@@ -288,10 +285,20 @@ void GameController::TurnSetting(Player* player, Player** phead)
 		Sleep(50);
 	}
 
+	cout << endl;
+	cout << endl;
+	for (int i = 0; i < inputTotalNum; i++)
+	{
+		cout << p->GetName() << ", ";
+		p = p->GetLink();
+		if ((i + 1) % 5 == 0)
+			cout << endl;
+	}
+
 	//cout << player->GetName() << endl; 
 	
 	delete[] tmpPlayer;
-*/
+
 
 #pragma endregion
 
