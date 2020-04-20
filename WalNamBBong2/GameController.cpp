@@ -1,4 +1,5 @@
 #include "GameController.h"
+#include "Dealer.h"
 
 void GameController::InputNamePrint(Player* player)
 {
@@ -284,7 +285,7 @@ void GameController::TurnSetting(Player* player, Player** phead)
 				cout << "\t " << tmpPlayer[i].GetName() << "님 \t\t 순서 : " << tmpPlayer[i].GetTurn() + 1 << "번" << endl;
 			}
 		}
-		Sleep(50);
+		Sleep(10);
 	}
 
 
@@ -328,6 +329,72 @@ void GameController::InputMoney(Player** phead, Player* p, int _myMoney)
 	//	cout << p->GetMyMoney() << ", ";
 	//	p = p->GetLink();
 	//}
+}
+
+void GameController::BaseBetting(Player* (&phead), Player* (&p), Dealer &dealer)
+{
+	int inputNum;
+	cout << endl;
+	cout << "기본 베팅금액 입력 >> ";
+	cin >> inputNum;
+	cout << endl;
+	cout << "기본 베팅금액이 " << inputNum << "원으로 설정되었습니다. " << endl;
+	Sleep(1000);
+	
+	cout << "모든 플레이어 금액 -" << inputNum << "원 적용." << endl;
+
+	p->SetMyMoney(p->GetMyMoney()-inputNum);
+	dealer.AddingTotalMoney(inputNum);
+	p = p->GetLink();
+
+	while (p != phead )
+	{
+		p->SetMyMoney(p->GetMyMoney() - inputNum);
+		dealer.AddingTotalMoney(inputNum);
+		p = p->GetLink();
+	}
+}
+
+void GameController::bettingMoney(Player** phead, Player* p)
+{
+	//cout << "얼마를 베팅하시겠습니까"
+}
+
+void GameController::CurrentStatePrint(Player* (&phead), Player* (&p), Dealer &dealer)
+{
+	system("cls");
+	cout << "\t=========================================" << endl;
+	cout << "\t|   \t\t\t\t\t|" << endl;
+	cout << "\t|\t    < 판돈 : " << dealer.GetGameTotalMoney() << " >\t\t|" << endl;
+	cout << "\t|   \t\t\t\t\t|" << endl;
+	cout << "\t=========================================" << endl;
+	cout << "\t|\t\b\b아이디\t|\t남은 금액\t|" << endl;
+	cout << "\t=========================================" << endl;
+	
+	if (p->GetName().size() < 3) 
+	{
+		cout << "\t|    " << p->GetName() << "\t\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t|" << endl;
+	}
+	else
+	{
+		cout << "\t|    " << p->GetName() << "\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t|" << endl;
+	}
+	p = p->GetLink();
+
+	while (p != phead)
+	{
+		if (p->GetName().size() < 3)
+		{
+			cout << "\t|    " << p->GetName() << "\t\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t|" << endl;
+		}
+		else
+		{
+			cout << "\t|    " << p->GetName() << "\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t|" << endl;
+		}
+		p = p->GetLink();
+	}
+	cout << "\t=========================================" << endl;
+
 }
 
 GameController::~GameController()

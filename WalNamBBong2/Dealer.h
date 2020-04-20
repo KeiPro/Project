@@ -15,7 +15,7 @@ public:
 	void CardSetting();
 	void Print();
 	void CardShuffle();
-	Card Distribuing();
+	Card Distributing();
 	void AddingTotalMoney(int money);
 	void CardDividing(Player* (&phead), Player* (&p));
 

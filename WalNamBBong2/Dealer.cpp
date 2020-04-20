@@ -54,7 +54,7 @@ void Dealer::CardShuffle()
 	}
 }
 
-Card Dealer::Distribuing()
+Card Dealer::Distributing()
 {
 	return cards[distribute++];
 }
@@ -66,9 +66,18 @@ void Dealer::AddingTotalMoney(int money)
 
 void Dealer::CardDividing(Player* (&phead), Player* (&p))
 {
-	phead->
+	//선 플레이어부터 카드를 부여받는다.
+	phead->SetMyFirstCard(Distributing());
+	phead->SetMySecondCard(Distributing());
 
+	p = p->GetLink();
 
+	while (p != phead)
+	{
+		p->SetMyFirstCard(Distributing());
+		p->SetMySecondCard(Distributing());
+		p = p->GetLink();
+	}
 }
 
 Dealer::Dealer(int _distribute = 0, int _gameTotalMoney = 0)
