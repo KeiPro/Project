@@ -1,13 +1,13 @@
 #pragma once
 #include "Card.h"
 
+class Player;
 class Dealer
 {
 private:
 	Card* cards;
 	int distribute; //카드 순서를 담당하는 변수
 	int gameTotalMoney; //판돈
-	//int playerTurn; //플레이어 턴
 
 public:
 
@@ -17,6 +17,7 @@ public:
 	void CardShuffle();
 	Card Distribuing();
 	void AddingTotalMoney(int money);
+	void CardDividing(Player* (&phead), Player* (&p));
 
 	//Setter
 	//inline void SetPlayerTurn() {};

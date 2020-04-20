@@ -15,18 +15,20 @@ int main()
 	gameController.TurnSetting(&player, &phead); //순서 세팅이 된다.
 
 	Dealer dealer(0, 0); //딜러 객체 생성
-	dealer.CardSetting();
-	dealer.CardShuffle();
+	dealer.CardSetting(); //기본 카드 세팅
+	dealer.CardShuffle(); //카드 셔플
 	
-	Player* p = phead;
+	Player* p = phead; //이 포인터를 통해 순서대로 접근할 수 있도록 한다.
+	gameController.InputMoney(&phead, p, 2000); //플레이어에게 금액 부여
+	
+	//게임 진행 함수
+	while (1)
+	{
+		dealer.CardDividing(phead, p); //카드 분배
 
-	//for (int i = 0; i < gameController.GetInputTotalNum(); i++)
-	//{
-	//	cout << p->GetName() << ", ";
-	//	p = p->GetLink();
-	//	if ((i + 1) % 5 == 0)
-	//		cout << endl;
-	//}
+	}
+
+
 
 
 	return 0;

@@ -13,7 +13,7 @@ void GameController::InputTotalNum()
 {
 	cout << "총 플레이어의 수를 입력해 주세요(본인 포함) : ";
 	cin >> inputTotalNum;
-
+	
 	comPlayer = new Player[inputTotalNum -1];
 
 	switch (RegisterComName())
@@ -21,9 +21,9 @@ void GameController::InputTotalNum()
 		case 1: //컴퓨터 이름 자동생성하기
 			cout << endl;
 			cout << ">> 컴퓨터이름 자동 생성하기를 선택하셨습니다." << endl;
-			Sleep(2000);
+			Sleep(1000);
 			cout << ">> 잠시만 기다려 주세요... " << endl;
-			Sleep(3000);
+			Sleep(1000);
 			AutoRegisterComName(inputTotalNum-1);
 			break;
 
@@ -178,8 +178,12 @@ void GameController::TurnSetting(Player* player, Player** phead)
 
 	cout << endl;
 	cout << endl;
-
+	cout << " >> 아무키나 입력해 주세요.";
+	
 	char ch = _getch();
+
+#pragma region Circular Linked List 구현
+
 	Player* p = nullptr;
 
 	for (int i = 0; i < inputTotalNum; i++)
@@ -230,12 +234,10 @@ void GameController::TurnSetting(Player* player, Player** phead)
 
 	p->SetLink(*phead);
 	p = p->GetLink();
-	//
-	//Player *t = *phead;
-	
 
+#pragma endregion
 	
-#pragma region 순서 소트
+#pragma region 순서 소트 - 순서대로 Print하는 곳
 
 	
 	Player* tmpPlayer = new Player[inputTotalNum];
@@ -285,15 +287,17 @@ void GameController::TurnSetting(Player* player, Player** phead)
 		Sleep(50);
 	}
 
+
 	cout << endl;
-	cout << endl;
-	for (int i = 0; i < inputTotalNum; i++)
-	{
-		cout << p->GetName() << ", ";
-		p = p->GetLink();
-		if ((i + 1) % 5 == 0)
-			cout << endl;
-	}
+
+	//cout << endl;
+	//for (int i = 0; i < inputTotalNum; i++)
+	//{
+	//	cout << p->GetName() << ", ";
+	//	p = p->GetLink();
+	//	if ((i + 1) % 5 == 0)
+	//		cout << endl;
+	//}
 
 	//cout << player->GetName() << endl; 
 	
@@ -303,6 +307,27 @@ void GameController::TurnSetting(Player* player, Player** phead)
 #pragma endregion
 
 	delete[] dynamicNum;
+}
+
+void GameController::InputMoney(Player** phead, Player* p, int _myMoney)
+{
+	p->SetMyMoney(_myMoney);
+	p = p->GetLink();
+
+	while (p != *phead)
+	{
+		p->SetMyMoney(_myMoney);
+		p = p->GetLink();
+	}
+
+	//Print - Test
+	//cout << (*phead)->GetMyMoney() << ", ";
+	//p = p->GetLink();
+	//for ( ; p != *phead ; )
+	//{
+	//	cout << p->GetMyMoney() << ", ";
+	//	p = p->GetLink();
+	//}
 }
 
 GameController::~GameController()

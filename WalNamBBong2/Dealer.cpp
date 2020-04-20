@@ -1,4 +1,5 @@
 #include "Dealer.h"
+#include "Player.h"
 
 void Dealer::CardSetting()
 {
@@ -50,10 +51,6 @@ void Dealer::CardShuffle()
 		tmp = cards[rand1];
 		cards[rand1] = cards[rand2];
 		cards[rand2] = tmp;
-
-		//Print();
-		//Sleep(10);
-		//system("cls");
 	}
 }
 
@@ -65,6 +62,13 @@ Card Dealer::Distribuing()
 void Dealer::AddingTotalMoney(int money)
 {
 	gameTotalMoney += money;
+}
+
+void Dealer::CardDividing(Player* (&phead), Player* (&p))
+{
+	phead->
+
+
 }
 
 Dealer::Dealer(int _distribute = 0, int _gameTotalMoney = 0)
