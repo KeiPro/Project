@@ -2,8 +2,6 @@
 #include "Player.h"
 #include "GameController.h"
 
-
-
 int main()
 {
 	srand((unsigned)time(NULL));
@@ -19,7 +17,6 @@ int main()
 
 	Dealer dealer(0, 0); //딜러 객체 생성
 	dealer.CardSetting(); //기본 카드 세팅
-	dealer.CardShuffle(); //카드 셔플
 	
 	Player* p = phead; //이 포인터를 통해 순서대로 접근할 수 있도록 한다.
 	gameController.InputMoney(&phead, p, 2000); //플레이어에게 금액 부여
@@ -30,16 +27,38 @@ int main()
 	//게임 진행 함수
 	while (1)
 	{
+		//판돈이 0원이면.
 		if (dealer.GetGameTotalMoney() == 0)
 		{
-			gameController.BaseBetting(phead, p, dealer); //기본 베팅
-
+			//남은 카드 수가 남은 플레이어의 3배 보다 적으면
+			if ((CARD_TOTAL_NUMBER - dealer.GetDistribute()) < gameController.GetLeftPlayerNum() * 3)
+			{
+				dealer.CardShuffle(); //카드 셔플
+				dealer.SetDistribute(0);
+				gameController.BaseBetting(phead, p, dealer); //기본 베팅
+				gameController.CurrentStatePrint(phead, p, dealer); //현재 상황 프린트
+				dealer.CardDividing(phead, p); //카드 분배
+			}
+			else
+			{
+				gameController.BaseBetting(phead, p, dealer); //기본 베팅
+				gameController.CurrentStatePrint(phead, p, dealer); //현재 상황 프린트
+				dealer.CardDividing(phead, p); //카드 분배
+			}
 		}
-
-		gameController.BaseBetting(phead, p, dealer); //기본 베팅
-		gameController.CurrentStatePrint(phead, p, dealer); //현재 상황 프린트
-		dealer.CardDividing(phead, p); //카드 분배
-
+		else if ( p == phead ) //한바퀴 돌고 다시 맨 처음으로 돌아왔을때
+		{
+			//남은 카드 수가 남은 플레이어의 3배 보다 적으면
+			if ((CARD_TOTAL_NUMBER - dealer.GetDistribute()) < gameController.GetLeftPlayerNum() * 3)
+			{
+				dealer.CardShuffle(); //카드 셔플
+				dealer.SetDistribute(0);
+				gameController.BaseBetting(phead, p, dealer); //기본 베팅
+				gameController.CurrentStatePrint(phead, p, dealer); //현재 상황 프린트
+				dealer.CardDividing(phead, p); //카드 분배
+			}
+		}
+		
 		bettingCall = gameController.BettingYesOrNo(phead, p, playerNumber, dealer, &player);
 
 		if (bettingCall)

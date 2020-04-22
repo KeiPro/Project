@@ -70,13 +70,13 @@ void Dealer::CardDividing(Player* (&phead), Player* (&p))
 	phead->SetMyFirstCard(Distributing());
 	phead->SetMySecondCard(Distributing());
 
-	p = p->GetLink();
+	p = p->GetNextLink();
 
 	while (p != phead)
 	{
 		p->SetMyFirstCard(Distributing());
 		p->SetMySecondCard(Distributing());
-		p = p->GetLink();
+		p = p->GetNextLink();
 	}
 }
 

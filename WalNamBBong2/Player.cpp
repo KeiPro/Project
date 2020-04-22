@@ -2,7 +2,8 @@
 
 Player::Player()
 {
-	link = nullptr;
+	nextLink = nullptr;
+	prevLink = nullptr;
 	name = "";
 	myMoney = 0;
 	bettingJudge = false;

@@ -18,6 +18,7 @@ void GameController::InputTotalNum()
 	if (inputTotalNum > 17)
 	{
 		maxPlayerNum = 17;
+		leftPlayerNum = 17;
 	}
 
 	comPlayer = new Player[inputTotalNum -1];
@@ -187,7 +188,7 @@ void GameController::TurnSetting(Player* player, Player** phead)
 	
 	char ch = _getch();
 
-#pragma region Circular Linked List 구현
+#pragma region 이중 연결리스트 구현
 	int count = 0;
 	Player* p = nullptr;
 
@@ -208,10 +209,11 @@ void GameController::TurnSetting(Player* player, Player** phead)
 					}
 					else
 					{
-						if (p->GetLink() == nullptr)
+						if (p->GetNextLink() == nullptr)
 						{
-							p->SetLink(comPlayer + j);
-							p = p->GetLink();
+							p->SetNextLink(comPlayer + j);
+							(p->GetNextLink())->SetPrevLink(p);
+							p = p->GetNextLink();
 							break;
 						}
 					}
@@ -226,10 +228,11 @@ void GameController::TurnSetting(Player* player, Player** phead)
 					}
 					else
 					{
-						if (p->GetLink() == nullptr)
+						if (p->GetNextLink() == nullptr)
 						{
-							p->SetLink(player);
-							p = p->GetLink();
+							p->SetNextLink(player);
+							(p->GetNextLink())->SetPrevLink(p);
+							p = p->GetNextLink();
 							break;
 						}
 					}
@@ -242,11 +245,14 @@ void GameController::TurnSetting(Player* player, Player** phead)
 			break;
 	}
 
-	p->SetLink(*phead);
-	p = p->GetLink();
+	p->SetNextLink(*phead);
+	(*phead)->SetPrevLink(p);
+	p = p->GetNextLink();
 
 #pragma endregion
-	
+
+	cout << p->GetName();
+	Sleep(5000);
 #pragma region 순서 소트 - 순서대로 Print하는 곳
 
 	Player* tmpPlayer = new Player[inputTotalNum];
@@ -353,7 +359,7 @@ void GameController::TurnSetting(Player* player, Player** phead)
 	//for (int i = 0; i < inputTotalNum; i++)
 	//{
 	//	cout << p->GetName() << ", ";
-	//	p = p->GetLink();
+	//	p = p->GetNextLink();
 	//	if ((i + 1) % 5 == 0)
 	//		cout << endl;
 	//}
@@ -371,12 +377,12 @@ void GameController::TurnSetting(Player* player, Player** phead)
 void GameController::InputMoney(Player** phead, Player* p, int _myMoney)
 {
 	p->SetMyMoney(_myMoney);
-	p = p->GetLink();
+	p = p->GetNextLink();
 
 	while (p != *phead)
 	{
 		p->SetMyMoney(_myMoney);
-		p = p->GetLink();
+		p = p->GetNextLink();
 	}
 }
 
@@ -393,13 +399,13 @@ void GameController::BaseBetting(Player* (&phead), Player* (&p), Dealer &dealer)
 
 	p->SetMyMoney(p->GetMyMoney()- this->baseInputMoney);
 	dealer.AddingTotalMoney(this->baseInputMoney);
-	p = p->GetLink();
+	p = p->GetNextLink();
 
 	while ( p != phead )
 	{
 		p->SetMyMoney(p->GetMyMoney() - this->baseInputMoney);
 		dealer.AddingTotalMoney(this->baseInputMoney);
-		p = p->GetLink();
+		p = p->GetNextLink();
 	}
 }
 
@@ -436,7 +442,7 @@ void GameController::CurrentStatePrint(Player* (&phead), Player* (&p), Dealer &d
 			cout << "\t|    " << p->GetName() << "\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t|" << endl;
 		}
 	}
-	p = p->GetLink();
+	p = p->GetNextLink();
 
 	while (p != phead)
 	{
@@ -462,7 +468,7 @@ void GameController::CurrentStatePrint(Player* (&phead), Player* (&p), Dealer &d
 				cout << "\t|    " << p->GetName() << "\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t|" << endl;
 			}
 		}
-		p = p->GetLink();
+		p = p->GetNextLink();
 	}
 	cout << "\t=========================================" << endl;
 
@@ -720,7 +726,7 @@ int GameController::HowMuchBetting(Player *(&p), int Propability, Dealer &dealer
 
 void GameController::NextPlayerPointer(Player* (&p), int& playerNumber)
 {
-	p = p->GetLink(); //다음 플레이어로 이동
+	p = p->GetNextLink(); //다음 플레이어로 이동
 	playerNumber++;
 	if (maxPlayerNum < inputTotalNum)
 	{

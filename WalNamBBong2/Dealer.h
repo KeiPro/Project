@@ -21,6 +21,7 @@ public:
 
 	//Setter
 	//inline void SetPlayerTurn() {};
+	inline int SetDistribute(int _distribute) { distribute = _distribute; }
 	
 	//Getter
 	inline int GetGameTotalMoney() { return gameTotalMoney; }

@@ -8,6 +8,7 @@ class GameController
 private:
 	int inputTotalNum;
 	int maxPlayerNum;
+	int leftPlayerNum;
 	int baseInputMoney;
 	Player* comPlayer;
 	int RegisterComName(); //컴퓨터들의 이름을 설정하는 함수
@@ -35,10 +36,11 @@ public:
 	//Getter
 	inline int GetInputTotalNum() { return inputTotalNum; }
 	inline int GetRealPlayerNum() { return maxPlayerNum; }
+	inline int GetLeftPlayerNum() {	return leftPlayerNum; }
 	inline Player* GetPlayer() { return comPlayer; }
 
 	//Setter
-
+	inline int SetLeftPlayerNum(int _leftPlayerNum) { leftPlayerNum = _leftPlayerNum; }
 
 	//생성자 및 소멸자
 	~GameController();

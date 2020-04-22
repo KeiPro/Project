@@ -5,7 +5,8 @@ class Player
 {
 private:
 
-	Player* link; //다음 Player 객체를 가리킬 link변수.
+	Player* nextLink; //다음 Player 객체를 가리킬 link변수.
+	Player* prevLink; //이전 Player 객체를 가리킬 link변수
 	int turn; //턴을 저장하는 변수
 	string name;
 	int myMoney; //소지금
@@ -19,7 +20,8 @@ public:
 
 	//Getter
 	inline string GetName() { return name; }
-	inline Player* GetLink() { return link; }
+	inline Player* GetNextLink() { return nextLink; }
+	inline Player* GetPrevLink() { return prevLink; }
 	inline int GetTurn() { return turn; }
 	inline int GetMyMoney() { return myMoney; }
 	inline Card GetMyFirstCard() { return myFirstCard; }
@@ -29,7 +31,8 @@ public:
 	//Setter
 	inline void SetName(string _name) { name = _name; }
 	inline void SetTurn(int _turn) { turn = _turn; }
-	inline void SetLink(Player* _nextLink) { link = _nextLink; }
+	inline void SetNextLink(Player* _nextLink) { nextLink = _nextLink; }
+	inline void SetPrevLink(Player* _prevLink) { prevLink = _prevLink; }
 	inline void SetMyMoney(int _myMoney) { myMoney = _myMoney; }
 	inline void SetMyFirstCard(Card _card) { myFirstCard = _card; }
 	inline void SetMySecondCard(Card _card) { mySecondCard = _card; }
