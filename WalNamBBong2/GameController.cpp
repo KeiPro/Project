@@ -17,7 +17,7 @@ void GameController::InputTotalNum()
 	
 	if (inputTotalNum > 17)
 	{
-		realPlayerNum = 17;
+		maxPlayerNum = 17;
 	}
 
 	comPlayer = new Player[inputTotalNum -1];
@@ -304,7 +304,7 @@ void GameController::TurnSetting(Player* player, Player** phead)
 
 	for (int i = 0; i < inputTotalNum; i++)
 	{
-		if (i < realPlayerNum)
+		if (i < maxPlayerNum)
 		{
 			if (i == player->GetTurn())
 			{
@@ -403,11 +403,6 @@ void GameController::BaseBetting(Player* (&phead), Player* (&p), Dealer &dealer)
 	}
 }
 
-void GameController::bettingMoney(Player** phead, Player* p)
-{
-	//cout << "얼마를 베팅하시겠습니까"
-}
-
 void GameController::CurrentStatePrint(Player* (&phead), Player* (&p), Dealer &dealer)
 {
 	system("cls");
@@ -476,7 +471,44 @@ void GameController::CurrentStatePrint(Player* (&phead), Player* (&p), Dealer &d
 	char ch = _getch();
 }
 
-void GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerNumber, Dealer &dealer, Player* player)
+bool GameController::ThirteenCardCheck(Player* (&p), Dealer& dealer, Player* (&player))
+{
+	//13을 들고있는 조건
+	if ( (p->GetMyFirstCard().GetNum() == 13) || (p->GetMySecondCard().GetNum() == 13))
+	{
+		//판돈에 있는 모든 금액을 다 가져온다.
+		if ((p->GetMyFirstCard().GetNum() == 13) && (p->GetMySecondCard().GetNum() == 13))
+		{
+			cout << endl;
+			cout << "\t 대 박 ! ! ! ! !" << endl;
+			Sleep(1000);
+			cout << endl;
+			cout << "\t 13이 두 개가 있어 판돈의 돈을 모두 가져옵니다. " << endl;
+			Sleep(1000);
+			cout << endl;
+			cout << "\t 획득한 금액 : +" << dealer.GetGameTotalMoney() << "원" << endl;
+
+			//모조리 다 가져온다.
+			player->SetMyMoney(player->GetMyMoney() + dealer.GetGameTotalMoney());
+			dealer.AddingTotalMoney(-dealer.GetGameTotalMoney());
+			return true;
+		}
+		else
+		{
+			cout << endl;
+			Sleep(1000);
+			cout << "\t 13이 한 개가 있어 베팅할 수 없습니다. " << endl;
+			Sleep(1000);
+			cout << endl;
+			
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerNumber, Dealer &dealer, Player* player)
 {
 	int bettingMoney;
 	int bettingYesOrNo;
@@ -503,6 +535,12 @@ void GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerN
 		"\t|  "<< p->GetMySecondCard().GetShape() << p->GetMySecondCard().GetNum() <<"\t|\t "<< p->GetMyMoney() <<"원\t\t\b\b|" << endl;
 	cout << "\t=======================================" << endl;
 	cout << endl;
+
+	if (ThirteenCardCheck(p, dealer, player))
+	{
+		return false;
+	}
+
 	cout << "\t 베팅 하시겠습니까? 1)예 2)아니오 >> ";
 	
 	//플레이어면 선택하도록.
@@ -534,35 +572,27 @@ void GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerN
 		
 		if (bettingCall == true) //베팅 yes
 		{
+			Sleep(100);
 			cout << "1)예" << endl;
 			cout << endl;
 			cout << "\t(" << "컴퓨터가 판단한 확률 : " << gabPropability << "(%))" ;
-			Sleep(1000);
-			bettingMoney = HowMuchBetting(p, gabPropability, dealer);
-			cout << "\t 베팅 금액 : " << bettingMoney << "원" << endl;
-			Sleep(1000);			
-			/////////////////////////////////////////시작 
+			Sleep(100);
+			p->SetBettingMoney(HowMuchBetting(p, gabPropability, dealer));
+			p->SetMyMoney(p->GetMyMoney() - p->GetBettingMoney()); //플레이어 betting금액 감소
+			dealer.AddingTotalMoney(p->GetBettingMoney()); //판돈 betting금액 증가
+			cout << "\t 베팅 금액 : " << p->GetBettingMoney() << "원" << endl;
+			Sleep(100);
+
+			return true;
 		}
 		else // 베팅 no
 		{
+			Sleep(100);
 			cout << "2)아니오";
-			//Sleep();
+			Sleep(100);
+
+			return false;
 		}
-	}
-
-	p = p->GetLink(); //다음 플레이어로 이동
-
-	if (realPlayerNum < inputTotalNum)
-	{
-		playerNumber++;
-		if (playerNumber >= realPlayerNum)
-			playerNumber = 0;
-	}
-	else
-	{
-		playerNumber++;
-		if (playerNumber >= inputTotalNum)
-			playerNumber = 0;
 	}
 }
 
@@ -582,7 +612,7 @@ bool GameController::ComJudgeFunction(int vicProbability)
 	}
 	else
 	{
-		return ((rand() % 100) < 20) ? true : false;
+		return ((rand() % 100) < 10) ? true : false;
 	}
 }
 
@@ -686,6 +716,71 @@ int GameController::HowMuchBetting(Player *(&p), int Propability, Dealer &dealer
 	}
 
 	return bettingMoney;
+}
+
+void GameController::NextPlayerPointer(Player* (&p), int& playerNumber)
+{
+	p = p->GetLink(); //다음 플레이어로 이동
+	playerNumber++;
+	if (maxPlayerNum < inputTotalNum)
+	{
+		if (playerNumber >= maxPlayerNum)
+			playerNumber = 0;
+	}
+	else
+	{
+		if (playerNumber >= inputTotalNum)
+			playerNumber = 0;
+	}
+}
+
+void GameController::BettingCardOpen(Player* (&p), Dealer& dealer)
+{
+	system("cls");
+	Card openCard = dealer.Distributing();
+	cout << dealer.GetDistribute();
+	cout << endl;
+	cout << "\t\t " << p->GetName() << " 플레이어" << endl;
+	cout << endl;
+	cout << "\t\t  판돈 : " << dealer.GetGameTotalMoney() << "원" << endl;
+	cout << endl;
+	cout << "\t=======================================" << endl;
+	cout << "\t|   보유 카드\t|\t보유 금액     |" << endl;
+	cout << "\t=======================================" << endl;
+	cout << "\t|  " << p->GetMyFirstCard().GetShape() << p->GetMyFirstCard().GetNum() <<
+		"\t|  " << p->GetMySecondCard().GetShape() << p->GetMySecondCard().GetNum() << "\t|\t " << p->GetMyMoney() << "원\t\t\b\b|" << endl;
+	cout << "\t=======================================" << endl;
+	cout << endl;
+	cout << "\t>>베팅 금액 : " << p->GetBettingMoney() << endl;
+	cout << endl;
+	cout << "\t>>카드 오픈 결과 : " << openCard.GetShape() << openCard.GetNum() << endl;
+
+	if ((openCard.GetNum() > p->GetMyFirstCard().GetNum() &&
+		openCard.GetNum() < p->GetMySecondCard().GetNum()) ||
+		(openCard.GetNum() < p->GetMyFirstCard().GetNum() &&
+			openCard.GetNum() > p->GetMySecondCard().GetNum()))
+	{
+		Sleep(100);
+		cout << endl;
+		cout << "\t베팅 성공!" << endl;
+		Sleep(100);
+
+		p->SetMyMoney(p->GetMyMoney() + p->GetBettingMoney() * 2);
+		dealer.AddingTotalMoney(-(p->GetBettingMoney() * 2));
+		cout << endl;
+		cout << "\t금액 +" << p->GetBettingMoney() * 2 << "원 획득하셨습니다." << endl;
+		Sleep(100);
+		cout << "\t\t " << p->GetName() << " 플레이어 보유 금액 : " << p->GetMyMoney() << endl;
+
+		Sleep(100);
+	}
+	else
+	{
+		Sleep(100);
+		cout << "베팅 실패!" << endl;
+		Sleep(100);
+	}
+
 }
 
 GameController::~GameController()

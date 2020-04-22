@@ -24,7 +24,7 @@ public:
 	inline int GetMyMoney() { return myMoney; }
 	inline Card GetMyFirstCard() { return myFirstCard; }
 	inline Card GetMySecondCard() { return mySecondCard; }
-	//inline Card GetMyCard() { return myCards; }
+	inline int GetBettingMoney() { return bettingMoney; }
 
 	//Setter
 	inline void SetName(string _name) { name = _name; }
@@ -33,6 +33,8 @@ public:
 	inline void SetMyMoney(int _myMoney) { myMoney = _myMoney; }
 	inline void SetMyFirstCard(Card _card) { myFirstCard = _card; }
 	inline void SetMySecondCard(Card _card) { mySecondCard = _card; }
+	inline void SetBettingMoney(int _bettingMoney) { bettingMoney = _bettingMoney; }
+
 	//»ı¼ºÀÚ
 	Player();
 

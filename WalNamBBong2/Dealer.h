@@ -21,9 +21,10 @@ public:
 
 	//Setter
 	//inline void SetPlayerTurn() {};
-
+	
 	//Getter
 	inline int GetGameTotalMoney() { return gameTotalMoney; }
+	inline int GetDistribute() { return distribute; }
 
 	//»ı¼ºÀÚ
 	Dealer(int _distribute, int _gameTotalMoney);
