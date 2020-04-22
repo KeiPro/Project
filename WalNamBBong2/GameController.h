@@ -7,6 +7,8 @@ class GameController
 {
 private:
 	int inputTotalNum;
+	int realPlayerNum;
+	int baseInputMoney;
 	Player* comPlayer;
 	int RegisterComName(); //컴퓨터들의 이름을 설정하는 함수
 	void AutoRegisterComName(int _totalNumber); //랜덤하게 컴퓨터 이름이 설정되는 함수
@@ -21,9 +23,16 @@ public:
 	void BaseBetting(Player* (&phead), Player* (&p), Dealer &dealer); //기본 베팅함수
 	void bettingMoney(Player** phead, Player* p); //금액을 베팅하는 함수
 	void CurrentStatePrint(Player* (&phead), Player* (&p), Dealer& dealer); //현재 상황을 프린트하는 함수
+	void BettingYesOrNo(Player* (&phead), Player* (&p), int& playerNumber, Dealer &dealer, Player* player);
+	bool ComJudgeFunction(int vicProbability);
+	int TwoNumberGap(int num1, int num2);
+	int HowMuchBetting(Player* (&p), int gabPropability, Dealer &dealer);
+
+	//void BettingMoney
 
 	//Getter
 	inline int GetInputTotalNum() { return inputTotalNum; }
+	inline int GetRealPlayerNum() { return realPlayerNum; }
 	inline Player* GetPlayer() { return comPlayer; }
 
 	//Setter

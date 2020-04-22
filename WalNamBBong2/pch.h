@@ -5,6 +5,7 @@
 #include <conio.h>
 #include <list>
 #include <string>
+#include <cmath>
 
 #define CARD_TOTAL_NUMBER 52
 
