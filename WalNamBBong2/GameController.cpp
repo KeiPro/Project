@@ -15,11 +15,20 @@ void GameController::InputTotalNum()
 	cout << "총 플레이어의 수를 입력해 주세요(본인 포함) : ";
 	cin >> inputTotalNum;
 	
-	if (inputTotalNum > 17)
+	if (inputTotalNum <= 17)
+	{
+		maxPlayerNum = inputTotalNum;
+		waitPlayerNum = inputTotalNum;
+		waitPlayerIndex = 0;
+	}
+	else
 	{
 		maxPlayerNum = 17;
-		leftPlayerNum = 17;
+		waitPlayerNum = inputTotalNum - maxPlayerNum;
+		waitPlayerIndex = 17;
 	}
+
+	leftPlayerNum = inputTotalNum;
 
 	comPlayer = new Player[inputTotalNum -1];
 
@@ -251,8 +260,6 @@ void GameController::TurnSetting(Player* player, Player** phead)
 
 #pragma endregion
 
-	cout << p->GetName();
-	Sleep(5000);
 #pragma region 순서 소트 - 순서대로 Print하는 곳
 
 	Player* tmpPlayer = new Player[inputTotalNum];
@@ -397,6 +404,8 @@ void GameController::BaseBetting(Player* (&phead), Player* (&p), Dealer &dealer)
 	
 	cout << "모든 플레이어 금액 -" << this->baseInputMoney << "원 적용." << endl;
 
+	Sleep(1000);
+
 	p->SetMyMoney(p->GetMyMoney()- this->baseInputMoney);
 	dealer.AddingTotalMoney(this->baseInputMoney);
 	p = p->GetNextLink();
@@ -420,15 +429,15 @@ void GameController::CurrentStatePrint(Player* (&phead), Player* (&p), Dealer &d
 	cout << "\t|\t\b\b아이디\t|\t남은 금액\t|" << endl;
 	cout << "\t=========================================" << endl;
 	
-	if (p->GetMyMoney() <= this->baseInputMoney)
+	if (p->GetMyMoney() < this->baseInputMoney+100)
 	{
 		if (p->GetName().size() < 3)
 		{
-			cout << "\t|    " << p->GetName() << "\t\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (out)  |" << endl;
+			cout << "\t|    " << p->GetName() << "\t\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (Die)  |" << endl;
 		}
 		else
 		{
-			cout << "\t|    " << p->GetName() << "\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (out)  |" << endl;
+			cout << "\t|    " << p->GetName() << "\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (Die)  |" << endl;
 		}
 	}
 	else
@@ -446,15 +455,15 @@ void GameController::CurrentStatePrint(Player* (&phead), Player* (&p), Dealer &d
 
 	while (p != phead)
 	{
-		if (p->GetMyMoney() <= this->baseInputMoney)
+		if (p->GetMyMoney() < this->baseInputMoney+100)
 		{
 			if (p->GetName().size() < 3)
 			{
-				cout << "\t|    " << p->GetName() << "\t\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (out)  |" << endl;
+				cout << "\t|    " << p->GetName() << "\t\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (Die)  |" << endl;
 			}
 			else
 			{
-				cout << "\t|    " << p->GetName() << "\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (out)  |" << endl;
+				cout << "\t|    " << p->GetName() << "\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (Die)  |" << endl;
 			}
 		}
 		else
@@ -477,7 +486,7 @@ void GameController::CurrentStatePrint(Player* (&phead), Player* (&p), Dealer &d
 	char ch = _getch();
 }
 
-bool GameController::ThirteenCardCheck(Player* (&p), Dealer& dealer, Player* (&player))
+bool GameController::ThirteenCardCheck(Player* (&phead), Player* (&p), Dealer& dealer, Player* (&player))
 {
 	//13을 들고있는 조건
 	if ( (p->GetMyFirstCard().GetNum() == 13) || (p->GetMySecondCard().GetNum() == 13))
@@ -506,7 +515,11 @@ bool GameController::ThirteenCardCheck(Player* (&p), Dealer& dealer, Player* (&p
 			cout << "\t 13이 한 개가 있어 베팅할 수 없습니다. " << endl;
 			Sleep(1000);
 			cout << endl;
+
+			//////////////////다이 함수 시전
 			
+			PlayerOutFunction(phead, p, player);
+
 			return true;
 		}
 	}
@@ -542,7 +555,7 @@ bool GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerN
 	cout << "\t=======================================" << endl;
 	cout << endl;
 
-	if (ThirteenCardCheck(p, dealer, player))
+	if (ThirteenCardCheck(phead, p, dealer, player))
 	{
 		return false;
 	}
@@ -596,6 +609,10 @@ bool GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerN
 			Sleep(100);
 			cout << "2)아니오";
 			Sleep(100);
+
+
+			///////////다이 함수 시전
+			PlayerOutFunction(phead, p, player);
 
 			return false;
 		}
@@ -728,19 +745,33 @@ void GameController::NextPlayerPointer(Player* (&p), int& playerNumber)
 {
 	p = p->GetNextLink(); //다음 플레이어로 이동
 	playerNumber++;
-	if (maxPlayerNum < inputTotalNum)
+
+	if (leftPlayerNum > 17)
 	{
 		if (playerNumber >= maxPlayerNum)
-			playerNumber = 0;
+				playerNumber = 0;
 	}
 	else
 	{
-		if (playerNumber >= inputTotalNum)
+		if (playerNumber >= leftPlayerNum)
 			playerNumber = 0;
 	}
+
+
+
+	//if (maxPlayerNum < inputTotalNum)
+	//{
+	//	if (playerNumber >= maxPlayerNum)
+	//		playerNumber = 0;
+	//}
+	//else
+	//{
+	//	if (playerNumber >= inputTotalNum)
+	//		playerNumber = 0;
+	//}
 }
 
-void GameController::BettingCardOpen(Player* (&p), Dealer& dealer)
+void GameController::BettingCardOpen(Player* (&phead), Player* (&p), Dealer& dealer, Player* player)
 {
 	system("cls");
 	Card openCard = dealer.Distributing();
@@ -775,7 +806,7 @@ void GameController::BettingCardOpen(Player* (&p), Dealer& dealer)
 		dealer.AddingTotalMoney(-(p->GetBettingMoney() * 2));
 		cout << endl;
 		cout << "\t금액 +" << p->GetBettingMoney() * 2 << "원 획득하셨습니다." << endl;
-		Sleep(100);
+		Sleep(100); 
 		cout << "\t\t " << p->GetName() << " 플레이어 보유 금액 : " << p->GetMyMoney() << endl;
 
 		Sleep(100);
@@ -785,8 +816,103 @@ void GameController::BettingCardOpen(Player* (&p), Dealer& dealer)
 		Sleep(100);
 		cout << "베팅 실패!" << endl;
 		Sleep(100);
-	}
 
+		////////////다이 함수 시전
+		PlayerOutFunction(phead, p, player);
+	}
+}
+
+void GameController::PlayerOutFunction(Player* (&phead), Player* (&p), Player* (&player))
+{
+	//현재 진행하는 인원의 소지금을 체크한다.
+	//소지금이 해당 금액 이하이면,
+
+	//아웃 진행
+	if (p->GetMyMoney() < baseInputMoney + 100)
+	{
+		//현재 진행하는 플레이어가 실제 Player인지 컴퓨터인지 비교한다.
+		//Player이면 바로 게임 오버가 진행 되고,
+		if (p == player)
+		{
+			cout << "\t\t < 게임에서 패배하였습니다. >" << endl;
+			exit(1);
+		}
+		else //컴퓨터이면
+		{
+			cout << endl;
+			cout << "\t" << p->GetName() << " 플레이어 아웃!" << endl;
+			cout << endl;
+
+			//컴퓨터면 대기인원이 있는지를 체크한다.
+			if (waitPlayerNum > 0) //대기인원으로 대체
+			{
+				//대기인원이 있으면 현재 컴퓨터 플레이어는 아웃처리를 하여 대기인원으로 대체하고
+				for (int i = 0; i < inputTotalNum; i++)
+				{
+					if (comPlayer[i].GetTurn() == waitPlayerIndex || player->GetTurn() == waitPlayerIndex)
+					{
+						//대기인원 대체시 처리해야할 사항.
+						// 1. 들어와야 할 대기인원의 turn값을 아웃된 플레이어의 turn값으로 대체.
+						// 2. waitPlayerIndex의 값을 1증가.	
+						if (comPlayer[i].GetTurn() == waitPlayerIndex) //대기인원을 찾아내자.
+						{
+							comPlayer[i].SetNextLink(p->GetNextLink());
+							comPlayer[i].SetPrevLink(p->GetPrevLink());
+							(p->GetPrevLink())->SetNextLink(comPlayer + i);
+							(p->GetNextLink())->SetPrevLink(comPlayer + i);
+
+							if (p == phead)
+								phead = (comPlayer + i);
+
+							comPlayer[i].SetTurn(p->GetTurn());
+							p = (comPlayer + i);
+						}
+						else
+						{
+							player->SetNextLink(p->GetNextLink());
+							player->SetPrevLink(p->GetPrevLink());
+							(p->GetPrevLink())->SetNextLink(player);
+							(p->GetNextLink())->SetPrevLink(player);
+
+							if (p == phead)
+								phead = player;
+
+							player->SetTurn(p->GetTurn());
+							p = player;
+						}
+						waitPlayerIndex++;
+						break;
+					}
+				}
+
+				Sleep(1000);
+
+				cout << endl;
+				cout << "\t" << p->GetName() << " 플레이어가 게임에 참여하였습니다. " << endl;
+				cout << endl;
+
+				Sleep(1000);
+				
+			}
+			else //대기 인원이 없으면 현재 진행하고있는 플레이어의 Next와 Prev를 설정만 하면 끝.
+			{
+				(p->GetPrevLink())->SetNextLink(p->GetNextLink());
+				(p->GetNextLink())->SetPrevLink(p->GetPrevLink());
+
+				if (p == phead)
+					phead = p->GetNextLink();
+
+				p = p->GetPrevLink();
+			}
+
+			waitPlayerNum--; //대기인원 1 감소.
+			leftPlayerNum--; //총 플레이인원수 1 감소.
+		}
+	}
+	else //그대로 게임 진행
+	{
+		return;
+	}
 }
 
 GameController::~GameController()

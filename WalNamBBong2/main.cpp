@@ -35,12 +35,14 @@ int main()
 			{
 				dealer.CardShuffle(); //카드 셔플
 				dealer.SetDistribute(0);
+				gameController.CurrentStatePrint(phead, p, dealer); //현재 상황 프린트
 				gameController.BaseBetting(phead, p, dealer); //기본 베팅
 				gameController.CurrentStatePrint(phead, p, dealer); //현재 상황 프린트
 				dealer.CardDividing(phead, p); //카드 분배
 			}
 			else
 			{
+				gameController.CurrentStatePrint(phead, p, dealer); //현재 상황 프린트
 				gameController.BaseBetting(phead, p, dealer); //기본 베팅
 				gameController.CurrentStatePrint(phead, p, dealer); //현재 상황 프린트
 				dealer.CardDividing(phead, p); //카드 분배
@@ -57,13 +59,17 @@ int main()
 				gameController.CurrentStatePrint(phead, p, dealer); //현재 상황 프린트
 				dealer.CardDividing(phead, p); //카드 분배
 			}
+			else
+			{
+				dealer.CardDividing(phead, p); //카드 분배
+			}
 		}
 		
 		bettingCall = gameController.BettingYesOrNo(phead, p, playerNumber, dealer, &player);
 
 		if (bettingCall)
 		{
-			gameController.BettingCardOpen(p, dealer);
+			gameController.BettingCardOpen(phead, p, dealer, &player);
 		}
 
 		gameController.NextPlayerPointer(p, playerNumber);
