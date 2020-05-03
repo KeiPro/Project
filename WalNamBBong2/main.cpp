@@ -20,6 +20,7 @@ int main()
 	
 	Player* p = phead; //이 포인터를 통해 순서대로 접근할 수 있도록 한다.
 	gameController.InputMoney(&phead, p, 2000); //플레이어에게 금액 부여
+	gameController.InputBaseBetting();
 	
 	int playerNumber = 0; //임시적으로 몇 번째 플레이어인지 보여주기 위한 변수
 	bool bettingCall = false;
@@ -55,7 +56,6 @@ int main()
 			{
 				dealer.CardShuffle(); //카드 셔플
 				dealer.SetDistribute(0);
-				gameController.BaseBetting(phead, p, dealer); //기본 베팅
 				gameController.CurrentStatePrint(phead, p, dealer); //현재 상황 프린트
 				dealer.CardDividing(phead, p); //카드 분배
 			}

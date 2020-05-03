@@ -393,7 +393,7 @@ void GameController::InputMoney(Player** phead, Player* p, int _myMoney)
 	}
 }
 
-void GameController::BaseBetting(Player* (&phead), Player* (&p), Dealer &dealer)
+void GameController::InputBaseBetting()
 {
 	cout << endl;
 	cout << "기본 베팅금액 입력 >> ";
@@ -401,8 +401,18 @@ void GameController::BaseBetting(Player* (&phead), Player* (&p), Dealer &dealer)
 	cout << endl;
 	cout << "기본 베팅금액이 " << this->baseInputMoney << "원으로 설정되었습니다. " << endl;
 	Sleep(1000);
-	
-	cout << "모든 플레이어 금액 -" << this->baseInputMoney << "원 적용." << endl;
+}
+
+
+
+void GameController::BaseBetting(Player* (&phead), Player* (&p), Dealer &dealer)
+{
+	cout << endl;
+	cout << "\t판돈이 0원 입니다." << endl;
+	cout << endl;
+	Sleep(1000);
+
+	cout << "\t모든 플레이어 금액 -" << this->baseInputMoney << "원 적용." << endl;
 
 	Sleep(1000);
 
@@ -459,11 +469,11 @@ void GameController::CurrentStatePrint(Player* (&phead), Player* (&p), Dealer &d
 		{
 			if (p->GetName().size() < 3)
 			{
-				cout << "\t|    " << p->GetName() << "\t\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (Die)  |" << endl;
+				cout << "\t|    " << p->GetName() << "\t\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (OUT)  |" << endl;
 			}
 			else
 			{
-				cout << "\t|    " << p->GetName() << "\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (Die)  |" << endl;
+				cout << "\t|    " << p->GetName() << "\t|\t\t\b\b\b\b" << p->GetMyMoney() << "\t (OUT)  |" << endl;
 			}
 		}
 		else
@@ -482,7 +492,7 @@ void GameController::CurrentStatePrint(Player* (&phead), Player* (&p), Dealer &d
 	cout << "\t=========================================" << endl;
 
 	cout << endl;
-	cout << "계속 진행하려면 아무키를 눌러주세요." << endl;
+	cout << "\t계속 진행하려면 아무키나 눌러주세요." << endl;
 	char ch = _getch();
 }
 
@@ -518,7 +528,7 @@ bool GameController::ThirteenCardCheck(Player* (&phead), Player* (&p), Dealer& d
 
 			//////////////////다이 함수 시전
 			
-			PlayerOutFunction(phead, p, player);
+			PlayerOutFunction(phead, p, player, dealer);
 
 			return true;
 		}
@@ -591,28 +601,28 @@ bool GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerN
 		
 		if (bettingCall == true) //베팅 yes
 		{
-			Sleep(100);
+			Sleep(2000);
 			cout << "1)예" << endl;
 			cout << endl;
 			cout << "\t(" << "컴퓨터가 판단한 확률 : " << gabPropability << "(%))" ;
-			Sleep(100);
+			Sleep(2000);
 			p->SetBettingMoney(HowMuchBetting(p, gabPropability, dealer));
 			p->SetMyMoney(p->GetMyMoney() - p->GetBettingMoney()); //플레이어 betting금액 감소
 			dealer.AddingTotalMoney(p->GetBettingMoney()); //판돈 betting금액 증가
 			cout << "\t 베팅 금액 : " << p->GetBettingMoney() << "원" << endl;
-			Sleep(100);
+			Sleep(2000);
 
 			return true;
 		}
 		else // 베팅 no
 		{
-			Sleep(100);
+			Sleep(2000);
 			cout << "2)아니오";
-			Sleep(100);
+			Sleep(2000);
 
 
 			///////////다이 함수 시전
-			PlayerOutFunction(phead, p, player);
+			PlayerOutFunction(phead, p, player, dealer);
 
 			return false;
 		}
@@ -797,32 +807,33 @@ void GameController::BettingCardOpen(Player* (&phead), Player* (&p), Dealer& dea
 		(openCard.GetNum() < p->GetMyFirstCard().GetNum() &&
 			openCard.GetNum() > p->GetMySecondCard().GetNum()))
 	{
-		Sleep(100);
+		Sleep(2000);
 		cout << endl;
 		cout << "\t베팅 성공!" << endl;
-		Sleep(100);
+		Sleep(2000);
 
 		p->SetMyMoney(p->GetMyMoney() + p->GetBettingMoney() * 2);
 		dealer.AddingTotalMoney(-(p->GetBettingMoney() * 2));
 		cout << endl;
 		cout << "\t금액 +" << p->GetBettingMoney() * 2 << "원 획득하셨습니다." << endl;
-		Sleep(100); 
-		cout << "\t\t " << p->GetName() << " 플레이어 보유 금액 : " << p->GetMyMoney() << endl;
+		Sleep(2000);
+		cout << "\t" << p->GetName() << " 플레이어 보유 금액 : " << p->GetMyMoney() << endl;
 
-		Sleep(100);
+		Sleep(2000);
 	}
 	else
 	{
-		Sleep(100);
-		cout << "베팅 실패!" << endl;
-		Sleep(100);
+		Sleep(2000);
+		cout << endl;
+		cout << "\t베팅 실패!" << endl;
+		Sleep(2000);
 
 		////////////다이 함수 시전
-		PlayerOutFunction(phead, p, player);
+		PlayerOutFunction(phead, p, player, dealer);
 	}
 }
 
-void GameController::PlayerOutFunction(Player* (&phead), Player* (&p), Player* (&player))
+void GameController::PlayerOutFunction(Player* (&phead), Player* (&p), Player* (&player), Dealer& dealer)
 {
 	//현재 진행하는 인원의 소지금을 체크한다.
 	//소지금이 해당 금액 이하이면,
@@ -885,14 +896,20 @@ void GameController::PlayerOutFunction(Player* (&phead), Player* (&p), Player* (
 					}
 				}
 
-				Sleep(1000);
+				Sleep(2000);
 
-				cout << endl;
 				cout << "\t" << p->GetName() << " 플레이어가 게임에 참여하였습니다. " << endl;
+				p->SetMyMoney(2000);
 				cout << endl;
+				cout << "\t" << p->GetName() << " 플레이어 참여 비용 -" << p->GetBettingMoney() << "원 적용." << endl;
+				p->SetMyMoney(p->GetMyMoney() - p->GetBettingMoney()); //플레이어 betting금액 감소
+				dealer.AddingTotalMoney(p->GetBettingMoney()); //판돈 betting금액 증가
+				Sleep(2000);
+				cout << endl;
+				cout << "판돈이 " << p->GetBettingMoney() << "원 증가됩니다." << endl;
+				/////////////////////////////////////진행.
+				Sleep(2000);
 
-				Sleep(1000);
-				
 			}
 			else //대기 인원이 없으면 현재 진행하고있는 플레이어의 Next와 Prev를 설정만 하면 끝.
 			{

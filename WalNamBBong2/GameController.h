@@ -23,6 +23,7 @@ public:
 	void InputTotalNum(); //전체 플레이어 수 입력 함수
 	void TurnSetting(Player* player, Player** phead); //순서를 설정하는 함수 //Circular Linked List구현.
 	void InputMoney(Player** phead, Player* p, int _myMoney); //금액을 설정하는 함수
+	void InputBaseBetting();
 	void BaseBetting(Player* (&phead), Player* (&p), Dealer &dealer); //기본 베팅함수
 	void CurrentStatePrint(Player* (&phead), Player* (&p), Dealer& dealer); //현재 상황을 프린트하는 함수
 	bool ThirteenCardCheck(Player* (&phead), Player* (&p), Dealer& dealer, Player* (&player));
@@ -32,7 +33,7 @@ public:
 	int HowMuchBetting(Player* (&p), int gabPropability, Dealer &dealer);
 	void NextPlayerPointer(Player* (&p), int& playerNumber);
 	void BettingCardOpen(Player* (&phead), Player* (&p), Dealer& dealer, Player* player);
-	void PlayerOutFunction(Player* (&phead), Player* (&p), Player* (&player));
+	void PlayerOutFunction(Player* (&phead), Player* (&p), Player* (&player), Dealer& dealer);
 
 	//void BettingMoney
 
