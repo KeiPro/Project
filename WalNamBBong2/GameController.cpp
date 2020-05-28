@@ -18,7 +18,7 @@ void GameController::InputTotalNum()
 	if (inputTotalNum <= 17)
 	{
 		maxPlayerNum = inputTotalNum;
-		waitPlayerNum = inputTotalNum;
+		waitPlayerNum = 0;
 		waitPlayerIndex = 0;
 	}
 	else
@@ -520,10 +520,9 @@ bool GameController::ThirteenCardCheck(Player* (&phead), Player* (&p), Dealer& d
 		}
 		else
 		{
-			cout << endl;
 			Sleep(1000);
 			cout << "\t 13이 한 개가 있어 베팅할 수 없습니다. " << endl;
-			Sleep(1000);
+			Sleep(2000);
 			cout << endl;
 
 			//////////////////다이 함수 시전
@@ -570,11 +569,12 @@ bool GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerN
 		return false;
 	}
 
-	cout << "\t 베팅 하시겠습니까? 1)예 2)아니오 >> ";
 	
 	//플레이어면 선택하도록.
 	if (p == player)
 	{
+		cout << "\t 베팅 하시겠습니까? 1)예 2)아니오 >> ";
+
 		while (1)
 		{
 			cin >> bettingYesOrNo;
@@ -583,7 +583,7 @@ bool GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerN
 			{
 				cin.clear();
 				cin.ignore(256, '\n');
-				cout << "\t 다시 입력해 주세요." << endl;
+				cout << "\n\t 다시 입력해 주세요." << endl;
 				Sleep(1000);
 			}
 			else
@@ -592,9 +592,43 @@ bool GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerN
 			}
 		}
 
+		int bettingTmp;
+
+		if (bettingYesOrNo == 1)
+		{
+			cout << "\t 얼마를 베팅하시겠습니까? " << endl;
+			cout << endl;
+			cout << "\t  ( 베팅은 나의 금액과 판돈의 금액보다 작아야 합니다. ) >>";
+			
+			while (1)
+			{
+				cin >> bettingTmp;
+
+				if (cin.fail() || (bettingTmp > p->GetMyMoney()) || (bettingTmp > dealer.GetGameTotalMoney()))
+				{
+					cin.clear();
+					cin.ignore(256, '\n');
+
+					cout << "\t금액을 다시 입력해 주세요. " << endl;
+					Sleep(1000);
+				}
+				else
+					break;
+			}
+
+			p->SetBettingMoney(bettingTmp);
+			p->SetMyMoney(p->GetMyMoney() - p->GetBettingMoney());
+			dealer.AddingTotalMoney(p->GetBettingMoney());
+			
+			return true;
+		}
+		else
+			return false;
+
 	}
 	else //컴퓨터면 판단해서 선택하도록.
 	{
+		cout << "\t 베팅 하시겠습니까? 1)예 2)아니오 >> ";
 		//판단해서
 		gabPropability = TwoNumberGap(p->GetMyFirstCard().GetNum(), p->GetMySecondCard().GetNum());
 		bettingCall = ComJudgeFunction(gabPropability);
@@ -619,7 +653,6 @@ bool GameController::BettingYesOrNo(Player *(&phead), Player *(&p), int& playerN
 			Sleep(2000);
 			cout << "2)아니오";
 			Sleep(2000);
-
 
 			///////////다이 함수 시전
 			PlayerOutFunction(phead, p, player, dealer);
@@ -766,19 +799,6 @@ void GameController::NextPlayerPointer(Player* (&p), int& playerNumber)
 		if (playerNumber >= leftPlayerNum)
 			playerNumber = 0;
 	}
-
-
-
-	//if (maxPlayerNum < inputTotalNum)
-	//{
-	//	if (playerNumber >= maxPlayerNum)
-	//		playerNumber = 0;
-	//}
-	//else
-	//{
-	//	if (playerNumber >= inputTotalNum)
-	//		playerNumber = 0;
-	//}
 }
 
 void GameController::BettingCardOpen(Player* (&phead), Player* (&p), Dealer& dealer, Player* player)
@@ -901,12 +921,12 @@ void GameController::PlayerOutFunction(Player* (&phead), Player* (&p), Player* (
 				cout << "\t" << p->GetName() << " 플레이어가 게임에 참여하였습니다. " << endl;
 				p->SetMyMoney(2000);
 				cout << endl;
-				cout << "\t" << p->GetName() << " 플레이어 참여 비용 -" << p->GetBettingMoney() << "원 적용." << endl;
-				p->SetMyMoney(p->GetMyMoney() - p->GetBettingMoney()); //플레이어 betting금액 감소
-				dealer.AddingTotalMoney(p->GetBettingMoney()); //판돈 betting금액 증가
+				cout << "\t" << p->GetName() << " 플레이어 참여 비용 -" << this->baseInputMoney << "원 적용." << endl;
+				p->SetMyMoney(p->GetMyMoney() - this->baseInputMoney); //플레이어 betting금액 감소
+				dealer.AddingTotalMoney(this->baseInputMoney); //판돈 betting금액 증가
 				Sleep(2000);
 				cout << endl;
-				cout << "판돈이 " << p->GetBettingMoney() << "원 증가됩니다." << endl;
+				cout << "판돈이 " << this->baseInputMoney << "원 증가됩니다." << endl;
 				/////////////////////////////////////진행.
 				Sleep(2000);
 
@@ -920,6 +940,7 @@ void GameController::PlayerOutFunction(Player* (&phead), Player* (&p), Player* (
 					phead = p->GetNextLink();
 
 				p = p->GetPrevLink();
+				Sleep(2000);
 			}
 
 			waitPlayerNum--; //대기인원 1 감소.

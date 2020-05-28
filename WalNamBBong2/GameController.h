@@ -29,8 +29,8 @@ public:
 	bool ThirteenCardCheck(Player* (&phead), Player* (&p), Dealer& dealer, Player* (&player));
 	bool BettingYesOrNo(Player* (&phead), Player* (&p), int& playerNumber, Dealer &dealer, Player* player);
 	bool ComJudgeFunction(int vicProbability);
-	int TwoNumberGap(int num1, int num2); // 두 숫자 사이의 값이 나올 확률
-	int HowMuchBetting(Player* (&p), int gabPropability, Dealer &dealer);
+	int	 TwoNumberGap(int num1, int num2); // 두 숫자 사이의 값이 나올 확률
+	int	 HowMuchBetting(Player* (&p), int gabPropability, Dealer &dealer);
 	void NextPlayerPointer(Player* (&p), int& playerNumber);
 	void BettingCardOpen(Player* (&phead), Player* (&p), Dealer& dealer, Player* player);
 	void PlayerOutFunction(Player* (&phead), Player* (&p), Player* (&player), Dealer& dealer);

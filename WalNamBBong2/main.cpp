@@ -17,6 +17,7 @@ int main()
 
 	Dealer dealer(0, 0); //딜러 객체 생성
 	dealer.CardSetting(); //기본 카드 세팅
+	dealer.CardShuffle(); //카드 셔플
 	
 	Player* p = phead; //이 포인터를 통해 순서대로 접근할 수 있도록 한다.
 	gameController.InputMoney(&phead, p, 2000); //플레이어에게 금액 부여
